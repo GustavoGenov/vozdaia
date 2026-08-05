@@ -133,6 +133,7 @@ export default function RootLayout({ children }) {
                     </a>
                     <Link href="/sobre">Sobre Nós</Link>
                     <Link href="/politica-de-privacidade">Política de Privacidade</Link>
+                    <Link href="/termos">Termos de Uso</Link>
                   </div>
                 </div>
               </div>
