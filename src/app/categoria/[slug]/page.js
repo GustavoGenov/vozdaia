@@ -1,13 +1,46 @@
 import { supabase } from '@/lib/supabase';
 import Link from 'next/link';
+import '../../page.module.css';
+import { notFound } from 'next/navigation';
 
 export const revalidate = 60;
 
-export default async function Home() {
+// Metadados dinâmicos para a página da categoria
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+  
+  const { data: category } = await supabase
+    .from('categories')
+    .select('name')
+    .eq('slug', slug)
+    .single();
+
+  if (!category) return { title: 'Categoria não encontrada | Voz da I.A' };
+
+  return {
+    title: `${category.name} | Voz da I.A`,
+    description: `Últimas notícias sobre ${category.name} no portal Voz da I.A.`
+  };
+}
+
+export default async function CategoryPage({ params }) {
+  const { slug } = await params;
+
+  // Busca a categoria
+  const { data: category } = await supabase
+    .from('categories')
+    .select('*')
+    .eq('slug', slug)
+    .single();
+
+  if (!category) notFound();
+
+  // Busca os artigos desta categoria específica
   const { data: articles, error } = await supabase
     .from('articles')
     .select(`*, categories(name, color_code)`)
     .eq('published', true)
+    .eq('category_id', category.id)
     .order('created_at', { ascending: false });
 
   const heroArticle = articles && articles.length > 0 ? articles[0] : null;
@@ -16,7 +49,15 @@ export default async function Home() {
   return (
     <main className="main-content">
       
-      <h1 className="page-title google-sans">Manchetes</h1>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
+        <h1 className="page-title google-sans" style={{ marginBottom: 0 }}>
+          {category.name}
+        </h1>
+        <span style={{ 
+          background: category.color_code || 'var(--gn-blue)', 
+          width: '12px', height: '12px', borderRadius: '50%', display: 'inline-block' 
+        }}></span>
+      </div>
 
       <div className="news-grid">
         
@@ -57,7 +98,7 @@ export default async function Home() {
           ) : (
              <div style={{ textAlign: 'center', padding: '60px', color: 'var(--gn-text-secondary)' }}>
                 <span className="material-icons-extended" style={{ fontSize: '48px', color: 'var(--gn-border)', marginBottom: '16px' }}>article</span>
-                <h2>Nenhum artigo publicado ainda.</h2>
+                <h2>Nenhum artigo publicado nesta categoria ainda.</h2>
             </div>
           )}
         </div>
@@ -66,31 +107,33 @@ export default async function Home() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
           
           {/* Outras Notícias */}
-          <div className="side-articles">
-            {sideArticles.map((article) => (
-              <article key={article.id} className="side-article">
-                <div className="side-content">
-                  <div className="hero-source">
-                    {article.categories && (
-                      <span style={{color: 'var(--gn-text-secondary)'}}>{article.categories.name}</span>
-                    )}
+          {sideArticles.length > 0 && (
+            <div className="side-articles">
+              {sideArticles.map((article) => (
+                <article key={article.id} className="side-article">
+                  <div className="side-content">
+                    <div className="hero-source">
+                      {article.categories && (
+                        <span style={{color: 'var(--gn-text-secondary)'}}>{article.categories.name}</span>
+                      )}
+                    </div>
+                    <h3 className="side-title google-sans">
+                      <Link href={`/artigo/${article.slug}`}>{article.title}</Link>
+                    </h3>
+                    <div className="hero-time">
+                      {new Date(article.created_at).toLocaleDateString('pt-BR')}
+                    </div>
                   </div>
-                  <h3 className="side-title google-sans">
-                    <Link href={`/artigo/${article.slug}`}>{article.title}</Link>
-                  </h3>
-                  <div className="hero-time">
-                    {new Date(article.created_at).toLocaleDateString('pt-BR')}
-                  </div>
-                </div>
-                {article.image_url && (
-                  <img src={article.image_url} alt={article.title} className="side-img" />
-                )}
-              </article>
-            ))}
-          </div>
+                  {article.image_url && (
+                    <img src={article.image_url} alt={article.title} className="side-img" />
+                  )}
+                </article>
+              ))}
+            </div>
+          )}
 
           {/* Banners do Ecossistema */}
-          <div style={{ borderTop: '1px solid var(--gn-border)', paddingTop: '24px' }}>
+          <div style={{ borderTop: sideArticles.length > 0 ? '1px solid var(--gn-border)' : 'none', paddingTop: sideArticles.length > 0 ? '24px' : '0' }}>
             <h3 className="google-sans" style={{ fontSize: '16px', marginBottom: '16px', color: 'var(--gn-text-secondary)' }}>
               Acesso Rápido aos Nossos Projetos
             </h3>

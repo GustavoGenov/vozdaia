@@ -56,38 +56,38 @@ export default function RootLayout({ children }) {
             
             <div className="sidebar-divider"></div>
             
-            <Link href="/" className="nav-item">
+            <Link href="/categoria/geopolitica" className="nav-item">
               <span className="material-icons-extended" style={{color: '#34a853'}}>public</span>
-              <span>Mundo</span>
+              <span>Mundo (Geopolítica)</span>
             </Link>
-            <Link href="/" className="nav-item">
+            <Link href="/categoria/politica-eleicoes" className="nav-item">
               <span className="material-icons-extended" style={{color: '#0f9d58'}}>flag</span>
-              <span>Brasil</span>
+              <span>Brasil (Política)</span>
             </Link>
-            <Link href="/" className="nav-item">
+            <Link href="/categoria/economia-jogos" className="nav-item">
               <span className="material-icons-extended" style={{color: '#673ab7'}}>business</span>
-              <span>Negócios</span>
+              <span>Negócios & Economia</span>
             </Link>
             
             <div className="sidebar-divider"></div>
             
-            <Link href="/" className="nav-item">
+            <Link href="/categoria/engenharia-e-tech" className="nav-item">
               <span className="material-icons-extended" style={{color: '#00bcd4'}}>memory</span>
               <span>Tecnologia</span>
             </Link>
-            <Link href="/" className="nav-item">
+            <Link href="/categoria/ia-sem-mitos" className="nav-item">
               <span className="material-icons-extended" style={{color: '#e91e63'}}>smart_toy</span>
               <span>IA Sem Mitos</span>
             </Link>
-            <Link href="/" className="nav-item">
+            <Link href="/categoria/ciencia" className="nav-item">
               <span className="material-icons-extended" style={{color: '#ff9800'}}>biotech</span>
               <span>Ciência e Saúde</span>
             </Link>
-            <Link href="/" className="nav-item">
-              <span className="material-icons-extended" style={{color: '#795548'}}>gavel</span>
-              <span>Jurídico</span>
+            <Link href="/categoria/esportes" className="nav-item">
+              <span className="material-icons-extended" style={{color: '#d32f2f'}}>sports_soccer</span>
+              <span>Esportes</span>
             </Link>
-            <Link href="/" className="nav-item">
+            <Link href="/categoria/militar-e-governo" className="nav-item">
               <span className="material-icons-extended" style={{color: '#556b2f'}}>military_tech</span>
               <span>Militar & Governo</span>
             </Link>
