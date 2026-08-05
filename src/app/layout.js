@@ -38,7 +38,7 @@ export default function RootLayout({ children }) {
             <button className="menu-btn">
               <span className="material-icons-extended">apps</span>
             </button>
-            <div className="profile-avatar">G</div>
+            <Link href="/admin" className="profile-avatar" style={{textDecoration: 'none'}}>G</Link>
           </div>
         </header>
 
@@ -83,10 +83,65 @@ export default function RootLayout({ children }) {
               <span className="material-icons-extended">biotech</span>
               <span>Ciência e Saúde</span>
             </Link>
+            <Link href="/" className="nav-item">
+              <span className="material-icons-extended">gavel</span>
+              <span>Jurídico</span>
+            </Link>
+            <Link href="/" className="nav-item">
+              <span className="material-icons-extended">military_tech</span>
+              <span>Militar & Governo</span>
+            </Link>
           </aside>
 
           {/* MAIN CONTENT */}
-          {children}
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+            {children}
+            
+            {/* INSTITUTIONAL FOOTER */}
+            <footer style={{
+              marginTop: 'auto',
+              padding: '32px 40px',
+              borderTop: '1px solid var(--gn-border)',
+              background: 'var(--gn-surface)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '16px',
+              color: 'var(--gn-text-secondary)',
+              fontSize: '13px'
+            }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '24px' }}>
+                <div>
+                  <h3 style={{ color: 'var(--gn-text)', marginBottom: '8px', fontSize: '16px' }} className="google-sans">Voz da I.A</h3>
+                  <p>O jornal focado em combater fake news com informação de alta tecnologia.</p>
+                </div>
+                
+                <div style={{ display: 'flex', gap: '24px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <strong style={{ color: 'var(--gn-text)' }}>Contato Direto</strong>
+                    <a href="mailto:nicholaigenov@gmail.com" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                      <span className="material-icons-extended" style={{fontSize: '16px'}}>email</span> nicholaigenov@gmail.com
+                    </a>
+                    <a href="https://wa.me/5537999184509" target="_blank" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                      <span className="material-icons-extended" style={{fontSize: '16px'}}>phone</span> (37) 99918-4509
+                    </a>
+                  </div>
+                  
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <strong style={{ color: 'var(--gn-text)' }}>Redes Profissionais</strong>
+                    <a href="https://www.linkedin.com/in/gustavo-castro-bernardes-rosa-24a827bb" target="_blank" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                      <span className="material-icons-extended" style={{fontSize: '16px'}}>link</span> LinkedIn (Gustavo Castro)
+                    </a>
+                    <Link href="/sobre">Sobre Nós</Link>
+                    <Link href="/politica-de-privacidade">Política de Privacidade</Link>
+                  </div>
+                </div>
+              </div>
+              <div style={{ borderTop: '1px solid var(--gn-border)', paddingTop: '16px', marginTop: '16px', textAlign: 'center' }}>
+                &copy; {new Date().getFullYear()} Voz da I.A. Todos os direitos reservados.
+              </div>
+            </footer>
+          </div>
+
         </div>
       </body>
     </html>
