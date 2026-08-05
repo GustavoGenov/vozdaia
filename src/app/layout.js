@@ -1,9 +1,10 @@
 import './globals.css';
 import Link from 'next/link';
+import Script from 'next/script';
 
 export const metadata = {
-  title: 'Voz da I.A - Notícias do Google e Tecnologia',
-  description: 'O seu portal de notícias sobre Inteligência Artificial, Ciência e Saúde.',
+  title: 'Voz da I.A - Combate às Fake News com Tecnologia',
+  description: 'O jornal focado em combater fake news com informação de alta tecnologia.',
 };
 
 export default function RootLayout({ children }) {
@@ -11,6 +12,15 @@ export default function RootLayout({ children }) {
     <html lang="pt-BR">
       <head>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Extended" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        
+        {/* Script Global do Google AdSense */}
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-SEU_CODIGO_AQUI"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
       </head>
       <body>
         {/* TOP HEADER */}

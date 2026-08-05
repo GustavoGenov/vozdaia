@@ -2,6 +2,7 @@ import { supabase } from '@/lib/supabase';
 import Link from 'next/link';
 import '../../page.module.css';
 import { notFound } from 'next/navigation';
+import AdBanner from '@/components/AdBanner';
 
 export const revalidate = 60;
 
@@ -101,6 +102,9 @@ export default async function CategoryPage({ params }) {
                 <h2>Nenhum artigo publicado nesta categoria ainda.</h2>
             </div>
           )}
+
+          {/* Anúncio AdSense Principal */}
+          <AdBanner dataAdSlot="SEU_SLOT_CATEGORIA" />
         </div>
 
         {/* COLUNA DIREITA (Secundárias + Banners do Ecossistema) */}

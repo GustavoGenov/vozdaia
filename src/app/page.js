@@ -1,5 +1,6 @@
 import { supabase } from '@/lib/supabase';
 import Link from 'next/link';
+import AdBanner from '@/components/AdBanner';
 
 export const revalidate = 60;
 
@@ -60,6 +61,7 @@ export default async function Home() {
                 <h2>Nenhum artigo publicado ainda.</h2>
             </div>
           )}
+          <AdBanner dataAdSlot="SEU_SLOT_HOME" />
         </div>
 
         {/* COLUNA DIREITA (Secundárias + Banners do Ecossistema) */}

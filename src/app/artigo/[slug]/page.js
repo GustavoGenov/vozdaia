@@ -1,6 +1,7 @@
 import { supabase } from '@/lib/supabase';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import AdBanner from '@/components/AdBanner';
 
 // Gera Metadados Open Graph Dinâmicos para o SEO (WhatsApp, LinkedIn, etc)
 export async function generateMetadata({ params }) {
@@ -95,6 +96,11 @@ export default async function ArticlePage({ params }) {
         style={{ fontSize: '18px', lineHeight: '1.8', color: 'var(--gn-text)', display: 'flex', flexDirection: 'column', gap: '24px' }}
         dangerouslySetInnerHTML={{ __html: article.content }} 
       />
+
+      {/* Anúncio AdSense Fim do Artigo */}
+      <div style={{ marginTop: '48px', borderTop: '1px solid var(--gn-border)', paddingTop: '24px' }}>
+        <AdBanner dataAdSlot="SEU_SLOT_ARTIGO" />
+      </div>
 
     </main>
   );
