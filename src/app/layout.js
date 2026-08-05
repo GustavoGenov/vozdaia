@@ -46,49 +46,49 @@ export default function RootLayout({ children }) {
           {/* SIDEBAR */}
           <aside className="sidebar">
             <Link href="/" className="nav-item active">
-              <span className="material-icons-extended">language</span>
+              <span className="material-icons-extended" style={{color: '#1a73e8'}}>language</span>
               <span>Principais notícias</span>
             </Link>
             <Link href="/" className="nav-item">
-              <span className="material-icons-extended">star_border</span>
+              <span className="material-icons-extended" style={{color: '#fbbc04'}}>star_border</span>
               <span>Para você</span>
             </Link>
             
             <div className="sidebar-divider"></div>
             
             <Link href="/" className="nav-item">
-              <span className="material-icons-extended">public</span>
+              <span className="material-icons-extended" style={{color: '#34a853'}}>public</span>
               <span>Mundo</span>
             </Link>
             <Link href="/" className="nav-item">
-              <span className="material-icons-extended">flag</span>
+              <span className="material-icons-extended" style={{color: '#0f9d58'}}>flag</span>
               <span>Brasil</span>
             </Link>
             <Link href="/" className="nav-item">
-              <span className="material-icons-extended">business</span>
+              <span className="material-icons-extended" style={{color: '#673ab7'}}>business</span>
               <span>Negócios</span>
             </Link>
             
             <div className="sidebar-divider"></div>
             
             <Link href="/" className="nav-item">
-              <span className="material-icons-extended">memory</span>
+              <span className="material-icons-extended" style={{color: '#00bcd4'}}>memory</span>
               <span>Tecnologia</span>
             </Link>
             <Link href="/" className="nav-item">
-              <span className="material-icons-extended">smart_toy</span>
+              <span className="material-icons-extended" style={{color: '#e91e63'}}>smart_toy</span>
               <span>IA Sem Mitos</span>
             </Link>
             <Link href="/" className="nav-item">
-              <span className="material-icons-extended">biotech</span>
+              <span className="material-icons-extended" style={{color: '#ff9800'}}>biotech</span>
               <span>Ciência e Saúde</span>
             </Link>
             <Link href="/" className="nav-item">
-              <span className="material-icons-extended">gavel</span>
+              <span className="material-icons-extended" style={{color: '#795548'}}>gavel</span>
               <span>Jurídico</span>
             </Link>
             <Link href="/" className="nav-item">
-              <span className="material-icons-extended">military_tech</span>
+              <span className="material-icons-extended" style={{color: '#556b2f'}}>military_tech</span>
               <span>Militar & Governo</span>
             </Link>
           </aside>
