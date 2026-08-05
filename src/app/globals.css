@@ -338,3 +338,24 @@ h1, h2, h3, .google-sans {
   display: inline-block;
   margin-bottom: 4px;
 }
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+  .main-content {
+    margin-left: 0;
+    padding: 16px;
+  }
+  .news-grid {
+    grid-template-columns: 1fr;
+  }
+  .header-left {
+    width: auto;
+  }
+  .header-center {
+    display: none; /* Hide search bar on mobile for cleaner look */
+  }
+}
+

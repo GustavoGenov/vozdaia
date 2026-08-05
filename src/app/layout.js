@@ -19,11 +19,11 @@ export default function RootLayout({ children }) {
             <button className="menu-btn">
               <span className="material-icons-extended">menu</span>
             </button>
-            <Link href="/" className="brand-link brand-text google-sans">
+            <Link href="/" className="brand-link brand-text google-sans" style={{ fontSize: '26px', fontWeight: '700', letterSpacing: '-0.5px' }}>
               <span className="brand-v">V</span>
               <span className="brand-o">o</span>
               <span className="brand-z">z</span>
-              <span className="brand-ia" style={{marginLeft: '4px'}}>da I.A</span>
+              <span className="brand-ia" style={{marginLeft: '6px', fontWeight: '500', color: 'var(--gn-text)'}}>da I.A</span>
             </Link>
           </div>
           
@@ -100,44 +100,42 @@ export default function RootLayout({ children }) {
             {/* INSTITUTIONAL FOOTER */}
             <footer style={{
               marginTop: 'auto',
-              padding: '32px 40px',
+              padding: '40px 24px',
               borderTop: '1px solid var(--gn-border)',
               background: 'var(--gn-surface)',
               display: 'flex',
               flexDirection: 'column',
-              gap: '16px',
+              alignItems: 'center',
+              gap: '24px',
               color: 'var(--gn-text-secondary)',
-              fontSize: '13px'
+              fontSize: '14px',
+              textAlign: 'center'
             }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '24px' }}>
-                <div>
-                  <h3 style={{ color: 'var(--gn-text)', marginBottom: '8px', fontSize: '16px' }} className="google-sans">Voz da I.A</h3>
-                  <p>O jornal focado em combater fake news com informação de alta tecnologia.</p>
-                </div>
-                
-                <div style={{ display: 'flex', gap: '24px' }}>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    <strong style={{ color: 'var(--gn-text)' }}>Contato Direto</strong>
-                    <a href="mailto:nicholaigenov@gmail.com" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                      <span className="material-icons-extended" style={{fontSize: '16px'}}>email</span> nicholaigenov@gmail.com
-                    </a>
-                    <a href="https://wa.me/5537999184509" target="_blank" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                      <span className="material-icons-extended" style={{fontSize: '16px'}}>phone</span> (37) 99918-4509
-                    </a>
-                  </div>
-                  
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    <strong style={{ color: 'var(--gn-text)' }}>Redes Profissionais</strong>
-                    <a href="https://www.linkedin.com/in/gustavo-castro-bernardes-rosa-24a827bb" target="_blank" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                      <span className="material-icons-extended" style={{fontSize: '16px'}}>link</span> LinkedIn (Gustavo Castro)
-                    </a>
-                    <Link href="/sobre">Sobre Nós</Link>
-                    <Link href="/politica-de-privacidade">Política de Privacidade</Link>
-                    <Link href="/termos">Termos de Uso</Link>
-                  </div>
-                </div>
+              <div>
+                <h3 style={{ color: 'var(--gn-text)', marginBottom: '8px', fontSize: '20px', fontWeight: '700' }} className="google-sans">Voz da I.A</h3>
+                <p style={{ maxWidth: '600px', margin: '0 auto' }}>O portal focado em combater fake news com informação de alta tecnologia e precisão jornalística.</p>
               </div>
-              <div style={{ borderTop: '1px solid var(--gn-border)', paddingTop: '16px', marginTop: '16px', textAlign: 'center' }}>
+              
+              <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap', justifyContent: 'center' }}>
+                <a href="mailto:nicholaigenov@gmail.com" style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '500' }}>
+                  <span className="material-icons-extended" style={{fontSize: '18px'}}>email</span> nicholaigenov@gmail.com
+                </a>
+                <a href="https://wa.me/5537999184509" target="_blank" style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '500' }}>
+                  <span className="material-icons-extended" style={{fontSize: '18px'}}>phone</span> (37) 99918-4509
+                </a>
+                <a href="https://www.linkedin.com/in/gustavo-castro-bernardes-rosa-24a827bb" target="_blank" style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '500' }}>
+                  <span className="material-icons-extended" style={{fontSize: '18px', color: '#0a66c2'}}>link</span> LinkedIn (Gustavo Castro)
+                </a>
+              </div>
+
+              {/* Links Institucionais Centralizados */}
+              <div style={{ display: 'flex', gap: '24px', justifyContent: 'center', flexWrap: 'wrap', borderTop: '1px solid var(--gn-border)', paddingTop: '24px', width: '100%', maxWidth: '800px' }}>
+                <Link href="/sobre" style={{ fontWeight: '500' }}>Sobre Nós</Link>
+                <Link href="/politica-de-privacidade" style={{ fontWeight: '500' }}>Política de Privacidade</Link>
+                <Link href="/termos" style={{ fontWeight: '500' }}>Termos de Uso</Link>
+              </div>
+
+              <div style={{ fontSize: '12px', marginTop: '8px' }}>
                 &copy; {new Date().getFullYear()} Voz da I.A. Todos os direitos reservados.
               </div>
             </footer>
