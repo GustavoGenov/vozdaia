@@ -5,6 +5,9 @@ import Script from 'next/script';
 export const metadata = {
   title: 'Voz da I.A - Combate às Fake News com Tecnologia',
   description: 'O jornal focado em combater fake news com informação de alta tecnologia.',
+  other: {
+    'google-adsense-account': 'ca-pub-5759690232636098'
+  }
 };
 
 export default function RootLayout({ children }) {
