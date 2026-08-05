@@ -5,8 +5,8 @@ export const metadata = {
 
 export default function Sobre() {
   return (
-    <main className="container" style={{ padding: '40px 24px', maxWidth: '800px' }}>
-      <h1 style={{ fontSize: '32px', marginBottom: '24px', color: 'var(--text-main)' }}>Sobre Nós</h1>
+    <main className="container" style={{ padding: '40px 24px', maxWidth: '800px', margin: '0 auto' }}>
+      <h1 style={{ fontSize: '32px', marginBottom: '24px', color: 'var(--gn-text)' }} className="google-sans">Sobre Nós</h1>
       
       <div className="card" style={{ padding: '32px' }}>
         <h2 style={{ fontSize: '20px', marginBottom: '16px', color: 'var(--google-blue)' }}>Quem Somos</h2>

@@ -4,8 +4,8 @@ export const metadata = {
 
 export default function PoliticaPrivacidade() {
   return (
-    <main className="container" style={{ padding: '40px 24px', maxWidth: '800px' }}>
-      <h1 style={{ fontSize: '32px', marginBottom: '24px', color: 'var(--text-main)' }}>Política de Privacidade</h1>
+    <main className="container" style={{ padding: '40px 24px', maxWidth: '800px', margin: '0 auto' }}>
+      <h1 style={{ fontSize: '32px', marginBottom: '24px', color: 'var(--gn-text)' }} className="google-sans">Política de Privacidade</h1>
       
       <div className="card" style={{ padding: '32px' }}>
         <p style={{ marginBottom: '16px' }}><strong>Última atualização:</strong> {new Date().toLocaleDateString('pt-BR')}</p>
