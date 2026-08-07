@@ -77,7 +77,14 @@ export default async function RootLayout({ children }) {
             
             {categories?.map((cat) => (
               <Link key={cat.id} href={`/categoria/${cat.slug}`} className="nav-item">
-                <span className="material-icons-extended" style={{color: cat.color_code || '#1a73e8'}}>label</span>
+                <span style={{
+                  background: cat.color_code || '#1a73e8',
+                  width: '12px',
+                  height: '12px',
+                  borderRadius: '50%',
+                  display: 'inline-block',
+                  marginRight: '8px'
+                }}></span>
                 <span>{cat.name}</span>
               </Link>
             ))}
