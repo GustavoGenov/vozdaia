@@ -5,6 +5,7 @@ import { supabase } from '@/lib/supabase';
 
 export default function PublishForm({ categories }) {
   const [title, setTitle] = useState('');
+  const [summary, setSummary] = useState('');
   const [categoryId, setCategoryId] = useState('');
   const [content, setContent] = useState('');
   const [imageFile, setImageFile] = useState(null);
@@ -25,7 +26,7 @@ export default function PublishForm({ categories }) {
 
   const handlePublish = async (e) => {
     e.preventDefault();
-    if (!title || !categoryId || !content || !imageFile) {
+    if (!title || !categoryId || !summary || !content || !imageFile) {
       setMessage('Preencha todos os campos e anexe uma imagem de capa.');
       return;
     }
@@ -60,6 +61,7 @@ export default function PublishForm({ categories }) {
       const { error: insertError } = await supabase.from('articles').insert([{
         title,
         slug,
+        summary,
         category_id: categoryId,
         content: content.replace(/\n/g, '<br>'), // Simple line break to HTML conversion
         image_url: publicUrl,
@@ -76,6 +78,7 @@ export default function PublishForm({ categories }) {
       
       // Limpar formulário
       setTitle('');
+      setSummary('');
       setCategoryId('');
       setContent('');
       setImageFile(null);
@@ -104,6 +107,14 @@ export default function PublishForm({ categories }) {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             style={{ width: '100%', padding: '12px', border: '1px solid #dadce0', borderRadius: '4px', fontSize: '16px' }} 
+            required
+          />
+          <input 
+            type="text" 
+            placeholder="Resumo da notícia (linha fina)" 
+            value={summary}
+            onChange={(e) => setSummary(e.target.value)}
+            style={{ width: '100%', padding: '12px', border: '1px solid #dadce0', borderRadius: '4px', fontSize: '14px' }} 
             required
           />
           <select 
