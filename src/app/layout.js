@@ -11,6 +11,8 @@ export const metadata = {
   }
 };
 
+export const revalidate = 60;
+
 export default async function RootLayout({ children }) {
   const { data: categories } = await supabase.from('categories').select('*');
 
