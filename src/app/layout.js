@@ -1,6 +1,7 @@
 import './globals.css';
 import Link from 'next/link';
 import Script from 'next/script';
+import { supabase } from '@/lib/supabase';
 
 export const metadata = {
   title: 'Voz da I.A - Combate às Fake News com Tecnologia',
@@ -10,7 +11,9 @@ export const metadata = {
   }
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const { data: categories } = await supabase.from('categories').select('*');
+
   return (
     <html lang="pt-BR">
       <head>
@@ -68,42 +71,15 @@ export default function RootLayout({ children }) {
             </Link>
             
             <div className="sidebar-divider"></div>
-            
-            <Link href="/categoria/geopolitica" className="nav-item">
-              <span className="material-icons-extended" style={{color: '#34a853'}}>public</span>
-              <span>Mundo (Geopolítica)</span>
-            </Link>
-            <Link href="/categoria/politica-eleicoes" className="nav-item">
-              <span className="material-icons-extended" style={{color: '#0f9d58'}}>flag</span>
-              <span>Brasil (Política)</span>
-            </Link>
-            <Link href="/categoria/economia-jogos" className="nav-item">
-              <span className="material-icons-extended" style={{color: '#673ab7'}}>business</span>
-              <span>Negócios & Economia</span>
-            </Link>
-            
             <div className="sidebar-divider"></div>
             
-            <Link href="/categoria/engenharia-e-tech" className="nav-item">
-              <span className="material-icons-extended" style={{color: '#00bcd4'}}>memory</span>
-              <span>Tecnologia</span>
-            </Link>
-            <Link href="/categoria/ia-sem-mitos" className="nav-item">
-              <span className="material-icons-extended" style={{color: '#e91e63'}}>smart_toy</span>
-              <span>IA Sem Mitos</span>
-            </Link>
-            <Link href="/categoria/ciencia" className="nav-item">
-              <span className="material-icons-extended" style={{color: '#ff9800'}}>biotech</span>
-              <span>Ciência e Saúde</span>
-            </Link>
-            <Link href="/categoria/esportes" className="nav-item">
-              <span className="material-icons-extended" style={{color: '#d32f2f'}}>sports_soccer</span>
-              <span>Esportes</span>
-            </Link>
-            <Link href="/categoria/militar-e-governo" className="nav-item">
-              <span className="material-icons-extended" style={{color: '#556b2f'}}>military_tech</span>
-              <span>Militar & Governo</span>
-            </Link>
+            {categories?.map((cat) => (
+              <Link key={cat.id} href={`/categoria/${cat.slug}`} className="nav-item">
+                <span className="material-icons-extended" style={{color: cat.color_code || '#1a73e8'}}>label</span>
+                <span>{cat.name}</span>
+              </Link>
+            ))}
+
           </aside>
 
           {/* MAIN CONTENT */}

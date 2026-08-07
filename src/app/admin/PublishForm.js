@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { supabase } from '@/lib/supabase';
+import { useRouter } from 'next/navigation';
 
 export default function PublishForm({ categories }) {
   const [title, setTitle] = useState('');
@@ -11,6 +12,7 @@ export default function PublishForm({ categories }) {
   const [imageFile, setImageFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const router = useRouter();
 
   const slugify = (text) => {
     return text
@@ -85,6 +87,8 @@ export default function PublishForm({ categories }) {
       // Reset file input
       const fileInput = document.getElementById('image-upload');
       if (fileInput) fileInput.value = '';
+
+      router.refresh();
 
     } catch (err) {
       setMessage(err.message);

@@ -1,5 +1,6 @@
 import { supabase } from '@/lib/supabase';
 import PublishForm from './PublishForm';
+import CategoryForm from './CategoryForm';
 
 // Força re-renderização no servidor para pegar dados recentes no admin
 export const dynamic = 'force-dynamic';
@@ -32,6 +33,7 @@ export default async function AdminDashboard() {
       </div>
 
       <PublishForm categories={categories} />
+      <CategoryForm />
 
     </div>
   );
