@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function ArticleList({ articles }) {
   const [loadingId, setLoadingId] = useState(null);
@@ -46,16 +47,27 @@ export default function ArticleList({ articles }) {
                 <span style={{ fontWeight: '500', color: '#202124', fontSize: '15px' }}>{article.title}</span>
                 <span style={{ fontSize: '12px', color: '#5f6368' }}>{new Date(article.created_at).toLocaleDateString('pt-BR')} • {article.categories?.name || 'Sem Categoria'}</span>
               </div>
-              <button 
-                onClick={() => handleDelete(article.id, article.title)}
-                disabled={loadingId === article.id}
-                style={{ 
-                  background: '#fce8e6', color: '#d93025', border: 'none', padding: '8px 12px', borderRadius: '4px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' 
-                }}
-              >
-                <span className="material-icons-extended" style={{ fontSize: '18px' }}>delete</span>
-                {loadingId === article.id ? 'Excluindo...' : 'Excluir'}
-              </button>
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <Link 
+                  href={`/admin/editar/${article.id}`}
+                  style={{ 
+                    background: '#e8f0fe', color: '#1a73e8', border: 'none', padding: '8px 12px', borderRadius: '4px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', textDecoration: 'none' 
+                  }}
+                >
+                  <span className="material-icons-extended" style={{ fontSize: '18px' }}>edit</span>
+                  Editar
+                </Link>
+                <button 
+                  onClick={() => handleDelete(article.id, article.title)}
+                  disabled={loadingId === article.id}
+                  style={{ 
+                    background: '#fce8e6', color: '#d93025', border: 'none', padding: '8px 12px', borderRadius: '4px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' 
+                  }}
+                >
+                  <span className="material-icons-extended" style={{ fontSize: '18px' }}>delete</span>
+                  {loadingId === article.id ? 'Excluindo...' : 'Excluir'}
+                </button>
+              </div>
             </div>
           ))}
         </div>

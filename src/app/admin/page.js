@@ -11,7 +11,7 @@ export default async function AdminDashboard() {
   const { count: articlesCount } = await supabase.from('articles').select('*', { count: 'exact', head: true });
   const { count: commentsCount } = await supabase.from('comments').select('*', { count: 'exact', head: true });
   const { data: categories } = await supabase.from('categories').select('*');
-  const { data: recentArticles } = await supabase.from('articles').select('*, categories(name)').order('created_at', { ascending: false }).limit(20);
+  const { data: recentArticles } = await supabase.from('articles').select('*, categories(name)').order('created_at', { ascending: false });
 
   return (
     <div>
