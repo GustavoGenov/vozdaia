@@ -2,7 +2,6 @@ import './globals.css';
 import Link from 'next/link';
 import Script from 'next/script';
 import { supabase } from '@/lib/supabase';
-import PageTracker from './components/PageTracker';
 import SubscribeForm from './components/SubscribeForm';
 
 export const metadata = {
@@ -163,7 +162,6 @@ export default async function RootLayout({ children }) {
           </div>
 
         </div>
-        <PageTracker />
       </body>
     </html>
   );

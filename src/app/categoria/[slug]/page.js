@@ -3,6 +3,7 @@ import Link from 'next/link';
 import '../../page.module.css';
 import { notFound } from 'next/navigation';
 import AdBanner from '@/components/AdBanner';
+import PageTracker from '@/components/PageTracker';
 
 export const revalidate = 60;
 
@@ -48,6 +49,7 @@ export default async function CategoryPage({ params }) {
 
   return (
     <main className="main-content">
+      <PageTracker categoryId={category.id} />
       
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
         <h1 className="page-title google-sans" style={{ marginBottom: 0 }}>

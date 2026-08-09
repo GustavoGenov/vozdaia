@@ -1,6 +1,7 @@
 import { supabase } from '@/lib/supabase';
 import Link from 'next/link';
 import AdBanner from '@/components/AdBanner';
+import PageTracker from '@/components/PageTracker';
 
 export const revalidate = 60;
 
@@ -15,6 +16,7 @@ export default async function Home() {
 
   return (
     <main className="main-content">
+      <PageTracker />
       
       <h1 className="page-title google-sans">Manchetes</h1>
 

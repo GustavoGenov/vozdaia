@@ -15,6 +15,13 @@ export default async function AdminDashboard() {
   const { count: viewsCount } = await supabase.from('page_views').select('*', { count: 'exact', head: true });
   const { count: subsCount } = await supabase.from('subscribers').select('*', { count: 'exact', head: true });
 
+  // Tops
+  const { data: topArticles } = await supabase.from('articles').select('title, views').order('views', { ascending: false }).limit(1);
+  const topArticle = topArticles?.[0];
+
+  const { data: topCategories } = await supabase.from('categories').select('name, views').order('views', { ascending: false }).limit(1);
+  const topCategory = topCategories?.[0];
+
   const { data: categories } = await supabase.from('categories').select('*');
   const { data: recentArticles } = await supabase.from('articles').select('*, categories(name)').order('created_at', { ascending: false });
 
@@ -40,6 +47,20 @@ export default async function AdminDashboard() {
         <div style={{ padding: '24px', border: '1px solid #dadce0', borderRadius: '8px', background: '#f8f9fa' }}>
           <div style={{ fontSize: '14px', color: '#5f6368', fontWeight: '500', textTransform: 'uppercase' }}>Comentários Recebidos</div>
           <div style={{ fontSize: '32px', color: '#34A853', fontWeight: '700' }}>{commentsCount || 0}</div>
+        </div>
+      </div>
+
+      {/* Highlights Strip */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px', marginBottom: '40px' }}>
+        <div style={{ padding: '24px', border: '1px solid #dadce0', borderRadius: '8px', background: '#fff', borderLeft: '4px solid #1a73e8' }}>
+          <div style={{ fontSize: '14px', color: '#5f6368', fontWeight: '500', textTransform: 'uppercase', marginBottom: '8px' }}>Matéria Mais Visitada</div>
+          <div style={{ fontSize: '20px', color: '#202124', fontWeight: '700', marginBottom: '4px' }}>{topArticle?.title || 'Nenhuma matéria'}</div>
+          <div style={{ fontSize: '14px', color: '#5f6368' }}>{topArticle?.views || 0} visitas registradas</div>
+        </div>
+        <div style={{ padding: '24px', border: '1px solid #dadce0', borderRadius: '8px', background: '#fff', borderLeft: '4px solid #EA4335' }}>
+          <div style={{ fontSize: '14px', color: '#5f6368', fontWeight: '500', textTransform: 'uppercase', marginBottom: '8px' }}>Bloco Mais Visitado</div>
+          <div style={{ fontSize: '20px', color: '#202124', fontWeight: '700', marginBottom: '4px' }}>{topCategory?.name || 'Nenhum bloco'}</div>
+          <div style={{ fontSize: '14px', color: '#5f6368' }}>{topCategory?.views || 0} visitas registradas</div>
         </div>
       </div>
 
