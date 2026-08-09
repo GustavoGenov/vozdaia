@@ -7,6 +7,9 @@ import SubscribeForm from './components/SubscribeForm';
 export const metadata = {
   title: 'Voz da I.A - Combate às Fake News com Tecnologia',
   description: 'O jornal focado em combater fake news com informação de alta tecnologia.',
+  verification: {
+    google: '1YkiwnFQje5MEJRsiTxJdMh7F1KobrpEPMdLtg92qQo',
+  },
   other: {
     'google-adsense-account': 'ca-pub-5759690232636098'
   }
