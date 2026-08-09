@@ -2,6 +2,8 @@ import './globals.css';
 import Link from 'next/link';
 import Script from 'next/script';
 import { supabase } from '@/lib/supabase';
+import PageTracker from './components/PageTracker';
+import SubscribeForm from './components/SubscribeForm';
 
 export const metadata = {
   title: 'Voz da I.A - Combate às Fake News com Tecnologia',
@@ -114,6 +116,8 @@ export default async function RootLayout({ children }) {
           <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
             {children}
             
+            <SubscribeForm />
+
             {/* INSTITUTIONAL FOOTER */}
             <footer style={{
               marginTop: 'auto',
@@ -159,6 +163,7 @@ export default async function RootLayout({ children }) {
           </div>
 
         </div>
+        <PageTracker />
       </body>
     </html>
   );
