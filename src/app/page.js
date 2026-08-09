@@ -1,7 +1,7 @@
 import { supabase } from '@/lib/supabase';
 import Link from 'next/link';
 import AdBanner from '@/components/AdBanner';
-import PageTracker from '@/components/PageTracker';
+import PageTracker from './components/PageTracker';
 
 export const revalidate = 60;
 

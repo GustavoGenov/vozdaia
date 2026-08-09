@@ -3,7 +3,7 @@ import Link from 'next/link';
 import '../../page.module.css';
 import { notFound } from 'next/navigation';
 import AdBanner from '@/components/AdBanner';
-import PageTracker from '@/components/PageTracker';
+import PageTracker from '../../components/PageTracker';
 
 export const revalidate = 60;
 

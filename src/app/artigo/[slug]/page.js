@@ -2,8 +2,8 @@ import { supabase } from '@/lib/supabase';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import AdBanner from '@/components/AdBanner';
-import PageTracker from '@/components/PageTracker';
-import CommentSection from '@/components/CommentSection';
+import PageTracker from '../../components/PageTracker';
+import CommentSection from '../../components/CommentSection';
 
 // Gera Metadados Open Graph Dinâmicos para o SEO (WhatsApp, LinkedIn, etc)
 export async function generateMetadata({ params }) {
@@ -93,31 +93,9 @@ export default async function ArticlePage({ params }) {
             style={{ width: '100%', borderRadius: '12px', marginBottom: '40px' }} 
           />
         )}
-          <span className="material-icons-extended">person</span>
-        </div>
-        <div>
-          <div style={{ fontSize: '14px', fontWeight: '500', color: 'var(--gn-text)' }}>Por {article.author}</div>
-          <div style={{ fontSize: '13px', color: 'var(--gn-text-secondary)' }}>
-            Publicado em {new Date(article.created_at).toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' })}
-          </div>
-        </div>
-        <div style={{ marginLeft: 'auto', display: 'flex', gap: '12px' }}>
-           {/* Ícones de compartilhamento (Falsos visuais) */}
-           <span className="material-icons-extended" style={{color: 'var(--gn-text-secondary)', cursor: 'pointer'}}>share</span>
-           <span className="material-icons-extended" style={{color: 'var(--gn-text-secondary)', cursor: 'pointer'}}>bookmark_border</span>
-        </div>
-      </div>
+        )}
 
-      {/* Imagem de Capa */}
-      {article.image_url && (
-        <img 
-          src={article.image_url} 
-          alt={article.title} 
-          style={{ width: '100%', borderRadius: '12px', marginBottom: '40px' }} 
-        />
-      )}
-
-      {/* Conteúdo Rico (HTML) */}
+        {/* Conteúdo Rico (HTML) */}
       <article 
         className="article-body" 
         style={{ fontSize: '18px', lineHeight: '1.8', color: 'var(--gn-text)', display: 'flex', flexDirection: 'column', gap: '24px' }}
