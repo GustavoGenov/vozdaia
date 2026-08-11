@@ -15,7 +15,7 @@
   --sidebar-width: 256px;
 }
 
-[data-theme='dark'] {
+.dark, [data-theme='dark'] {
   --gn-blue: #8ab4f8;
   --gn-blue-hover: #aecbfa;
   --gn-bg: #202124;
