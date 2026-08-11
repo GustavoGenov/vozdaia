@@ -22,7 +22,14 @@ export default async function AdminDashboard() {
   const { data: topCategories } = await supabase.from('categories').select('name, views').order('views', { ascending: false }).limit(1);
   const topCategory = topCategories?.[0];
 
-  const { data: categories } = await supabase.from('categories').select('*');
+  const { data: categoriesData } = await supabase.from('categories').select('*');
+  const sortOrder = { 'IA Sem Mitos': 1, 'Kaelara Insights': 2 };
+  const categories = (categoriesData || []).sort((a, b) => {
+    const rankA = sortOrder[a.name] || 99;
+    const rankB = sortOrder[b.name] || 99;
+    if (rankA !== rankB) return rankA - rankB;
+    return a.name.localeCompare(b.name, 'pt-BR');
+  });
   const { data: recentArticles } = await supabase.from('articles').select('*, categories(name)').order('created_at', { ascending: false });
 
   return (

@@ -37,7 +37,19 @@ export const metadata = {
 export const revalidate = 60;
 
 export default async function RootLayout({ children }) {
-  const { data: categories } = await supabase.from('categories').select('*');
+  const { data: categoriesData } = await supabase.from('categories').select('*');
+  
+  const sortOrder = {
+    'IA Sem Mitos': 1,
+    'Kaelara Insights': 2
+  };
+  
+  const categories = (categoriesData || []).sort((a, b) => {
+    const rankA = sortOrder[a.name] || 99;
+    const rankB = sortOrder[b.name] || 99;
+    if (rankA !== rankB) return rankA - rankB;
+    return a.name.localeCompare(b.name, 'pt-BR');
+  });
 
   return (
     <html lang="pt-BR">
