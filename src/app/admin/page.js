@@ -33,9 +33,9 @@ export default async function AdminDashboard() {
   const { data: recentArticles } = await supabase.from('articles').select('*, categories(name)').order('created_at', { ascending: false });
 
   return (
-    <div>
-      <h1 style={{ fontSize: '28px', color: '#202124', marginBottom: '8px' }}>Dashboard do Jornal</h1>
-      <p style={{ color: '#5f6368', marginBottom: '32px' }}>Bem-vindo à central de comando da Voz da I.A.</p>
+    <div className="main-content">
+      <h1 style={{ fontSize: '28px', color: 'var(--gn-text)', marginBottom: '8px' }}>Dashboard do Jornal</h1>
+      <p style={{ color: 'var(--gn-text-secondary)', marginBottom: '32px' }}>Bem-vindo à central de comando da Voz da I.A.</p>
 
       {/* Stats Strip */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '40px' }}>

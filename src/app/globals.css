@@ -345,3 +345,12 @@ h1, h2, h3, .google-sans {
   }
 }
 
+/* --- ReactQuill Fixes for Mobile --- */
+.ql-toolbar {
+  display: flex !important;
+  flex-wrap: wrap !important;
+}
+.ql-container {
+  font-size: 16px !important;
+  font-family: inherit !important;
+}
