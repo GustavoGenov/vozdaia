@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import AdBanner from '@/components/AdBanner';
 import PageTracker from '../../components/PageTracker';
-import CommentSection from '../../components/CommentSection';
+
 
 // Gera Metadados Open Graph Dinâmicos para o SEO (WhatsApp, LinkedIn, etc)
 export async function generateMetadata({ params }) {
@@ -93,7 +93,6 @@ export default async function ArticlePage({ params }) {
             style={{ width: '100%', borderRadius: '12px', marginBottom: '40px' }} 
           />
         )}
-        )}
 
         {/* Conteúdo Rico (HTML) */}
       <article 
@@ -108,5 +107,6 @@ export default async function ArticlePage({ params }) {
       </div>
 
     </main>
+    </>
   );
 }

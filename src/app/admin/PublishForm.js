@@ -3,6 +3,10 @@
 import { useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
+import dynamic from 'next/dynamic';
+import 'react-quill/dist/quill.snow.css';
+
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
 export default function PublishForm({ categories }) {
   const [title, setTitle] = useState('');
@@ -65,7 +69,7 @@ export default function PublishForm({ categories }) {
         slug,
         summary,
         category_id: categoryId,
-        content: content.replace(/\n/g, '<br>'), // Simple line break to HTML conversion
+        content: content,
         image_url: publicUrl,
         published: true,
         author: 'Administrador', // Ou pegar do usuário logado se quiser
@@ -143,14 +147,15 @@ export default function PublishForm({ categories }) {
             />
           </div>
 
-          <textarea 
-            placeholder="Escreva a notícia (você pode usar parágrafos)..." 
-            rows={8} 
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            style={{ width: '100%', padding: '12px', border: '1px solid #dadce0', borderRadius: '4px', fontSize: '14px', resize: 'vertical' }}
-            required
-          ></textarea>
+          <div style={{ background: '#fff', color: '#000' }}>
+            <ReactQuill 
+              theme="snow"
+              placeholder="Escreva a notícia (você pode usar formatação)..." 
+              value={content}
+              onChange={setContent}
+              style={{ height: '300px', marginBottom: '40px' }}
+            />
+          </div>
 
           {message && (
             <div style={{ 

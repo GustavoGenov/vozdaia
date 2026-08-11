@@ -2,7 +2,23 @@ import './globals.css';
 import Link from 'next/link';
 import Script from 'next/script';
 import { supabase } from '@/lib/supabase';
+import { Providers } from './providers';
+import ThemeToggle from './components/ThemeToggle';
 import SubscribeForm from './components/SubscribeForm';
+
+const CATEGORY_ICONS = {
+  'geopolitica': 'public',
+  'politica-eleicoes': 'how_to_vote',
+  'economia-jogos': 'trending_up', // Antigo
+  'economia': 'trending_up',
+  'jogos': 'sports_esports',
+  'religiao': 'church',
+  'formiga-mg': 'location_city',
+  'engenharia-e-tech': 'memory',
+  'medicina-e-bio-tech': 'medical_services',
+  'esportes': 'sports_soccer',
+  'militar-e-governo': 'military_tech'
+};
 
 export const metadata = {
   title: 'Voz da I.A - Combate às Fake News com Tecnologia',
@@ -53,7 +69,8 @@ export default async function RootLayout({ children }) {
           `}
         </Script>
       </head>
-      <body>
+      <body suppressHydrationWarning>
+        <Providers>
         {/* TOP HEADER */}
         <header className="top-header">
           <div className="header-left">
@@ -76,6 +93,7 @@ export default async function RootLayout({ children }) {
           </div>
           
           <div className="header-right">
+            <ThemeToggle />
             <button className="menu-btn">
               <span className="material-icons-extended">apps</span>
             </button>
@@ -98,19 +116,17 @@ export default async function RootLayout({ children }) {
             <div className="sidebar-divider"></div>
             <div className="sidebar-divider"></div>
             
-            {categories?.map((cat) => (
-              <Link key={cat.id} href={`/categoria/${cat.slug}`} className="nav-item">
-                <span style={{
-                  background: cat.color_code || '#1a73e8',
-                  width: '12px',
-                  height: '12px',
-                  borderRadius: '50%',
-                  display: 'inline-block',
-                  marginRight: '8px'
-                }}></span>
-                <span>{cat.name}</span>
-              </Link>
-            ))}
+            {categories?.map((cat) => {
+              const iconName = CATEGORY_ICONS[cat.slug] || 'category';
+              return (
+                <Link key={cat.id} href={`/categoria/${cat.slug}`} className="nav-item">
+                  <span className="material-icons-extended" style={{ color: cat.color_code || '#1a73e8', marginRight: '8px', fontSize: '20px' }}>
+                    {iconName}
+                  </span>
+                  <span>{cat.name}</span>
+                </Link>
+              );
+            })}
 
           </aside>
 
@@ -165,6 +181,7 @@ export default async function RootLayout({ children }) {
           </div>
 
         </div>
+        </Providers>
       </body>
     </html>
   );
