@@ -134,7 +134,7 @@ export default async function RootLayout({ children }) {
           </aside>
 
           {/* MAIN CONTENT */}
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+          <div className="main-area-wrapper">
             {children}
             
             <SubscribeForm />

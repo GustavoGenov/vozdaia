@@ -104,7 +104,7 @@ export default function PublishForm({ categories }) {
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '32px' }}>
       {/* Simulador de Editor de Notícias */}
-      <div id="editor" style={{ flex: '1 1 400px', border: '1px solid #dadce0', borderRadius: '8px', padding: '24px' }}>
+      <div id="editor" style={{ flex: '1 1 100%', minWidth: 0, border: '1px solid #dadce0', borderRadius: '8px', padding: '24px' }}>
         <h2 style={{ fontSize: '18px', color: '#202124', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
           <span className="material-icons-extended" style={{color: '#1a73e8'}}>edit_document</span> Escrever Notícia
         </h2>

@@ -220,11 +220,19 @@ h1, h2, h3, .google-sans {
 }
 
 /* --- Main Content --- */
-.main-content {
+.main-area-wrapper {
   margin-left: var(--sidebar-width);
   flex: 1;
-  padding: 24px 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  width: 100%;
   max-width: 1080px;
+  margin: 0 auto;
+  padding: 24px 40px;
+  flex: 1;
 }
 
 .page-title {
@@ -320,8 +328,10 @@ h1, h2, h3, .google-sans {
   .sidebar {
     display: none;
   }
-  .main-content {
+  .main-area-wrapper {
     margin-left: 0;
+  }
+  .main-content {
     padding: 16px;
   }
   .news-grid {
