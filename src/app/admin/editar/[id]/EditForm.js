@@ -5,11 +5,16 @@ import { supabase } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
+import dynamic from 'next/dynamic';
+import 'react-quill-new/dist/quill.snow.css';
+
+const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
+
 export default function EditForm({ article, categories }) {
   const [title, setTitle] = useState(article.title || '');
   const [summary, setSummary] = useState(article.summary || '');
   const [categoryId, setCategoryId] = useState(article.category_id || '');
-  const [content, setContent] = useState(article.content ? article.content.replace(/<br>/g, '\n') : '');
+  const [content, setContent] = useState(article.content || '');
   const [imageFile, setImageFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
@@ -68,7 +73,7 @@ export default function EditForm({ article, categories }) {
         slug,
         summary,
         category_id: categoryId,
-        content: content.replace(/\n/g, '<br>'),
+        content: content,
         image_url: publicUrl,
       }).eq('id', article.id);
 
@@ -131,11 +136,7 @@ export default function EditForm({ article, categories }) {
             onChange={(e) => setSummary(e.target.value)}
             style={{ width: '100%', padding: '12px', border: '1px solid #dadce0', borderRadius: '4px', fontSize: '16px', minHeight: '80px', resize: 'vertical' }}
             required
-            maxLength={150}
           />
-          <div style={{ fontSize: '12px', color: '#5f6368', marginTop: '4px', textAlign: 'right' }}>
-            {summary.length}/150
-          </div>
         </div>
 
         {/* Nova Imagem de Capa (Opcional) */}
@@ -160,12 +161,15 @@ export default function EditForm({ article, categories }) {
         {/* Conteúdo */}
         <div>
           <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500', color: '#202124' }}>Conteúdo da Notícia *</label>
-          <textarea 
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            style={{ width: '100%', padding: '12px', border: '1px solid #dadce0', borderRadius: '4px', fontSize: '16px', minHeight: '300px', resize: 'vertical', fontFamily: 'inherit' }}
-            required
-          />
+          <div style={{ background: '#fff', color: '#000' }}>
+            <ReactQuill 
+              theme="snow"
+              placeholder="Edite a notícia (você pode usar formatação)..." 
+              value={content}
+              onChange={setContent}
+              style={{ height: '300px', marginBottom: '40px' }}
+            />
+          </div>
         </div>
 
         {/* Mensagem de Feedback */}
