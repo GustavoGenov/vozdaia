@@ -15,7 +15,10 @@ const CATEGORY_ICONS = {
   'religiao': 'church',
   'formiga-mg': 'location_city',
   'engenharia-e-tech': 'memory',
-  'medicina-e-bio-tech': 'medical_services',
+  'medicina': 'medical_services', // Atualizado slug
+  'ciencia': 'rocket_launch', // Novo
+  'kaelara-insights': 'favorite', // Novo
+  'ia-sem-mitos': 'auto_awesome', // Novo (Símbolo tipo Gemini)
   'esportes': 'sports_soccer',
   'militar-e-governo': 'military_tech'
 };
