@@ -354,3 +354,21 @@ h1, h2, h3, .google-sans {
   font-size: 16px !important;
   font-family: inherit !important;
 }
+
+/* --- Article Body Responsiveness --- */
+.article-body {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+.article-body img, .article-body iframe, .article-body video {
+  max-width: 100% !important;
+  height: auto !important;
+}
+.article-body table {
+  width: 100% !important;
+  max-width: 100%;
+  overflow-x: auto;
+  display: block;
+}
