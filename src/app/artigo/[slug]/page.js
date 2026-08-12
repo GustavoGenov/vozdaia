@@ -94,10 +94,10 @@ export default async function ArticlePage({ params }) {
           />
         )}
 
-        {/* Conteúdo Rico (HTML) */}
+      {/* Conteúdo Rico (HTML) */}
       <article 
         className="article-body" 
-        style={{ fontSize: '18px', lineHeight: '1.8', color: 'var(--gn-text)', display: 'flex', flexDirection: 'column', gap: '24px' }}
+        style={{ fontSize: '18px', lineHeight: '1.8', color: 'var(--gn-text)' }}
         dangerouslySetInnerHTML={{ __html: article.content }} 
       />
 
