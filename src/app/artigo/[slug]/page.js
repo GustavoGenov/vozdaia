@@ -44,7 +44,7 @@ export default async function ArticlePage({ params }) {
   return (
     <>
       <PageTracker articleId={article.id} categoryId={article.category_id} />
-      <main className="main-content" style={{ maxWidth: '800px', margin: '0 auto', padding: '40px 24px' }}>
+      <main className="main-content article-page-main" style={{ maxWidth: '800px', margin: '0 auto' }}>
         
         {/* Navegação e Categoria */}
         <div style={{ marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: 'var(--gn-text-secondary)' }}>
@@ -60,7 +60,7 @@ export default async function ArticlePage({ params }) {
         </div>
 
         {/* Título e Resumo */}
-        <h1 className="google-sans" style={{ fontSize: '36px', fontWeight: '500', color: 'var(--gn-text)', lineHeight: '1.2', marginBottom: '16px' }}>
+        <h1 className="google-sans article-page-title">
           {article.title}
         </h1>
         <p style={{ fontSize: '18px', color: 'var(--gn-text-secondary)', lineHeight: '1.5', marginBottom: '24px' }}>
