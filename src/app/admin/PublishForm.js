@@ -82,6 +82,11 @@ export default function PublishForm({ categories }) {
 
       setMessage('Notícia publicada com sucesso!');
       
+      // Avisa o Google Notícias em segundo plano para indexação instantânea
+      fetch('/api/ping-google', { method: 'POST' }).catch((e) =>
+        console.error('Erro de ping no Google Notícias:', e)
+      );
+      
       // Limpar formulário
       setTitle('');
       setSummary('');

@@ -82,6 +82,12 @@ export default function EditForm({ article, categories }) {
       }
 
       setMessage('Notícia atualizada com sucesso!');
+      
+      // Avisa o Google Notícias em segundo plano para indexação instantânea
+      fetch('/api/ping-google', { method: 'POST' }).catch((e) =>
+        console.error('Erro de ping no Google Notícias:', e)
+      );
+      
       router.refresh();
 
       // Redirecionar de volta pro admin após um tempinho

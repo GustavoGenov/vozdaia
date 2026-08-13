@@ -8,7 +8,7 @@ export async function GET() {
   try {
     const { data: articles, error } = await supabase
       .from('articles')
-      .select('title, slug, summary, created_at, author')
+      .select('title, slug, summary, created_at, author, content, image_url')
       .eq('published', true)
       .order('created_at', { ascending: false })
       .limit(30);
@@ -21,7 +21,8 @@ export async function GET() {
       .map((article) => {
         const url = `${baseUrl}/artigo/${article.slug}`;
         const pubDate = new Date(article.created_at).toUTCString();
-        // Escape special XML characters
+        
+        // Escape XML attributes
         const escapeXml = (str) =>
           str
             ? str
@@ -32,6 +33,17 @@ export async function GET() {
                 .replace(/'/g, '&apos;')
             : '';
 
+        // Media content tag for Google News images
+        const mediaContent = article.image_url
+          ? `<media:content url="${escapeXml(article.image_url)}" medium="image" type="image/jpeg" />`
+          : '';
+
+        // Google News prefers full article content inside content:encoded in CDATA
+        // Removing any un-escaped HTML inside content and wrapping in CDATA
+        const contentEncoded = article.content
+          ? `<content:encoded><![CDATA[${article.content}]]></content:encoded>`
+          : '';
+
         return `
     <item>
       <title>${escapeXml(article.title)}</title>
@@ -40,12 +52,17 @@ export async function GET() {
       <pubDate>${pubDate}</pubDate>
       <author>${escapeXml(article.author || 'Voz da I.A')}</author>
       <description>${escapeXml(article.summary)}</description>
+      ${mediaContent}
+      ${contentEncoded}
     </item>`;
       })
       .join('');
 
     const rssXml = `<?xml version="1.0" encoding="UTF-8" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" 
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:media="http://search.yahoo.com/mrss/"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Voz da I.A</title>
     <link>${baseUrl}</link>
