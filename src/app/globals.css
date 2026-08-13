@@ -384,33 +384,8 @@ h1, h2, h3, .google-sans {
   }
 }
 
-/* Tablet e Telas Médias (A partir de 640px): Card vira Horizontal compacto */
-@media (min-width: 640px) {
-  .article-card {
-    flex-direction: row-reverse; /* Imagem no lado direito */
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px;
-  }
+/* Removido o card horizontal no desktop para não quebrar o grid de colunas */
 
-  .article-card-img {
-    width: 160px;
-    height: 110px;
-    aspect-ratio: auto;
-  }
-}
-
-/* Desktop Completo (A partir de 1024px) */
-@media (min-width: 1024px) {
-  .article-card {
-    padding: 20px;
-  }
-
-  .article-card-img {
-    width: 200px;
-    height: 130px;
-  }
-}
 
 /* --- ReactQuill Fixes for Mobile --- */
 .ql-toolbar {
