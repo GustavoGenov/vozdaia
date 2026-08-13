@@ -255,68 +255,90 @@ h1, h2, h3, .google-sans {
   }
 }
 
-/* --- Google News Card Architecture --- */
+/* ==========================================================================
+   CANALTECH & GOOGLE NEWS HYBRID CARD ARCHITECTURE (MOBILE-FIRST)
+   ========================================================================== */
 .article-card {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 16px;
   background: var(--gn-surface);
   border: 1px solid var(--gn-border);
-  border-radius: 16px;
-  padding: 16px;
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
-  height: 100%;
-  text-decoration: none;
-}
-.article-card:hover {
-  box-shadow: 0 1px 3px rgba(60,64,67,0.3), 0 4px 8px 3px rgba(60,64,67,0.15);
-}
-.article-card-img {
-  width: 100px;
-  height: 100px;
   border-radius: 12px;
-  object-fit: cover;
-  flex-shrink: 0;
-  background: var(--gn-search-bg);
-  order: 2; /* Image on right */
+  padding: 16px;
+  display: flex;
+  flex-direction: column; /* Mobile first: Imagem 16:9 acima, texto abaixo */
+  gap: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  -webkit-tap-highlight-color: transparent;
 }
+
+.article-card:active {
+  transform: scale(0.99);
+}
+
+.article-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Imagem 16:9 no Smartphone */
+.article-card-img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  object-fit: cover;
+  background-color: var(--gn-search-bg);
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.article-card:hover .article-card-img {
+  transform: scale(1.02);
+}
+
 .article-card-content {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 8px;
   flex: 1;
-  order: 1;
 }
+
 .article-card-category {
   font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--gn-text-secondary);
-  margin-bottom: 4px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--gn-blue);
+  letter-spacing: 0.5px;
 }
+
 .article-card-title {
-  font-size: 1.1rem;
-  font-weight: 500;
+  font-size: clamp(1rem, 3.5vw, 1.25rem);
+  font-weight: 700;
   line-height: 1.35;
-  margin-bottom: 8px;
   color: var(--gn-text);
 }
 .article-card-title a { color: inherit; text-decoration: none; }
 .article-card-title a:hover { text-decoration: underline; }
+
 .article-card-summary {
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   color: var(--gn-text-secondary);
   line-height: 1.4;
-  margin-bottom: 12px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
 .article-card-footer {
   font-size: 0.75rem;
   color: var(--gn-text-secondary);
-  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
 }
 
 .category-tag {
@@ -331,8 +353,12 @@ h1, h2, h3, .google-sans {
   margin-bottom: 4px;
 }
 
-/* --- Mobile Responsiveness (Smartphone) --- */
-@media (max-width: 768px) {
+/* ==========================================================================
+   BREAKPOINTS: TABLET E DESKTOP (TRANSIÇÃO DE LAYOUT)
+   ========================================================================== */
+
+/* Smartphone estrito (Abaixo de 640px) */
+@media (max-width: 639px) {
   .sidebar {
     display: none;
   }
@@ -340,40 +366,49 @@ h1, h2, h3, .google-sans {
     margin-left: 0;
   }
   .main-content {
-    padding: 12px 8px;
+    padding: 16px;
   }
   .page-title {
-    padding: 0 8px;
     font-size: 22px;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
   }
   .news-grid {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 16px;
   }
   .header-left {
     width: auto;
   }
   .header-center {
-    display: none; /* Hide search bar on mobile for cleaner look */
+    display: none;
   }
-  
-  /* Smartphone Google News Card */
+}
+
+/* Tablet e Telas Médias (A partir de 640px): Card vira Horizontal compacto */
+@media (min-width: 640px) {
   .article-card {
-    padding: 12px;
-    border-radius: 12px;
-    gap: 12px;
+    flex-direction: row-reverse; /* Imagem no lado direito */
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
   }
+
   .article-card-img {
-    width: 80px;
-    height: 80px;
-    border-radius: 8px;
+    width: 160px;
+    height: 110px;
+    aspect-ratio: auto;
   }
-  .article-card-title {
-    font-size: 0.95rem;
+}
+
+/* Desktop Completo (A partir de 1024px) */
+@media (min-width: 1024px) {
+  .article-card {
+    padding: 20px;
   }
-  .article-card-summary {
-    display: none; /* Oculta resumo no mobile para manter formato compacto */
+
+  .article-card-img {
+    width: 200px;
+    height: 130px;
   }
 }
 
