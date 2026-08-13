@@ -411,8 +411,8 @@ h1, h2, h3, .google-sans {
   word-wrap: break-word !important;
   overflow-wrap: break-word !important;
   max-width: 100% !important;
-  font-size: 18px;
-  line-height: 1.8;
+  font-size: 17px;
+  line-height: 1.6;
   color: var(--gn-text);
 }
 
@@ -427,18 +427,18 @@ h1, h2, h3, .google-sans {
   white-space: normal !important;
 }
 
-/* Regras ABNT Simplificadas (Texto justificado e parágrafos limpos) */
+/* Regras Simplificadas */
 .article-body p {
-  text-align: justify !important;
-  margin-bottom: 24px !important;
+  text-align: left !important;
+  margin-bottom: 20px !important;
 }
 
 /* Títulos da matéria em Negrito e Centralizados (opcional se quiserem centralizado) */
 .article-body h1, .article-body h2, .article-body h3, .article-body h4, .article-body h5, .article-body h6 {
   font-weight: bold !important;
   text-align: center !important;
-  margin-top: 32px !important;
-  margin-bottom: 24px !important;
+  margin-top: 28px !important;
+  margin-bottom: 20px !important;
 }
 
 /* Imagens Centralizadas Responsivas */
@@ -446,7 +446,7 @@ h1, h2, h3, .google-sans {
   max-width: 100% !important;
   height: auto !important;
   display: block !important;
-  margin: 24px auto !important;
+  margin: 20px auto !important;
   border-radius: 8px;
 }
 
@@ -461,7 +461,7 @@ h1, h2, h3, .google-sans {
   padding: 40px 24px;
 }
 .article-page-title {
-  font-size: 36px;
+  font-size: 32px;
   font-weight: bold;
   text-align: center;
   color: var(--gn-text);
@@ -469,7 +469,7 @@ h1, h2, h3, .google-sans {
   margin-bottom: 16px;
 }
 .article-page-summary {
-  font-size: 20px;
+  font-size: 18px;
   color: var(--gn-text-secondary);
   line-height: 1.5;
   text-align: center;
@@ -478,15 +478,16 @@ h1, h2, h3, .google-sans {
 
 @media (max-width: 768px) {
   .article-page-main {
-    padding: 24px 16px !important;
+    padding: 24px 20px !important;
   }
   .article-page-title {
-    font-size: 26px !important;
+    font-size: 24px !important;
   }
   .article-page-summary {
-    font-size: 18px !important;
+    font-size: 16px !important;
   }
   .article-body {
-    font-size: 17px;
+    font-size: 16px;
+    line-height: 1.5;
   }
 }

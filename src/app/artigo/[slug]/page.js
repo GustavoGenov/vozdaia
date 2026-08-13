@@ -44,7 +44,7 @@ export default async function ArticlePage({ params }) {
   return (
     <>
       <PageTracker articleId={article.id} categoryId={article.category_id} />
-      <main className="main-content article-page-main" style={{ maxWidth: '800px', margin: '0 auto' }}>
+      <main className="main-content article-page-main" style={{ maxWidth: '680px', margin: '0 auto' }}>
         
         {/* Navegação e Categoria */}
         <div style={{ marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: 'var(--gn-text-secondary)' }}>
