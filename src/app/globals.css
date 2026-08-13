@@ -255,60 +255,66 @@ h1, h2, h3, .google-sans {
   }
 }
 
+/* --- Google News Card Architecture --- */
 .article-card {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 16px;
   background: var(--gn-surface);
-  border-radius: 12px;
   border: 1px solid var(--gn-border);
-  overflow: hidden;
-  transition: box-shadow 0.2s, transform 0.2s;
+  border-radius: 16px;
+  padding: 16px;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
   height: 100%;
   text-decoration: none;
 }
 .article-card:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  transform: translateY(-2px);
+  box-shadow: 0 1px 3px rgba(60,64,67,0.3), 0 4px 8px 3px rgba(60,64,67,0.15);
 }
 .article-card-img {
-  width: 100%;
-  aspect-ratio: 16/9;
+  width: 100px;
+  height: 100px;
+  border-radius: 12px;
   object-fit: cover;
+  flex-shrink: 0;
   background: var(--gn-search-bg);
+  order: 2; /* Image on right */
 }
 .article-card-content {
-  padding: 16px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   flex: 1;
+  order: 1;
 }
 .article-card-category {
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  margin-bottom: 8px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--gn-text-secondary);
+  margin-bottom: 4px;
 }
 .article-card-title {
-  font-size: 18px;
+  font-size: 1.1rem;
   font-weight: 500;
-  line-height: 1.3;
+  line-height: 1.35;
   margin-bottom: 8px;
   color: var(--gn-text);
 }
 .article-card-title a { color: inherit; text-decoration: none; }
 .article-card-title a:hover { text-decoration: underline; }
 .article-card-summary {
-  font-size: 14px;
+  font-size: 0.85rem;
   color: var(--gn-text-secondary);
-  line-height: 1.5;
-  margin-bottom: 16px;
-  flex: 1;
+  line-height: 1.4;
+  margin-bottom: 12px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .article-card-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--gn-text-secondary);
   margin-top: auto;
 }
@@ -325,7 +331,7 @@ h1, h2, h3, .google-sans {
   margin-bottom: 4px;
 }
 
-/* --- Mobile Responsiveness --- */
+/* --- Mobile Responsiveness (Smartphone) --- */
 @media (max-width: 768px) {
   .sidebar {
     display: none;
@@ -334,16 +340,16 @@ h1, h2, h3, .google-sans {
     margin-left: 0;
   }
   .main-content {
-    padding: 12px 0; /* Flush edges on mobile for the cards */
+    padding: 12px 8px;
   }
   .page-title {
-    padding: 0 16px;
-    font-size: 24px;
+    padding: 0 8px;
+    font-size: 22px;
     margin-bottom: 12px;
   }
   .news-grid {
     grid-template-columns: 1fr;
-    gap: 0; /* Remove gap so cards can have bottom borders */
+    gap: 12px;
   }
   .header-left {
     width: auto;
@@ -352,47 +358,22 @@ h1, h2, h3, .google-sans {
     display: none; /* Hide search bar on mobile for cleaner look */
   }
   
-  /* Google News Compact Style for Mobile Cards */
+  /* Smartphone Google News Card */
   .article-card {
-    flex-direction: row-reverse;
-    align-items: flex-start;
-    padding: 16px;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid var(--gn-border);
-    border-radius: 0;
-    box-shadow: none !important;
-  }
-  .article-card:hover {
-    transform: none;
-    background: var(--gn-search-bg);
+    padding: 12px;
+    border-radius: 12px;
+    gap: 12px;
   }
   .article-card-img {
     width: 80px;
     height: 80px;
-    aspect-ratio: 1/1;
     border-radius: 8px;
-    margin-left: 16px;
-    flex-shrink: 0;
-  }
-  .article-card-content {
-    padding: 0;
   }
   .article-card-title {
-    font-size: 16px;
-    font-weight: 500;
-    margin-bottom: 8px;
+    font-size: 0.95rem;
   }
   .article-card-summary {
-    display: none; /* Hide summary to save space */
-  }
-  .article-card-category {
-    font-size: 10px;
-    margin-bottom: 6px;
-  }
-  .article-card-footer {
-    margin-top: 4px;
-    font-size: 11px;
+    display: none; /* Oculta resumo no mobile para manter formato compacto */
   }
 }
 
