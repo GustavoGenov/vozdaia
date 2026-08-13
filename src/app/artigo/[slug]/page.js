@@ -44,11 +44,11 @@ export default async function ArticlePage({ params }) {
   return (
     <>
       <PageTracker articleId={article.id} categoryId={article.category_id} />
-      <main className="main-content article-page-main">
+      <main className="main-content article-page-main" style={{ maxWidth: '680px', margin: '0 auto' }}>
         
         {/* Navegação e Categoria */}
-        <div className="article-breadcrumb">
-          <Link href="/" className="article-breadcrumb-link">
+        <div style={{ marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: 'var(--gn-text-secondary)' }}>
+          <Link href="/" style={{ color: 'var(--gn-blue)', display: 'flex', alignItems: 'center' }}>
             <span className="material-icons-extended" style={{fontSize: '16px'}}>arrow_back</span> Início
           </Link>
           <span>/</span>
@@ -68,19 +68,20 @@ export default async function ArticlePage({ params }) {
         </p>
 
         {/* Metadados da Matéria */}
-        <div className="article-meta-bar">
-          <div className="article-meta-avatar">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '16px 0', borderTop: '1px solid var(--gn-border)', borderBottom: '1px solid var(--gn-border)', marginBottom: '32px' }}>
+          <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'var(--gn-search-bg)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--gn-text-secondary)' }}>
             <span className="material-icons-extended">person</span>
           </div>
           <div>
-            <div className="article-meta-author">Por {article.author}</div>
-            <div className="article-meta-date">
+            <div style={{ fontSize: '14px', fontWeight: '500', color: 'var(--gn-text)' }}>Por {article.author}</div>
+            <div style={{ fontSize: '13px', color: 'var(--gn-text-secondary)' }}>
               Publicado em {new Date(article.created_at).toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' })}
             </div>
           </div>
-          <div className="article-meta-actions">
-            <span className="material-icons-extended">share</span>
-            <span className="material-icons-extended">bookmark_border</span>
+          <div style={{ marginLeft: 'auto', display: 'flex', gap: '12px' }}>
+            {/* Ícones de compartilhamento (Falsos visuais) */}
+            <span className="material-icons-extended" style={{color: 'var(--gn-text-secondary)', cursor: 'pointer'}}>share</span>
+            <span className="material-icons-extended" style={{color: 'var(--gn-text-secondary)', cursor: 'pointer'}}>bookmark_border</span>
           </div>
         </div>
 
@@ -89,22 +90,23 @@ export default async function ArticlePage({ params }) {
           <img 
             src={article.image_url} 
             alt={article.title} 
-            className="article-cover-img"
+            style={{ width: '100%', borderRadius: '12px', marginBottom: '40px' }} 
           />
         )}
 
-        {/* Conteúdo Rico (HTML) */}
-        <article 
-          className="article-body" 
-          dangerouslySetInnerHTML={{ __html: article.content }} 
-        />
+      {/* Conteúdo Rico (HTML) */}
+      <article 
+        className="article-body" 
+        style={{ fontSize: '18px', lineHeight: '1.8', color: 'var(--gn-text)' }}
+        dangerouslySetInnerHTML={{ __html: article.content }} 
+      />
 
-        {/* Anúncio AdSense Fim do Artigo */}
-        <div className="article-ad-section">
-          <AdBanner dataAdSlot="SEU_SLOT_ARTIGO" />
-        </div>
+      {/* Anúncio AdSense Fim do Artigo */}
+      <div style={{ marginTop: '48px', borderTop: '1px solid var(--gn-border)', paddingTop: '24px' }}>
+        <AdBanner dataAdSlot="SEU_SLOT_ARTIGO" />
+      </div>
 
-      </main>
+    </main>
     </>
   );
 }
