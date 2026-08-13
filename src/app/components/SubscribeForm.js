@@ -36,19 +36,19 @@ export default function SubscribeForm() {
         <h3 style={{ fontSize: '24px', color: '#202124', marginBottom: '12px' }}>Assine a Voz da I.A</h3>
         <p style={{ color: '#5f6368', marginBottom: '24px' }}>Receba as notícias mais recentes de I.A e tecnologia diretamente no seu e-mail.</p>
         
-        <form onSubmit={handleSubscribe} style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
+        <form onSubmit={handleSubscribe} style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap', width: '100%' }}>
           <input 
             type="email" 
             placeholder="Digite seu e-mail" 
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            style={{ padding: '12px 16px', borderRadius: '4px', border: '1px solid #dadce0', fontSize: '16px', flex: 1, maxWidth: '350px' }}
+            style={{ padding: '12px 16px', borderRadius: '4px', border: '1px solid #dadce0', fontSize: '16px', flex: '1 1 220px', maxWidth: '350px', width: '100%' }}
           />
           <button 
             type="submit" 
             disabled={status === 'loading'}
-            style={{ padding: '12px 24px', borderRadius: '4px', border: 'none', background: '#1a73e8', color: '#fff', fontSize: '16px', fontWeight: 'bold', cursor: 'pointer' }}
+            style={{ padding: '12px 24px', borderRadius: '4px', border: 'none', background: '#1a73e8', color: '#fff', fontSize: '16px', fontWeight: 'bold', cursor: 'pointer', flex: '0 0 auto' }}
           >
             {status === 'loading' ? 'Enviando...' : 'Inscrever'}
           </button>
