@@ -475,6 +475,8 @@ h1, h2, h3, .google-sans {
 /* --- Article Page Specific Container --- */
 .article-page-main {
   padding: 40px 24px;
+  width: 100%;
+  overflow-x: hidden;
 }
 .article-page-title {
   font-size: 32px;

@@ -44,7 +44,7 @@ export default async function ArticlePage({ params }) {
   return (
     <>
       <PageTracker articleId={article.id} categoryId={article.category_id} />
-      <main className="main-content article-page-main" style={{ maxWidth: '680px', margin: '0 auto' }}>
+      <main className="main-content article-page-main" style={{ maxWidth: '680px', margin: '0 auto', width: '100%', overflowX: 'hidden' }}>
         
         {/* Navegação e Categoria */}
         <div style={{ marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: 'var(--gn-text-secondary)' }}>
@@ -68,17 +68,17 @@ export default async function ArticlePage({ params }) {
         </p>
 
         {/* Metadados da Matéria */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '16px 0', borderTop: '1px solid var(--gn-border)', borderBottom: '1px solid var(--gn-border)', marginBottom: '32px' }}>
-          <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'var(--gn-search-bg)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--gn-text-secondary)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap', padding: '16px 0', borderTop: '1px solid var(--gn-border)', borderBottom: '1px solid var(--gn-border)', marginBottom: '32px', width: '100%' }}>
+          <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'var(--gn-search-bg)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--gn-text-secondary)', flexShrink: 0 }}>
             <span className="material-icons-extended">person</span>
           </div>
-          <div>
+          <div style={{ flex: '1 1 auto', minWidth: '160px' }}>
             <div style={{ fontSize: '14px', fontWeight: '500', color: 'var(--gn-text)' }}>Por {article.author}</div>
             <div style={{ fontSize: '13px', color: 'var(--gn-text-secondary)' }}>
               Publicado em {new Date(article.created_at).toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' })}
             </div>
           </div>
-          <div style={{ marginLeft: 'auto', display: 'flex', gap: '12px' }}>
+          <div style={{ display: 'flex', gap: '12px' }}>
             {/* Ícones de compartilhamento (Falsos visuais) */}
             <span className="material-icons-extended" style={{color: 'var(--gn-text-secondary)', cursor: 'pointer'}}>share</span>
             <span className="material-icons-extended" style={{color: 'var(--gn-text-secondary)', cursor: 'pointer'}}>bookmark_border</span>
