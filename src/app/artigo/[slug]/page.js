@@ -63,7 +63,7 @@ export default async function ArticlePage({ params }) {
         <h1 className="google-sans article-page-title">
           {article.title}
         </h1>
-        <p style={{ fontSize: '18px', color: 'var(--gn-text-secondary)', lineHeight: '1.5', marginBottom: '24px' }}>
+        <p className="article-page-summary">
           {article.summary}
         </p>
 
