@@ -20,11 +20,18 @@ export default function LayoutShell({ categories, children }) {
           <button className="menu-btn" onClick={toggleDrawer} aria-label="Menu principal">
             <span className="material-icons-extended">menu</span>
           </button>
-          <Link href="/" className="brand-link brand-text google-sans" style={{ fontSize: '26px', fontWeight: '700', letterSpacing: '-0.5px' }} onClick={closeDrawer}>
-            <span className="brand-v">V</span>
-            <span className="brand-o">o</span>
-            <span className="brand-z">z</span>
-            <span className="brand-ia" style={{marginLeft: '6px', fontWeight: '500', color: 'var(--gn-text)'}}>da I.A</span>
+          <Link href="/" className="brand-link brand-text google-sans" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '24px', fontWeight: '700', letterSpacing: '-0.5px', textDecoration: 'none' }} onClick={closeDrawer}>
+            <img src="/simbolo.png" alt="Logo" style={{ height: '32px', width: '32px', borderRadius: '6px', objectFit: 'cover' }} />
+            <span style={{ display: 'flex', alignItems: 'center' }}>
+              <span className="brand-v">V</span>
+              <span className="brand-o">o</span>
+              <span className="brand-z">z</span>
+              <span style={{ color: '#34A853', marginLeft: '6px' }}>d</span>
+              <span style={{ color: '#EA4335' }}>a</span>
+              <span style={{ color: '#4285F4', marginLeft: '6px' }}>I</span>
+              <span style={{ color: '#FBBC05' }}>.</span>
+              <span style={{ color: '#EA4335' }}>A</span>
+            </span>
           </Link>
         </div>
         

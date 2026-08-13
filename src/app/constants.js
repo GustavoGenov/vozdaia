@@ -9,8 +9,9 @@ export const CATEGORY_ICONS = {
   'engenharia-e-tech': 'memory',
   medicina: 'medical_services',
   ciencia: 'rocket_launch',
-  kaelara_insights: 'favorite',
-  ia_sem_mitos: 'auto_awesome',
+  'kaelara-insights': 'favorite',
+  'ia-sem-mitos': 'auto_awesome',
   esportes: 'sports_soccer',
   'militar-e-governo': 'military_tech',
+  horoscopo: 'nights_stay',
 };

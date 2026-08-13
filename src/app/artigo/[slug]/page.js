@@ -58,7 +58,7 @@ export default async function ArticlePage({ params }) {
           </Link>
           <span>/</span>
           {article.categories && (
-            <span style={{ fontWeight: '600', color: article.categories.color_code || 'var(--gn-blue)' }}>
+            <span style={{ fontWeight: '600', color: article.categories.slug === 'religiao' ? '#8e24aa' : (article.categories.color_code || 'var(--gn-blue)') }}>
               {article.categories.name}
             </span>
           )}

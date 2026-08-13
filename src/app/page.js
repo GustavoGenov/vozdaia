@@ -36,7 +36,7 @@ export default async function Home() {
               
               <div className="article-card-content">
                 {article.categories && (
-                  <div className="article-card-category" style={{color: article.categories.color_code || 'var(--gn-blue)'}}>
+                  <div className="article-card-category" style={{color: article.categories.slug === 'religiao' ? '#8e24aa' : (article.categories.color_code || 'var(--gn-blue)')}}>
                     {article.categories.name}
                   </div>
                 )}

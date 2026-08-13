@@ -11,17 +11,22 @@ export const revalidate = 60;
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   
-  const { data: category } = await supabase
-    .from('categories')
-    .select('name')
-    .eq('slug', slug)
-    .single();
-
-  if (!category) return { title: 'Categoria não encontrada | Voz da I.A' };
+  let categoryName = '';
+  if (slug === 'horoscopo') {
+    categoryName = 'Horóscopo & Tarô';
+  } else {
+    const { data: category } = await supabase
+      .from('categories')
+      .select('name')
+      .eq('slug', slug)
+      .single();
+    if (!category) return { title: 'Categoria não encontrada | Voz da I.A' };
+    categoryName = category.name;
+  }
 
   return {
-    title: `${category.name} | Voz da I.A`,
-    description: `Últimas notícias sobre ${category.name} no portal Voz da I.A.`
+    title: `${categoryName} | Voz da I.A`,
+    description: `Últimas notícias sobre ${categoryName} no portal Voz da I.A.`
   };
 }
 
@@ -29,13 +34,29 @@ export default async function CategoryPage({ params }) {
   const { slug } = await params;
 
   // Busca a categoria
-  const { data: category } = await supabase
-    .from('categories')
-    .select('*')
-    .eq('slug', slug)
-    .single();
+  let category = null;
+  if (slug === 'horoscopo') {
+    category = {
+      id: 'horoscopo-virtual-id',
+      name: 'Horóscopo & Tarô',
+      slug: 'horoscopo',
+      color_code: '#e040fb',
+      views: 0
+    };
+  } else {
+    const { data: catData } = await supabase
+      .from('categories')
+      .select('*')
+      .eq('slug', slug)
+      .single();
+    category = catData;
+  }
 
   if (!category) notFound();
+
+  if (category.slug === 'religiao') {
+    category.color_code = '#8e24aa';
+  }
 
   // Busca os artigos desta categoria específica
   const { data: articles, error } = await supabase
@@ -77,7 +98,7 @@ export default async function CategoryPage({ params }) {
               
               <div className="article-card-content">
                 {article.categories && (
-                  <div className="article-card-category" style={{color: article.categories.color_code || 'var(--gn-blue)'}}>
+                  <div className="article-card-category" style={{color: article.categories.slug === 'religiao' ? '#8e24aa' : (article.categories.color_code || 'var(--gn-blue)')}}>
                     {article.categories.name}
                   </div>
                 )}

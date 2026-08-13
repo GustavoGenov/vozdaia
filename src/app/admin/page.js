@@ -24,7 +24,25 @@ export default async function AdminDashboard() {
 
   const { data: categoriesData } = await supabase.from('categories').select('*');
   const sortOrder = { 'IA Sem Mitos': 1, 'Kaelara Insights': 2 };
-  const categories = (categoriesData || []).sort((a, b) => {
+
+  let processedCategories = (categoriesData || []).map(cat => {
+    if (cat.slug === 'religiao') {
+      return { ...cat, color_code: '#8e24aa' };
+    }
+    return cat;
+  });
+
+  if (!processedCategories.some(cat => cat.slug === 'horoscopo')) {
+    processedCategories.push({
+      id: 'horoscopo-virtual-id',
+      name: 'Horóscopo & Tarô',
+      slug: 'horoscopo',
+      color_code: '#e040fb',
+      views: 0
+    });
+  }
+
+  const categories = processedCategories.sort((a, b) => {
     const rankA = sortOrder[a.name] || 99;
     const rankB = sortOrder[b.name] || 99;
     if (rankA !== rankB) return rankA - rankB;
