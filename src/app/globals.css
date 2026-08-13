@@ -412,10 +412,9 @@ h1, h2, h3, .google-sans {
   overflow-wrap: break-word;
   max-width: 100%;
 }
-/* Forçar todos os elementos internos a respeitarem a largura da tela (corrige HTML colado com width fixo) */
+/* Forçar todos os elementos internos a respeitarem a largura da tela sem destruir a formatação ABNT */
 .article-body * {
   max-width: 100% !important;
-  white-space: normal !important;
   box-sizing: border-box !important;
 }
 .article-body img, .article-body iframe, .article-body video {
