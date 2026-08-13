@@ -41,10 +41,15 @@ export default async function ArticlePage({ params }) {
 
   if (!article) notFound();
 
+  // Limpeza de caracteres non-breaking space (&nbsp; e \u00a0) que impedem a quebra de linha natural
+  const cleanContent = article.content ? article.content.replace(/&nbsp;|\u00a0/g, ' ') : '';
+  const cleanTitle = article.title ? article.title.replace(/&nbsp;|\u00a0/g, ' ') : '';
+  const cleanSummary = article.summary ? article.summary.replace(/&nbsp;|\u00a0/g, ' ') : '';
+
   return (
     <>
       <PageTracker articleId={article.id} categoryId={article.category_id} />
-      <main className="main-content article-page-main" style={{ maxWidth: '680px', margin: '0 auto', width: '100%', overflowX: 'hidden' }}>
+      <main className="main-content article-page-main" style={{ maxWidth: '720px', margin: '0 auto', width: '100%', overflowX: 'hidden', padding: '24px 16px' }}>
         
         {/* Navegação e Categoria */}
         <div style={{ marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: 'var(--gn-text-secondary)' }}>
@@ -60,11 +65,11 @@ export default async function ArticlePage({ params }) {
         </div>
 
         {/* Título e Resumo */}
-        <h1 className="google-sans article-page-title">
-          {article.title}
+        <h1 className="google-sans article-page-title" style={{ textAlign: 'left', wordBreak: 'break-word', overflowWrap: 'anywhere' }}>
+          {cleanTitle}
         </h1>
-        <p className="article-page-summary">
-          {article.summary}
+        <p className="article-page-summary" style={{ textAlign: 'left', wordBreak: 'break-word', overflowWrap: 'anywhere' }}>
+          {cleanSummary}
         </p>
 
         {/* Metadados da Matéria */}
@@ -79,7 +84,7 @@ export default async function ArticlePage({ params }) {
             </div>
           </div>
           <div style={{ display: 'flex', gap: '12px' }}>
-            {/* Ícones de compartilhamento (Falsos visuais) */}
+            {/* Ícones de compartilhamento */}
             <span className="material-icons-extended" style={{color: 'var(--gn-text-secondary)', cursor: 'pointer'}}>share</span>
             <span className="material-icons-extended" style={{color: 'var(--gn-text-secondary)', cursor: 'pointer'}}>bookmark_border</span>
           </div>
@@ -89,24 +94,24 @@ export default async function ArticlePage({ params }) {
         {article.image_url && (
           <img 
             src={article.image_url} 
-            alt={article.title} 
-            style={{ width: '100%', borderRadius: '12px', marginBottom: '40px' }} 
+            alt={cleanTitle} 
+            style={{ width: '100%', height: 'auto', maxHeight: '450px', objectFit: 'cover', borderRadius: '12px', marginBottom: '40px', display: 'block' }} 
           />
         )}
 
-      {/* Conteúdo Rico (HTML) */}
-      <article 
-        className="article-body" 
-        style={{ fontSize: '18px', lineHeight: '1.8', color: 'var(--gn-text)' }}
-        dangerouslySetInnerHTML={{ __html: article.content }} 
-      />
+        {/* Conteúdo Rico (HTML) */}
+        <article 
+          className="article-body" 
+          style={{ fontSize: '18px', lineHeight: '1.8', color: 'var(--gn-text)', wordWrap: 'break-word', overflowWrap: 'anywhere' }}
+          dangerouslySetInnerHTML={{ __html: cleanContent }} 
+        />
 
-      {/* Anúncio AdSense Fim do Artigo */}
-      <div style={{ marginTop: '48px', borderTop: '1px solid var(--gn-border)', paddingTop: '24px' }}>
-        <AdBanner dataAdSlot="SEU_SLOT_ARTIGO" />
-      </div>
+        {/* Anúncio AdSense Fim do Artigo */}
+        <div style={{ marginTop: '48px', borderTop: '1px solid var(--gn-border)', paddingTop: '24px' }}>
+          <AdBanner dataAdSlot="SEU_SLOT_ARTIGO" />
+        </div>
 
-    </main>
+      </main>
     </>
   );
 }
