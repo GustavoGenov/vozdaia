@@ -60,7 +60,7 @@ export default async function RootLayout({ children }) {
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5759690232636098"
           crossOrigin="anonymous"
-        />
+        ></script>
 
         {/* Subscribe with Google (SWG Basic) */}
         <Script
