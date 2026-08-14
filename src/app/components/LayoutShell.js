@@ -35,8 +35,8 @@ export default function LayoutShell({ categories, children }) {
           </Link>
         </div>
         
-        <div className="header-center" style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          <div className="search-bar">
+        <div className="header-center" style={{ display: 'flex', alignItems: 'center', gap: '16px', maxWidth: '900px' }}>
+          <div className="search-bar" style={{ flex: 1 }}>
             <span className="material-icons-extended search-icon">search</span>
             <input type="text" placeholder="Pesquisar por assuntos, locais e fontes" />
           </div>
