@@ -768,3 +768,51 @@ h1, h2, h3, .google-sans {
     margin-bottom: 12px !important;
   }
 }
+
+/* Google Translate Customization */
+body {
+  top: 0 !important;
+}
+
+.skiptranslate iframe,
+.goog-te-banner-frame {
+  display: none !important;
+}
+
+#goog-gt-tt,
+.goog-tooltip,
+.goog-tooltip:hover {
+  display: none !important;
+}
+
+.goog-text-highlight {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.google-translate-wrapper .goog-te-gadget {
+  font-family: 'Inter', sans-serif !important;
+  color: transparent !important;
+  font-size: 0px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.google-translate-wrapper .goog-te-gadget .goog-te-combo {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: var(--gn-text) !important;
+  background-color: var(--gn-surface) !important;
+  border: 1px solid var(--gn-border) !important;
+  border-radius: 8px !important;
+  padding: 6px 12px !important;
+  outline: none !important;
+  cursor: pointer !important;
+  appearance: auto !important;
+}
+
+.google-translate-wrapper .goog-logo-link {
+  display: none !important;
+}
+

@@ -46,7 +46,8 @@ export default function LayoutShell({ categories, children }) {
           </Link>
         </div>
         
-        <div className="header-right">
+        <div className="header-right" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div id="google_translate_element" className="google-translate-wrapper"></div>
           <ThemeToggle />
           <button className="menu-btn" aria-label="Aplicativos do ecossistema">
             <span className="material-icons-extended">apps</span>
