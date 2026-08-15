@@ -41,6 +41,16 @@ export default async function RootLayout({ children }) {
       views: 0
     });
   }
+
+  if (!processedCategories.some(cat => cat.slug === 'clima')) {
+    processedCategories.push({
+      id: 'clima-virtual-id',
+      name: 'Clima Tempo BR',
+      slug: 'clima',
+      color_code: '#00bcd4',
+      views: 0
+    });
+  }
   
   const categories = processedCategories.sort((a, b) => {
     const rankA = sortOrder[a.name] || 99;

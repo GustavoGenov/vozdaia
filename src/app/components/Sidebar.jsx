@@ -18,7 +18,7 @@ export default function Sidebar({ categories }) {
       {categories?.map((cat) => {
         const iconName = CATEGORY_ICONS[cat.slug] || 'category';
         return (
-          <Link key={cat.id} href={cat.slug === 'horoscopo' ? '/horoscopo' : `/categoria/${cat.slug}`} className="nav-item">
+          <Link key={cat.id} href={cat.slug === 'horoscopo' ? '/horoscopo' : cat.slug === 'clima' ? '/clima' : `/categoria/${cat.slug}`} className="nav-item">
             <span className="material-icons-extended" style={{ color: cat.color_code || '#1a73e8', marginRight: '8px', fontSize: '20px' }}>
               {iconName}
             </span>

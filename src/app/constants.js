@@ -14,4 +14,5 @@ export const CATEGORY_ICONS = {
   esportes: 'sports_soccer',
   'militar-e-governo': 'military_tech',
   horoscopo: 'nights_stay',
+  clima: 'cloud',
 };
