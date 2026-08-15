@@ -98,8 +98,8 @@ export default function LayoutShell({ categories, children }) {
               <a href="mailto:nicholaigenov@gmail.com" style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '500' }}>
                 <span className="material-icons-extended" style={{fontSize: '18px'}}>email</span> nicholaigenov@gmail.com
               </a>
-              <a href="https://wa.me/5537999184509" target="_blank" style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '500' }}>
-                <span className="material-icons-extended" style={{fontSize: '18px'}}>phone</span> (37) 99918-4509
+              <a href="mailto:ruiwenceslau@gmail.com" style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '500' }}>
+                <span className="material-icons-extended" style={{fontSize: '18px'}}>email</span> RuiWenceslau de Oliveira (ruiwenceslau@gmail.com)
               </a>
               <a href="https://www.linkedin.com/in/gustavo-castro-bernardes-rosa-24a827bb" target="_blank" style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '500' }}>
                 <span className="material-icons-extended" style={{fontSize: '18px', color: '#0a66c2'}}>link</span> LinkedIn (Gustavo Castro)
