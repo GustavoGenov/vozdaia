@@ -95,16 +95,28 @@ export default function LayoutShell({ categories, children }) {
               <p style={{ maxWidth: '600px', margin: '0 auto' }}>O portal focado em combater fake news com informação de alta tecnologia e precisão jornalística.</p>
             </div>
             
-            <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap', justifyContent: 'center' }}>
-              <a href="mailto:nicholaigenov@gmail.com" style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '500' }}>
-                <span className="material-icons-extended" style={{fontSize: '18px'}}>email</span> nicholaigenov@gmail.com
-              </a>
-              <a href="mailto:ruiwenceslau@gmail.com" style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '500' }}>
-                <span className="material-icons-extended" style={{fontSize: '18px'}}>email</span> RuiWenceslau de Oliveira (ruiwenceslau@gmail.com)
-              </a>
-              <a href="https://www.linkedin.com/in/gustavo-castro-bernardes-rosa-24a827bb" target="_blank" style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '500' }}>
-                <span className="material-icons-extended" style={{fontSize: '18px', color: '#0a66c2'}}>link</span> LinkedIn (Gustavo Castro)
-              </a>
+            <div style={{ display: 'flex', gap: '48px', flexWrap: 'wrap', justifyContent: 'center', textAlign: 'left' }}>
+              {/* Contato 1 */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <strong style={{ color: 'var(--gn-text)', fontSize: '15px' }}>Gustavo Castro</strong>
+                <a href="mailto:nicholaigenov@gmail.com" style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '500' }}>
+                  <span className="material-icons-extended" style={{fontSize: '18px'}}>email</span> nicholaigenov@gmail.com
+                </a>
+                <a href="https://www.linkedin.com/in/gustavo-castro-bernardes-rosa-24a827bb" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '500' }}>
+                  <span className="material-icons-extended" style={{fontSize: '18px', color: '#0a66c2'}}>link</span> LinkedIn
+                </a>
+              </div>
+
+              {/* Contato 2 */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <strong style={{ color: 'var(--gn-text)', fontSize: '15px' }}>RuiWenceslau de Oliveira</strong>
+                <a href="mailto:ruiwenceslau@gmail.com" style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '500' }}>
+                  <span className="material-icons-extended" style={{fontSize: '18px'}}>email</span> ruiwenceslau@gmail.com
+                </a>
+                <a href="https://www.linkedin.com/in/ruiwenceslau-de-oliveira-ab08bb42a" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: '500' }}>
+                  <span className="material-icons-extended" style={{fontSize: '18px', color: '#0a66c2'}}>link</span> LinkedIn
+                </a>
+              </div>
             </div>
 
             {/* Links Institucionais Centralizados */}
