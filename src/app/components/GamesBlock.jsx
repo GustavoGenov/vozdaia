@@ -56,7 +56,9 @@ export default function GamesBlock() {
         {/* 2048 */}
         {activeTab === '2048' && (
           !isPlaying ? renderCover('2048', 'calculate', 'Deslize as peças para combinar os números idênticos e chegar ao bloco 2048!', 'linear-gradient(135deg, #f4b400, #ff9800)') :
-          <iframe src="https://play2048.co/" style={{ width: '100%', height: '500px', border: 'none' }} title="2048 Game" />
+          <div style={{ width: '100%', height: '500px', overflow: 'hidden', position: 'relative' }}>
+            <iframe src="https://2048game.com/" style={{ width: '100%', height: '700px', border: 'none', marginTop: '-120px' }} title="2048 Game" scrolling="no" />
+          </div>
         )}
 
       </div>
