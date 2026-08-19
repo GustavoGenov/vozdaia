@@ -36,6 +36,7 @@ export default function GamesBlock() {
         </h3>
         <button onClick={() => setActiveTab('sudoku')} style={{ background: 'none', border: 'none', color: activeTab === 'sudoku' ? '#1a73e8' : 'var(--gn-text-secondary)', fontWeight: activeTab === 'sudoku' ? '600' : '400', cursor: 'pointer', fontSize: '14px', borderBottom: activeTab === 'sudoku' ? '2px solid #1a73e8' : '2px solid transparent', paddingBottom: '4px' }}>Sudoku</button>
         <button onClick={() => setActiveTab('termo')} style={{ background: 'none', border: 'none', color: activeTab === 'termo' ? '#1a73e8' : 'var(--gn-text-secondary)', fontWeight: activeTab === 'termo' ? '600' : '400', cursor: 'pointer', fontSize: '14px', borderBottom: activeTab === 'termo' ? '2px solid #1a73e8' : '2px solid transparent', paddingBottom: '4px' }}>Termo</button>
+        <button onClick={() => setActiveTab('2048')} style={{ background: 'none', border: 'none', color: activeTab === '2048' ? '#1a73e8' : 'var(--gn-text-secondary)', fontWeight: activeTab === '2048' ? '600' : '400', cursor: 'pointer', fontSize: '14px', borderBottom: activeTab === '2048' ? '2px solid #1a73e8' : '2px solid transparent', paddingBottom: '4px' }}>2048</button>
       </div>
 
       <div style={{ padding: '0', background: '#fff', minHeight: '500px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -52,6 +53,12 @@ export default function GamesBlock() {
           <iframe src="https://term.ooo/" style={{ width: '100%', height: '600px', border: 'none' }} title="Termo" />
         )}
         
+        {/* 2048 */}
+        {activeTab === '2048' && (
+          !isPlaying ? renderCover('2048', 'calculate', 'Deslize as peças para combinar os números idênticos e chegar ao bloco 2048!', 'linear-gradient(135deg, #f4b400, #ff9800)') :
+          <iframe src="https://2048game.com/" style={{ width: '100%', height: '700px', border: 'none' }} title="2048 Game" />
+        )}
+
       </div>
     </div>
   );
