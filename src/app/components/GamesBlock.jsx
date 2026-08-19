@@ -50,15 +50,13 @@ export default function GamesBlock() {
         {/* TERMO */}
         {activeTab === 'termo' && (
           !isPlaying ? renderCover('Termo', 'spellcheck', 'Descubra a palavra secreta de 5 letras. Um sucesso que testa seu vocabulário!', 'linear-gradient(135deg, #0f9d58, #34A853)') :
-          <iframe src="https://term.ooo/" style={{ width: '100%', height: '500px', border: 'none' }} title="Termo" />
+          <iframe src="https://term.ooo/" style={{ width: '100%', height: '600px', border: 'none' }} title="Termo" />
         )}
         
         {/* 2048 */}
         {activeTab === '2048' && (
           !isPlaying ? renderCover('2048', 'calculate', 'Deslize as peças para combinar os números idênticos e chegar ao bloco 2048!', 'linear-gradient(135deg, #f4b400, #ff9800)') :
-          <div style={{ width: '100%', height: '500px', overflow: 'hidden', position: 'relative' }}>
-            <iframe src="https://2048game.com/" style={{ width: '100%', height: '700px', border: 'none', marginTop: '-120px' }} title="2048 Game" scrolling="no" />
-          </div>
+          <iframe src="https://2048game.com/" style={{ width: '100%', height: '700px', border: 'none' }} title="2048 Game" />
         )}
 
       </div>
