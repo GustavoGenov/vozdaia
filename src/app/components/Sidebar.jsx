@@ -17,8 +17,10 @@ export default function Sidebar({ categories }) {
       <div className="sidebar-divider"></div>
       {categories?.map((cat) => {
         const iconName = CATEGORY_ICONS[cat.slug] || 'category';
+        const targetHref = cat.slug === 'horoscopo' ? '/horoscopo' : cat.slug === 'clima' ? '/clima' : cat.slug === 'passatempos' ? '/#passatempos' : `/categoria/${cat.slug}`;
+        
         return (
-          <Link key={cat.id} href={cat.slug === 'horoscopo' ? '/horoscopo' : cat.slug === 'clima' ? '/clima' : `/categoria/${cat.slug}`} className="nav-item">
+          <Link key={cat.id} href={targetHref} className="nav-item">
             <span className="material-icons-extended" style={{ color: cat.color_code || '#1a73e8', marginRight: '8px', fontSize: '20px' }}>
               {iconName}
             </span>

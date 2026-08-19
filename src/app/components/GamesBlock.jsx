@@ -6,7 +6,7 @@ export default function GamesBlock() {
   const [activeTab, setActiveTab] = useState('sudoku');
 
   return (
-    <div style={{ marginTop: '40px', border: '1px solid var(--gn-border)', borderRadius: '12px', background: 'var(--gn-surface)', overflow: 'hidden' }}>
+    <div id="passatempos" style={{ marginTop: '40px', border: '1px solid var(--gn-border)', borderRadius: '12px', background: 'var(--gn-surface)', overflow: 'hidden' }}>
       <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--gn-border)', display: 'flex', gap: '16px', background: 'var(--gn-search-bg)', flexWrap: 'wrap' }}>
         <h3 className="google-sans" style={{ fontSize: '18px', color: 'var(--gn-text)', display: 'flex', alignItems: 'center', gap: '8px', marginRight: 'auto' }}>
           <span className="material-icons-extended" style={{ color: '#EA4335' }}>extension</span>

@@ -51,6 +51,16 @@ export default async function RootLayout({ children }) {
       views: 0
     });
   }
+
+  if (!processedCategories.some(cat => cat.slug === 'passatempos')) {
+    processedCategories.push({
+      id: 'passatempos-virtual-id',
+      name: 'Passatempos',
+      slug: 'passatempos',
+      color_code: '#FF9800',
+      views: 0
+    });
+  }
   
   const categories = processedCategories.sort((a, b) => {
     const rankA = sortOrder[a.name] || 99;

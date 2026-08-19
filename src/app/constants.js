@@ -15,4 +15,5 @@ export const CATEGORY_ICONS = {
   'militar-e-governo': 'military_tech',
   horoscopo: 'nights_stay',
   clima: 'cloud',
+  passatempos: 'wb_sunny',
 };
