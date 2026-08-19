@@ -8,12 +8,18 @@ import 'react-quill-new/dist/quill.snow.css';
 
 const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 
+const INITIAL_TEMPLATE = `<h2>[Subtítulo H2]: Análise & O Impacto Real</h2>
+<p><strong>[Aqui entra o diferencial]:</strong> Em vez de só relatar, analisamos o que isso muda para o leitor, para o mercado de tecnologia ou para o cenário do Brasil.</p>
+<hr/>
+<p><strong>Fontes e Referências:</strong> <a href="#">[Link da fonte original / Documento oficial]</a></p>`;
+
 export default function PublishForm({ categories }) {
   const [title, setTitle] = useState('');
   const [summary, setSummary] = useState('');
   const [categoryId, setCategoryId] = useState('');
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState(INITIAL_TEMPLATE);
   const [imageFile, setImageFile] = useState(null);
+  const [imageCredit, setImageCredit] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const router = useRouter();
@@ -71,8 +77,9 @@ export default function PublishForm({ categories }) {
         category_id: categoryId,
         content: content,
         image_url: publicUrl,
+        image_credit: imageCredit,
         published: true,
-        author: 'Administrador', // Ou pegar do usuário logado se quiser
+        author: 'Gustavo Castro e RuiWenceslau',
         views: 0
       }]);
 
@@ -91,8 +98,9 @@ export default function PublishForm({ categories }) {
       setTitle('');
       setSummary('');
       setCategoryId('');
-      setContent('');
+      setContent(INITIAL_TEMPLATE);
       setImageFile(null);
+      setImageCredit('');
       // Reset file input
       const fileInput = document.getElementById('image-upload');
       if (fileInput) fileInput.value = '';
@@ -116,7 +124,7 @@ export default function PublishForm({ categories }) {
         <form onSubmit={handlePublish} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <input 
             type="text" 
-            placeholder="Título da Manchete" 
+            placeholder="Título da Manchete Forte e Otimizado (H1)" 
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             style={{ width: '100%', padding: '12px', border: '1px solid #dadce0', borderRadius: '4px', fontSize: '16px' }} 
@@ -124,7 +132,7 @@ export default function PublishForm({ categories }) {
           />
           <input 
             type="text" 
-            placeholder="Resumo da notícia (linha fina)" 
+            placeholder="Resumo da notícia / Linha Fina" 
             value={summary}
             onChange={(e) => setSummary(e.target.value)}
             style={{ width: '100%', padding: '12px', border: '1px solid #dadce0', borderRadius: '4px', fontSize: '14px' }} 
@@ -150,12 +158,19 @@ export default function PublishForm({ categories }) {
               style={{ width: '100%', padding: '10px', border: '1px dashed #dadce0', borderRadius: '4px', fontSize: '14px', background: '#f8f9fa' }} 
               required
             />
+            <input 
+              type="text" 
+              placeholder="Crédito da imagem (Ex: Foto por João / Gerado por Midjourney)" 
+              value={imageCredit}
+              onChange={(e) => setImageCredit(e.target.value)}
+              style={{ width: '100%', padding: '12px', border: '1px solid #dadce0', borderRadius: '4px', fontSize: '14px', marginTop: '4px' }} 
+            />
           </div>
 
           <div style={{ background: '#fff', color: '#000' }}>
             <ReactQuill 
               theme="snow"
-              placeholder="Escreva a notícia (você pode usar formatação)..." 
+              placeholder="Escreva a notícia..." 
               value={content}
               onChange={setContent}
               style={{ height: '300px', marginBottom: '40px' }}
@@ -198,3 +213,4 @@ export default function PublishForm({ categories }) {
     </div>
   );
 }
+

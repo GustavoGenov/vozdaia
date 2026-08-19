@@ -78,9 +78,11 @@ export default async function ArticlePage({ params }) {
             <span className="material-icons-extended">person</span>
           </div>
           <div style={{ flex: '1 1 auto', minWidth: '160px' }}>
-            <div style={{ fontSize: '14px', fontWeight: '500', color: 'var(--gn-text)' }}>Por {article.author}</div>
+            <div style={{ fontSize: '14px', fontWeight: '500', color: 'var(--gn-text)' }}>
+              Por {article.author === 'Administrador' ? 'Gustavo Castro e RuiWenceslau' : article.author}
+            </div>
             <div style={{ fontSize: '13px', color: 'var(--gn-text-secondary)' }}>
-              Publicado em {new Date(article.created_at).toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' })}
+              Publicado em {new Date(article.created_at).toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' })} às {new Date(article.created_at).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
             </div>
           </div>
           <div style={{ display: 'flex', gap: '12px' }}>
@@ -90,21 +92,37 @@ export default async function ArticlePage({ params }) {
           </div>
         </div>
 
-        {/* Imagem de Capa */}
+        {/* Imagem de Capa e Créditos */}
         {article.image_url && (
-          <img 
-            src={article.image_url} 
-            alt={cleanTitle} 
-            style={{ width: '100%', height: 'auto', maxHeight: '450px', objectFit: 'cover', borderRadius: '12px', marginBottom: '40px', display: 'block' }} 
-          />
+          <figure style={{ margin: '0 0 40px 0' }}>
+            <img 
+              src={article.image_url} 
+              alt={cleanTitle} 
+              style={{ width: '100%', height: 'auto', maxHeight: '450px', objectFit: 'cover', borderRadius: '12px', display: 'block' }} 
+            />
+            {article.image_credit && (
+              <figcaption style={{ fontSize: '13px', color: 'var(--gn-text-secondary)', textAlign: 'right', marginTop: '8px', fontStyle: 'italic' }}>
+                Crédito: {article.image_credit}
+              </figcaption>
+            )}
+          </figure>
         )}
 
         {/* Conteúdo Rico (HTML) */}
         <article 
           className="article-body" 
           style={{ fontSize: '18px', lineHeight: '1.8', color: 'var(--gn-text)', wordWrap: 'break-word', overflowWrap: 'anywhere' }}
-          dangerouslySetInnerHTML={{ __html: cleanContent }} 
-        />
+        >
+          <style dangerouslySetInnerHTML={{__html: `
+            .article-body h2 { font-size: 24px; font-weight: 700; margin-top: 32px; margin-bottom: 16px; color: var(--gn-text); font-family: 'Google Sans', sans-serif; }
+            .article-body p { margin-bottom: 20px; }
+            .article-body strong { font-weight: 600; }
+            .article-body a { color: var(--gn-blue); text-decoration: none; }
+            .article-body a:hover { text-decoration: underline; }
+            .article-body hr { border: 0; border-top: 1px solid var(--gn-border); margin: 32px 0; }
+          `}} />
+          <div dangerouslySetInnerHTML={{ __html: cleanContent }} />
+        </article>
 
         {/* Anúncio AdSense Fim do Artigo */}
         <div style={{ marginTop: '48px', borderTop: '1px solid var(--gn-border)', paddingTop: '24px' }}>

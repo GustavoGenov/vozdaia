@@ -16,6 +16,7 @@ export default function EditForm({ article, categories }) {
   const [categoryId, setCategoryId] = useState(article.category_id || '');
   const [content, setContent] = useState(article.content || '');
   const [imageFile, setImageFile] = useState(null);
+  const [imageCredit, setImageCredit] = useState(article.image_credit || '');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const router = useRouter();
@@ -75,6 +76,7 @@ export default function EditForm({ article, categories }) {
         category_id: categoryId,
         content: content,
         image_url: publicUrl,
+        image_credit: imageCredit,
       }).eq('id', article.id);
 
       if (updateError) {
@@ -155,6 +157,13 @@ export default function EditForm({ article, categories }) {
             accept="image/*"
             onChange={(e) => setImageFile(e.target.files[0])}
             style={{ width: '100%', padding: '12px', border: '1px solid #dadce0', borderRadius: '4px', background: '#f8f9fa' }} 
+          />
+          <input 
+            type="text" 
+            placeholder="Crédito da imagem (Opcional)" 
+            value={imageCredit}
+            onChange={(e) => setImageCredit(e.target.value)}
+            style={{ width: '100%', padding: '12px', border: '1px solid #dadce0', borderRadius: '4px', fontSize: '14px', marginTop: '12px' }} 
           />
           {article.image_url && !imageFile && (
             <div style={{ marginTop: '12px' }}>
