@@ -82,7 +82,7 @@ export default async function ArticlePage({ params }) {
               Por {article.author === 'Administrador' ? 'Gustavo Castro e RuiWenceslau' : article.author}
             </div>
             <div style={{ fontSize: '13px', color: 'var(--gn-text-secondary)' }}>
-              Publicado em {new Date(article.created_at).toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' })} às {new Date(article.created_at).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+              Publicado em {new Date(article.created_at).toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo', day: 'numeric', month: 'long', year: 'numeric' })} às {new Date(article.created_at).toLocaleTimeString('pt-BR', { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit' })}
             </div>
           </div>
           <div style={{ display: 'flex', gap: '12px' }}>

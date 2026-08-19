@@ -15,12 +15,13 @@ export default async function AdminDashboard() {
   const { count: viewsCount } = await supabase.from('page_views').select('*', { count: 'exact', head: true });
   const { count: subsCount } = await supabase.from('subscribers').select('*', { count: 'exact', head: true });
 
-  // Tops
-  const { data: topArticles } = await supabase.from('articles').select('title, views').order('views', { ascending: false }).limit(1);
-  const topArticle = topArticles?.[0];
+  // Top 5
+  const { data: topArticles } = await supabase.from('articles').select('title, views').order('views', { ascending: false }).limit(5);
+  const { data: topCategories } = await supabase.from('categories').select('name, views').order('views', { ascending: false }).limit(5);
 
-  const { data: topCategories } = await supabase.from('categories').select('name, views').order('views', { ascending: false }).limit(1);
-  const topCategory = topCategories?.[0];
+  const startOfToday = new Date();
+  startOfToday.setHours(0, 0, 0, 0);
+  const { count: dailyViewsCount } = await supabase.from('page_views').select('*', { count: 'exact', head: true }).gte('viewed_at', startOfToday.toISOString());
 
   const { data: categoriesData } = await supabase.from('categories').select('*');
   const sortOrder = { 'IA Sem Mitos': 1, 'Kaelara Insights': 2 };
@@ -53,39 +54,51 @@ export default async function AdminDashboard() {
   return (
     <div className="main-content">
       <h1 style={{ fontSize: '28px', color: 'var(--gn-text)', marginBottom: '8px' }}>Dashboard do Jornal</h1>
-      <p style={{ color: 'var(--gn-text-secondary)', marginBottom: '32px' }}>Bem-vindo à central de comando da Voz da I.A.</p>
+      <p style={{ color: 'var(--gn-text-secondary)', marginBottom: '32px' }}>Métricas detalhadas e controle de publicações.</p>
 
       {/* Stats Strip */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '40px' }}>
-        <div style={{ padding: '24px', border: '1px solid #dadce0', borderRadius: '8px', background: '#f8f9fa' }}>
-          <div style={{ fontSize: '14px', color: '#5f6368', fontWeight: '500', textTransform: 'uppercase' }}>Total de Visitas</div>
-          <div style={{ fontSize: '32px', color: '#F4B400', fontWeight: '700' }}>{viewsCount || 0}</div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '24px' }}>
+        <div style={{ padding: '16px', border: '1px solid #dadce0', borderRadius: '8px', background: '#e8eaed', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <div style={{ fontSize: '12px', color: '#5f6368', fontWeight: '600', textTransform: 'uppercase' }}>Visitas Hoje</div>
+          <div style={{ fontSize: '28px', color: '#1a73e8', fontWeight: '700' }}>{dailyViewsCount || 0}</div>
         </div>
-        <div style={{ padding: '24px', border: '1px solid #dadce0', borderRadius: '8px', background: '#f8f9fa' }}>
-          <div style={{ fontSize: '14px', color: '#5f6368', fontWeight: '500', textTransform: 'uppercase' }}>Inscritos (Newsletter)</div>
-          <div style={{ fontSize: '32px', color: '#8e24aa', fontWeight: '700' }}>{subsCount || 0}</div>
+        <div style={{ padding: '16px', border: '1px solid #dadce0', borderRadius: '8px', background: '#f8f9fa', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <div style={{ fontSize: '12px', color: '#5f6368', fontWeight: '600', textTransform: 'uppercase' }}>Visitas Totais</div>
+          <div style={{ fontSize: '28px', color: '#F4B400', fontWeight: '700' }}>{viewsCount || 0}</div>
         </div>
-        <div style={{ padding: '24px', border: '1px solid #dadce0', borderRadius: '8px', background: '#f8f9fa' }}>
-          <div style={{ fontSize: '14px', color: '#5f6368', fontWeight: '500', textTransform: 'uppercase' }}>Notícias Publicadas</div>
-          <div style={{ fontSize: '32px', color: '#1a73e8', fontWeight: '700' }}>{articlesCount || 0}</div>
+        <div style={{ padding: '16px', border: '1px solid #dadce0', borderRadius: '8px', background: '#f8f9fa', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <div style={{ fontSize: '12px', color: '#5f6368', fontWeight: '600', textTransform: 'uppercase' }}>Inscritos</div>
+          <div style={{ fontSize: '28px', color: '#8e24aa', fontWeight: '700' }}>{subsCount || 0}</div>
         </div>
-        <div style={{ padding: '24px', border: '1px solid #dadce0', borderRadius: '8px', background: '#f8f9fa' }}>
-          <div style={{ fontSize: '14px', color: '#5f6368', fontWeight: '500', textTransform: 'uppercase' }}>Comentários Recebidos</div>
-          <div style={{ fontSize: '32px', color: '#34A853', fontWeight: '700' }}>{commentsCount || 0}</div>
+        <div style={{ padding: '16px', border: '1px solid #dadce0', borderRadius: '8px', background: '#f8f9fa', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <div style={{ fontSize: '12px', color: '#5f6368', fontWeight: '600', textTransform: 'uppercase' }}>Notícias</div>
+          <div style={{ fontSize: '28px', color: '#34A853', fontWeight: '700' }}>{articlesCount || 0}</div>
         </div>
       </div>
 
-      {/* Highlights Strip */}
+      {/* Rankings Compactos */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px', marginBottom: '40px' }}>
-        <div style={{ padding: '24px', border: '1px solid #dadce0', borderRadius: '8px', background: '#fff', borderLeft: '4px solid #1a73e8' }}>
-          <div style={{ fontSize: '14px', color: '#5f6368', fontWeight: '500', textTransform: 'uppercase', marginBottom: '8px' }}>Matéria Mais Visitada</div>
-          <div style={{ fontSize: '20px', color: '#202124', fontWeight: '700', marginBottom: '4px' }}>{topArticle?.title || 'Nenhuma matéria'}</div>
-          <div style={{ fontSize: '14px', color: '#5f6368' }}>{topArticle?.views || 0} visitas registradas</div>
+        <div style={{ padding: '16px', border: '1px solid #dadce0', borderRadius: '8px', background: '#fff' }}>
+          <div style={{ fontSize: '14px', color: '#202124', fontWeight: '700', textTransform: 'uppercase', marginBottom: '12px', borderBottom: '2px solid #1a73e8', paddingBottom: '8px' }}>Top Manchetes Mais Lidas</div>
+          <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+            {topArticles?.map((art, idx) => (
+              <li key={idx} style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', borderBottom: '1px solid #f1f3f4', fontSize: '13px' }}>
+                <span style={{ color: '#3c4043', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '220px' }}>{idx + 1}. {art.title}</span>
+                <span style={{ fontWeight: '600', color: '#1a73e8' }}>{art.views}</span>
+              </li>
+            ))}
+          </ul>
         </div>
-        <div style={{ padding: '24px', border: '1px solid #dadce0', borderRadius: '8px', background: '#fff', borderLeft: '4px solid #EA4335' }}>
-          <div style={{ fontSize: '14px', color: '#5f6368', fontWeight: '500', textTransform: 'uppercase', marginBottom: '8px' }}>Bloco Mais Visitado</div>
-          <div style={{ fontSize: '20px', color: '#202124', fontWeight: '700', marginBottom: '4px' }}>{topCategory?.name || 'Nenhum bloco'}</div>
-          <div style={{ fontSize: '14px', color: '#5f6368' }}>{topCategory?.views || 0} visitas registradas</div>
+        <div style={{ padding: '16px', border: '1px solid #dadce0', borderRadius: '8px', background: '#fff' }}>
+          <div style={{ fontSize: '14px', color: '#202124', fontWeight: '700', textTransform: 'uppercase', marginBottom: '12px', borderBottom: '2px solid #EA4335', paddingBottom: '8px' }}>Visitas por Bloco (Categoria)</div>
+          <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+            {topCategories?.map((cat, idx) => (
+              <li key={idx} style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', borderBottom: '1px solid #f1f3f4', fontSize: '13px' }}>
+                <span style={{ color: '#3c4043' }}>{idx + 1}. {cat.name}</span>
+                <span style={{ fontWeight: '600', color: '#EA4335' }}>{cat.views}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 
