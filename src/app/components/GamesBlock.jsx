@@ -27,19 +27,22 @@ export default function GamesBlock() {
         )}
         
         {activeTab === 'cruzadas' && (
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', width: '100%', color: 'var(--gn-text-secondary)' }}>
-             <span className="material-icons-extended" style={{ fontSize: '48px', color: '#dadce0', marginBottom: '16px' }}>grid_on</span>
-             <p style={{ fontWeight: '500' }}>Palavras Cruzadas</p>
-             <p style={{ fontSize: '14px', marginTop: '8px' }}>Em breve: Novo fornecedor de cruzadinhas interativas em português.</p>
+          <div style={{ width: '100%', height: '500px', overflow: 'hidden', position: 'relative' }}>
+            <iframe 
+              src="https://rachacuca.com.br/palavras-cruzadas/" 
+              style={{ width: '100%', height: '800px', border: 'none', marginTop: '-180px' }}
+              title="Palavras Cruzadas"
+              scrolling="no"
+            />
           </div>
         )}
         
         {activeTab === '7erros' && (
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', width: '100%', color: 'var(--gn-text-secondary)' }}>
-             <span className="material-icons-extended" style={{ fontSize: '48px', color: '#dadce0', marginBottom: '16px' }}>image_search</span>
-             <p style={{ fontWeight: '500' }}>Jogo dos 7 Erros</p>
-             <p style={{ fontSize: '14px', marginTop: '8px' }}>Em breve: Nova interface de desafios visuais.</p>
-          </div>
+          <iframe 
+            src="https://play.famobi.com/spot-the-difference" 
+            style={{ width: '100%', height: '500px', border: 'none' }}
+            title="Jogo dos 7 Erros"
+          />
         )}
       </div>
     </div>
