@@ -1,4 +1,4 @@
-User-agent: *
+﻿User-agent: *
 Allow: /
 
-Sitemap: https://vozdaia.vercel.app/sitemap.xml
+Sitemap: https://vozdaia.com/sitemap.xml
