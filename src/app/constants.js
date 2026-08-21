@@ -5,7 +5,8 @@ export const CATEGORY_ICONS = {
   'ciencia-e-espaco': 'rocket_launch',
   'tech-e-gaming': 'sports_esports',
   'clima-tempo': 'thunderstorm',
-  'cultura-filosofia-bem-estar': 'self_improvement'
+  'cultura-filosofia-bem-estar': 'self_improvement',
+  'horoscopo-e-taro': 'auto_awesome'
 };
 
 export const CATEGORY_COLORS = {
@@ -14,5 +15,6 @@ export const CATEGORY_COLORS = {
   'ciencia-e-espaco': '#3949ab', // Indigo
   'tech-e-gaming': '#00acc1', // Cyan
   'clima-tempo': '#039be5', // Light Blue
-  'cultura-filosofia-bem-estar': '#d81b60' // Pink
+  'cultura-filosofia-bem-estar': '#d81b60', // Pink
+  'horoscopo-e-taro': '#ff9800' // Orange
 };

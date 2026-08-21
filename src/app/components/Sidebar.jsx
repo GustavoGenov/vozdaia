@@ -4,7 +4,7 @@ import { CATEGORY_ICONS, CATEGORY_COLORS } from '@/app/constants';
 
 export default function Sidebar({ categories }) {
   // Remover duplicatas e blocos antigos que foram fundidos
-  const mergedSlugs = ['horoscopo', 'clima', 'passatempos', 'religiao', 'horoscopo-e-taro'];
+  const mergedSlugs = ['horoscopo', 'clima', 'passatempos', 'religiao'];
   
   const filteredCategories = categories?.filter(
     (cat) => !mergedSlugs.includes(cat.slug)

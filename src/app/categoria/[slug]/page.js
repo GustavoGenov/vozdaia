@@ -84,10 +84,9 @@ export default async function CategoryPage({ params }) {
         }}></span>
       </div>
 
-      {category.slug === 'cultura-filosofia-bem-estar' && (
+      {category.slug === 'horoscopo-e-taro' && (
         <div style={{ marginBottom: '40px' }}>
           <HoroscopoWidget />
-          <GamesBlock />
         </div>
       )}
 
