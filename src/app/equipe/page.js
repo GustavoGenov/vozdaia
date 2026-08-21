@@ -15,6 +15,7 @@ const teamMembers = [
     phone: null,
     linkedin: 'https://www.linkedin.com/in/ruiwenceslau-de-oliveira-ab08bb42a',
     areas: 'Editor, Relações Públicas, Debug de UX/UI',
+    formation: 'Criador de conteúdo para mídias sociais e Youtuber',
     color: 'linear-gradient(135deg, #34A853, #0F9D58)'
   },
   {
@@ -25,6 +26,7 @@ const teamMembers = [
     phone: null,
     linkedin: 'https://www.linkedin.com/in/gustavo-castro-bernardes-rosa-24a827bb',
     areas: 'Inteligência Artificial & Agentes, Engenharia & hardware, Web designer e CTO',
+    formation: 'Tecnólogo em redes de computação e Engenharia de I.A',
     color: 'linear-gradient(135deg, #1a73e8, #8e24aa)'
   },
   {
@@ -35,6 +37,7 @@ const teamMembers = [
     phone: null,
     linkedin: 'https://www.linkedin.com/in/daiene-meneses-dai-13561a20a',
     areas: 'Ciência & Fronteira Espacial, Revisora, Copidesque',
+    formation: 'Pedagoga e Professora de educação infantil',
     color: 'linear-gradient(135deg, #e91e63, #c2185b)'
   },
   {
@@ -44,7 +47,8 @@ const teamMembers = [
     email: 'nicholaigenov@gmail.com',
     phone: null,
     linkedin: null,
-    areas: 'Clima tempo, Cultura, Filosofia & Bem-Estar',
+    areas: 'Clima tempo',
+    formation: 'A.I usando Gemma 4 llm e api Google',
     color: 'linear-gradient(135deg, #9c27b0, #6a1b9a)'
   },
   {
@@ -55,7 +59,8 @@ const teamMembers = [
     email: null,
     phone: '37 9968-8433',
     linkedin: null,
-    areas: 'Cultura, Filosofia & Bem-Estar',
+    areas: 'Cultura, Filosofia & Bem-Estar, Horóscopo & Tarô',
+    formation: 'Psicologia e herbalista',
     color: 'linear-gradient(135deg, #ff9800, #f57c00)'
   },
   {
@@ -66,6 +71,7 @@ const teamMembers = [
     phone: null,
     linkedin: null,
     areas: 'Tech & Gaming',
+    formation: 'Youtuber e Gamer',
     color: 'linear-gradient(135deg, #00bcd4, #0097a7)'
   }
 ];
@@ -102,10 +108,18 @@ export default function EquipePage() {
               </h3>
             )}
             
-            <p style={{ color: 'var(--gn-text-secondary)', fontSize: '15px', lineHeight: '1.5', marginBottom: '24px', flexGrow: 1 }}>
-              <strong style={{ color: 'var(--gn-text)' }}>Áreas:</strong><br />
-              {member.areas}
-            </p>
+            <div style={{ color: 'var(--gn-text-secondary)', fontSize: '15px', lineHeight: '1.5', marginBottom: '24px', flexGrow: 1, textAlign: 'left' }}>
+                <div style={{ marginBottom: '12px' }}>
+                  <strong style={{ color: 'var(--gn-text)' }}>Áreas de Atuação:</strong><br />
+                  {member.areas}
+                </div>
+                {member.formation && (
+                  <div>
+                    <strong style={{ color: 'var(--gn-text)' }}>Formação:</strong><br />
+                    {member.formation}
+                  </div>
+                )}
+              </div>
 
             <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', marginTop: 'auto' }}>
               {member.email && (
