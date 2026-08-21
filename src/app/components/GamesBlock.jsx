@@ -56,7 +56,7 @@ export default function GamesBlock() {
         {/* CRUZADAS */}
         {activeTab === 'cruzadas' && (
           !isPlaying ? renderCover('Palavras Cruzadas', 'grid_on', 'Desafie seus conhecimentos gerais completando as palavras cruzadas diárias.', 'linear-gradient(135deg, #fbbc05, #f09300)') :
-          <iframe src="https://amuselabs.com/c/crossword" style={{ width: '100%', height: '600px', border: 'none' }} title="Palavras Cruzadas" />
+          <iframe src="https://crosswordlabs.com/embed/brasil" style={{ width: '100%', height: '600px', border: 'none' }} title="Palavras Cruzadas" />
         )}
         
       </div>

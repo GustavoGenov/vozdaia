@@ -2,7 +2,6 @@ import { supabase } from '@/lib/supabase';
 import Link from 'next/link';
 import AdBanner from '@/components/AdBanner';
 import PageTracker from './components/PageTracker';
-import GamesBlock from './components/GamesBlock';
 
 export const revalidate = 60;
 
@@ -69,8 +68,6 @@ export default async function Home() {
       <div style={{ marginTop: '40px' }}>
         <AdBanner dataAdSlot="SEU_SLOT_HOME" />
       </div>
-
-      <GamesBlock />
 
       {/* Banners do Ecossistema */}
       <div style={{ borderTop: '1px solid var(--gn-border)', paddingTop: '24px', marginTop: '40px' }}>
