@@ -10,7 +10,7 @@ const teamMembers = [
   {
     name: 'RuiWenceslau de Oliveira',
     initials: 'RO',
-    image: '', /* Coloque o caminho da foto aqui, ex: '/equipe/rui.jpg' */
+    image: '/equipe/rui.jpg',
     email: 'ruiwenceslau@gmail.com',
     phone: null,
     linkedin: 'https://www.linkedin.com/in/ruiwenceslau-de-oliveira-ab08bb42a',
@@ -20,7 +20,7 @@ const teamMembers = [
   {
     name: 'Gustavo de Castro',
     initials: 'GC',
-    image: '', /* Coloque o caminho da foto aqui, ex: '/equipe/gustavo.jpg' */
+    image: '/equipe/gustavo.jpg',
     email: 'gustavocastroinfo@gmail.com',
     phone: null,
     linkedin: 'https://www.linkedin.com/in/gustavo-castro-bernardes-rosa-24a827bb',
@@ -30,7 +30,7 @@ const teamMembers = [
   {
     name: 'Daiene Maria de Meneses',
     initials: 'DM',
-    image: '', /* Coloque o caminho da foto aqui */
+    image: '/equipe/daiene.jpg',
     email: 'daidiva15@gmail.com',
     phone: null,
     linkedin: 'https://www.linkedin.com/in/daiene-meneses-dai-13561a20a',
@@ -40,7 +40,7 @@ const teamMembers = [
   {
     name: 'Kaelara Castro Bernardes Rosa',
     initials: 'KC',
-    image: '', /* Coloque o caminho da foto aqui */
+    image: '/equipe/kaelara.png',
     email: 'nicholaigenov@gmail.com',
     phone: null,
     linkedin: null,
@@ -51,7 +51,7 @@ const teamMembers = [
     name: 'Sagrada Jurema Zé Severino',
     subtitle: "Terreiro do Sr. Zé / Pai Jhonatan d' Osogiyan",
     initials: 'SJ',
-    image: '', /* Coloque o caminho da foto aqui */
+    image: '/equipe/jhonatan.jpg',
     email: null,
     phone: '37 9968-8433',
     linkedin: null,
