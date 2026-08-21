@@ -40,10 +40,7 @@ export default function LayoutShell({ categories, children }) {
             <span className="material-icons-extended search-icon">search</span>
             <input type="text" placeholder="Pesquisar por assuntos, locais e fontes" />
           </div>
-          <Link href="/categoria/horoscopo-e-taro" style={{ fontSize: '14px', fontWeight: '500', color: '#1a73e8', textDecoration: 'none', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', gap: '4px' }}>
-            <span className="material-icons-extended" style={{ fontSize: '18px', color: '#9c27b0' }}>auto_awesome</span>
-            Leia seu horóscopo e tarô do dia
-          </Link>
+          
         </div>
         
         <div className="header-right" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
