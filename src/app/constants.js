@@ -10,11 +10,11 @@ export const CATEGORY_ICONS = {
 };
 
 export const CATEGORY_COLORS = {
-  'ia-e-agentes': '#8e24aa', // Deep Purple
-  'engenharia-e-hardware': '#f4511e', // Deep Orange
-  'ciencia-e-espaco': '#3949ab', // Indigo
-  'tech-e-gaming': '#00acc1', // Cyan
-  'clima-tempo': '#039be5', // Light Blue
-  'cultura-filosofia-bem-estar': '#d81b60', // Pink
-  'horoscopo-e-taro': '#ff9800' // Orange
+  'ia-e-agentes': '#4285F4', // Google Blue
+  'engenharia-e-hardware': '#EA4335', // Google Red
+  'ciencia-e-espaco': '#FBBC05', // Google Yellow
+  'tech-e-gaming': '#34A853', // Google Green
+  'clima-tempo': '#4285F4', // Google Blue
+  'cultura-filosofia-bem-estar': '#EA4335', // Google Red
+  'horoscopo-e-taro': '#FBBC05' // Google Yellow
 };
