@@ -36,6 +36,7 @@ export default function GamesBlock() {
         </h3>
         <button onClick={() => setActiveTab('sudoku')} style={{ background: 'none', border: 'none', color: activeTab === 'sudoku' ? '#1a73e8' : 'var(--gn-text-secondary)', fontWeight: activeTab === 'sudoku' ? '600' : '400', cursor: 'pointer', fontSize: '14px', borderBottom: activeTab === 'sudoku' ? '2px solid #1a73e8' : '2px solid transparent', paddingBottom: '4px' }}>Sudoku</button>
         <button onClick={() => setActiveTab('termo')} style={{ background: 'none', border: 'none', color: activeTab === 'termo' ? '#1a73e8' : 'var(--gn-text-secondary)', fontWeight: activeTab === 'termo' ? '600' : '400', cursor: 'pointer', fontSize: '14px', borderBottom: activeTab === 'termo' ? '2px solid #1a73e8' : '2px solid transparent', paddingBottom: '4px' }}>Termo</button>
+        <button onClick={() => setActiveTab('cruzadas')} style={{ background: 'none', border: 'none', color: activeTab === 'cruzadas' ? '#1a73e8' : 'var(--gn-text-secondary)', fontWeight: activeTab === 'cruzadas' ? '600' : '400', cursor: 'pointer', fontSize: '14px', borderBottom: activeTab === 'cruzadas' ? '2px solid #1a73e8' : '2px solid transparent', paddingBottom: '4px' }}>Palavras Cruzadas</button>
       </div>
 
       <div style={{ padding: '0', background: '#fff', minHeight: '500px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -50,6 +51,12 @@ export default function GamesBlock() {
         {activeTab === 'termo' && (
           !isPlaying ? renderCover('Termo', 'spellcheck', 'Descubra a palavra secreta de 5 letras. Um sucesso que testa seu vocabulário!', 'linear-gradient(135deg, #0f9d58, #34A853)') :
           <iframe src="https://term.ooo/" style={{ width: '100%', height: '600px', border: 'none' }} title="Termo" />
+        )}
+
+        {/* CRUZADAS */}
+        {activeTab === 'cruzadas' && (
+          !isPlaying ? renderCover('Palavras Cruzadas', 'grid_on', 'Desafie seus conhecimentos gerais completando as palavras cruzadas diárias.', 'linear-gradient(135deg, #fbbc05, #f09300)') :
+          <iframe src="https://amuselabs.com/c/crossword" style={{ width: '100%', height: '600px', border: 'none' }} title="Palavras Cruzadas" />
         )}
         
       </div>

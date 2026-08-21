@@ -4,6 +4,8 @@ import '../../page.module.css';
 import { notFound } from 'next/navigation';
 import AdBanner from '@/components/AdBanner';
 import PageTracker from '../../components/PageTracker';
+import HoroscopoWidget from '../../components/HoroscopoWidget';
+import GamesBlock from '../../components/GamesBlock';
 
 export const revalidate = 60;
 
@@ -81,6 +83,19 @@ export default async function CategoryPage({ params }) {
           width: '12px', height: '12px', borderRadius: '50%', display: 'inline-block' 
         }}></span>
       </div>
+
+      {category.slug === 'cultura-filosofia-bem-estar' && (
+        <div style={{ marginBottom: '40px' }}>
+          <HoroscopoWidget />
+          <GamesBlock />
+        </div>
+      )}
+
+      {category.slug === 'tech-e-gaming' && (
+        <div style={{ marginBottom: '40px' }}>
+          <GamesBlock />
+        </div>
+      )}
 
       <div className="news-grid">
         {error ? (

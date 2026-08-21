@@ -40,9 +40,9 @@ export default function LayoutShell({ categories, children }) {
             <span className="material-icons-extended search-icon">search</span>
             <input type="text" placeholder="Pesquisar por assuntos, locais e fontes" />
           </div>
-          <Link href="/horoscopo" style={{ fontSize: '14px', fontWeight: '500', color: '#1a73e8', textDecoration: 'none', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', gap: '4px' }}>
+          <Link href="/categoria/cultura-filosofia-bem-estar" style={{ fontSize: '14px', fontWeight: '500', color: '#1a73e8', textDecoration: 'none', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', gap: '4px' }}>
             <span className="material-icons-extended" style={{ fontSize: '18px', color: '#9c27b0' }}>auto_awesome</span>
-            Leia seu horóscopo e tarô do dia
+            Leia nosso conteúdo de Cultura e Bem-Estar
           </Link>
         </div>
         
