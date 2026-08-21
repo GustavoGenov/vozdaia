@@ -1,4 +1,4 @@
-﻿import PageTracker from '../components/PageTracker';
+import PageTracker from '../components/PageTracker';
 import AdBanner from '@/components/AdBanner';
 
 export const metadata = {
@@ -41,7 +41,7 @@ const teamMembers = [
   },
   {
     name: 'Sagrada Jurema Zé Severino',
-    subtitle: 'Terreiro do Sr. Zé / Pai Jhonatan d'' Osogiyan',
+    subtitle: "Terreiro do Sr. Zé / Pai Jhonatan d' Osogiyan",
     initials: 'SJ',
     email: null,
     linkedin: null,
