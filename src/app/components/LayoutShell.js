@@ -21,7 +21,7 @@ export default function LayoutShell({ categories, children }) {
             <span className="material-icons-extended">menu</span>
           </button>
           <Link href="/" className="brand-link brand-text google-sans" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '24px', fontWeight: '700', letterSpacing: '-0.5px', textDecoration: 'none' }} onClick={closeDrawer}>
-            <img src="/simbolo.png" alt="Logo" style={{ height: '32px', width: '32px', borderRadius: '6px', objectFit: 'cover' }} />
+            <img src="/simbolo.png" alt="Logo" className="brand-logo-img" style={{ height: '36px', width: '36px', objectFit: 'cover' }} />
             <span style={{ display: 'flex', alignItems: 'center' }}>
               <span className="brand-v">V</span>
               <span className="brand-o">o</span>
