@@ -14,7 +14,7 @@ const teamMembers = [
     email: 'ruiwenceslau@gmail.com',
     phone: null,
     linkedin: 'https://www.linkedin.com/in/ruiwenceslau-de-oliveira-ab08bb42a',
-    areas: 'Economia, Geopolítica, Política e Eleições',
+    areas: 'Editor, Relações Públicas, Debug de UX/UI',
     color: 'linear-gradient(135deg, #34A853, #0F9D58)'
   },
   {
@@ -24,7 +24,7 @@ const teamMembers = [
     email: 'gustavocastroinfo@gmail.com',
     phone: null,
     linkedin: 'https://www.linkedin.com/in/gustavo-castro-bernardes-rosa-24a827bb',
-    areas: 'Inteligência Artificial & Agentes, Engenharia & hardware',
+    areas: 'Inteligência Artificial & Agentes, Engenharia & hardware, Web designer e CTO',
     color: 'linear-gradient(135deg, #1a73e8, #8e24aa)'
   },
   {
@@ -34,7 +34,7 @@ const teamMembers = [
     email: 'daidiva15@gmail.com',
     phone: null,
     linkedin: 'https://www.linkedin.com/in/daiene-meneses-dai-13561a20a',
-    areas: 'Ciência & Fronteira Espacial',
+    areas: 'Ciência & Fronteira Espacial, Revisora, Copidesque',
     color: 'linear-gradient(135deg, #e91e63, #c2185b)'
   },
   {
@@ -49,7 +49,7 @@ const teamMembers = [
   },
   {
     name: 'Sagrada Jurema Zé Severino',
-    subtitle: "Terreiro do Sr. Zé / Pai Jhonatan d' Osogiyan",
+    subtitle: "Terreiro do Sr. Zé / Pai Jhonatan d' Osogiyan joga buzios e faz consultas espirituais.",
     initials: 'SJ',
     image: '/equipe/jhonatan.jpg',
     email: null,
