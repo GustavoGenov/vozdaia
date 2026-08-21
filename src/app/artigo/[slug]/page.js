@@ -124,6 +124,13 @@ export default async function ArticlePage({ params }) {
           <div dangerouslySetInnerHTML={{ __html: cleanContent }} />
         </article>
 
+        {/* Disclaimer para Cultura, Filosofia & Bem-Estar */}
+        {article.categories?.slug === 'cultura-filosofia-bem-estar' && (
+          <div style={{ marginTop: '32px', padding: '16px', backgroundColor: 'var(--gn-surface)', borderLeft: '4px solid #d81b60', borderRadius: '4px', fontSize: '14px', color: 'var(--gn-text-secondary)', fontStyle: 'italic' }}>
+            “Este artigo reflete a visão cultural e os estudos do colunista especialista convidado, tendo caráter exclusivamente informativo, filosófico e cultural.”
+          </div>
+        )}
+
         {/* Anúncio AdSense Fim do Artigo */}
         <div style={{ marginTop: '48px', borderTop: '1px solid var(--gn-border)', paddingTop: '24px' }}>
           <AdBanner dataAdSlot="SEU_SLOT_ARTIGO" />

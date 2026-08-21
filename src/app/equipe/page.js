@@ -18,7 +18,7 @@ const teamMembers = [
     color: 'linear-gradient(135deg, #34A853, #0F9D58)'
   },
   {
-    name: 'Gustavo de Castro',
+    name: 'Gustavo de Castro Bernardes Rosa',
     initials: 'GC',
     image: '/equipe/gustavo.jpg',
     email: 'gustavocastroinfo@gmail.com',
@@ -44,7 +44,7 @@ const teamMembers = [
     email: 'nicholaigenov@gmail.com',
     phone: null,
     linkedin: null,
-    areas: 'Clima tempo, Passatempos',
+    areas: 'Clima tempo, Cultura, Filosofia & Bem-Estar',
     color: 'linear-gradient(135deg, #9c27b0, #6a1b9a)'
   },
   {
@@ -55,7 +55,7 @@ const teamMembers = [
     email: null,
     phone: '37 9968-8433',
     linkedin: null,
-    areas: 'Horóscopo & Tarô, Religião',
+    areas: 'Cultura, Filosofia & Bem-Estar',
     color: 'linear-gradient(135deg, #ff9800, #f57c00)'
   },
   {

@@ -3,9 +3,11 @@ import Link from 'next/link';
 import { CATEGORY_ICONS, CATEGORY_COLORS } from '@/app/constants';
 
 export default function Sidebar({ categories }) {
-  // Remover duplicatas velhas
+  // Remover duplicatas e blocos antigos que foram fundidos
+  const mergedSlugs = ['horoscopo', 'clima', 'passatempos', 'religiao', 'horoscopo-e-taro'];
+  
   const filteredCategories = categories?.filter(
-    (cat) => cat.slug !== 'horoscopo' && cat.slug !== 'clima'
+    (cat) => !mergedSlugs.includes(cat.slug)
   ) || [];
 
   // Ordenar alfabeticamente, mas forçar IA no topo
@@ -30,7 +32,7 @@ export default function Sidebar({ categories }) {
       {sortedCategories.map((cat) => {
         const iconName = CATEGORY_ICONS[cat.slug] || 'category';
         const color = CATEGORY_COLORS[cat.slug] || cat.color_code || '#1a73e8';
-        const targetHref = cat.slug === 'horoscopo-e-taro' ? '/horoscopo' : cat.slug === 'clima-tempo' ? '/clima' : cat.slug === 'passatempos' ? '/#passatempos' : `/categoria/${cat.slug}`;
+        const targetHref = cat.slug === 'clima-tempo' ? '/clima' : `/categoria/${cat.slug}`;
         
         return (
           <Link key={cat.id} href={targetHref} className="nav-item">

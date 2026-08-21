@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState } from 'react';
 import { supabase } from '@/lib/supabase';
@@ -78,10 +78,8 @@ export default function CategoryForm() {
         { name: 'Engenharia & hardware', slug: 'engenharia-e-hardware', color_code: '#00bcd4' },
         { name: 'Ciência & Fronteira Espacial', slug: 'ciencia-e-espaco', color_code: '#e91e63' },
         { name: 'Tech & Gaming', slug: 'tech-e-gaming', color_code: '#1a73e8' },
-        { name: 'Religião', slug: 'religiao', color_code: '#795548' },
         { name: 'Clima tempo', slug: 'clima-tempo', color_code: '#0f9d58' },
-        { name: 'Passatempos', slug: 'passatempos', color_code: '#ffeb3b' },
-        { name: 'Horóscopo & Tarô', slug: 'horoscopo-e-taro', color_code: '#ff9800' }
+        { name: 'Cultura, Filosofia & Bem-Estar', slug: 'cultura-filosofia-bem-estar', color_code: '#d81b60' }
       ];
 
       const { error: insertErr } = await supabase.from('categories').insert(newCategories);
