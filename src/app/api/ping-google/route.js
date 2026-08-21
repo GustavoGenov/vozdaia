@@ -1,7 +1,7 @@
 export async function POST() {
   try {
     const hubUrl = 'https://pubsubhubbub.appspot.com/';
-    const feedUrl = 'https://vozdaia.vercel.app/feed.xml';
+    const feedUrl = 'https://vozdaia.com/feed.xml';
 
     const params = new URLSearchParams();
     params.append('hub.mode', 'publish');

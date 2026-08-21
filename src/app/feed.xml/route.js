@@ -3,7 +3,7 @@ import { supabase } from '@/lib/supabase';
 export const revalidate = 600; // Cache de 10 minutos
 
 export async function GET() {
-  const baseUrl = 'https://vozdaia.vercel.app';
+  const baseUrl = 'https://vozdaia.com';
 
   try {
     const { data: articles, error } = await supabase
