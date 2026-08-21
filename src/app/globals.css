@@ -190,13 +190,14 @@ h1, h2, h3, .google-sans {
 .nav-item {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 10px 24px;
+  gap: 8px;
+  padding: 6px 16px;
   color: var(--gn-text);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   border-radius: 0 24px 24px 0;
-  margin-right: 12px;
+  margin-right: 8px;
+  margin-bottom: 2px;
   transition: background 0.2s;
 }
 .nav-item:hover {
@@ -385,13 +386,14 @@ h1, h2, h3, .google-sans {
 .nav-item {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 10px 24px;
+  gap: 8px;
+  padding: 6px 16px;
   color: var(--gn-text);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   border-radius: 0 24px 24px 0;
-  margin-right: 12px;
+  margin-right: 8px;
+  margin-bottom: 2px;
   transition: background 0.2s;
 }
 .nav-item:hover {
