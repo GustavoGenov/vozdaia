@@ -1,4 +1,4 @@
-﻿import PageTracker from '../components/PageTracker';
+import PageTracker from '../components/PageTracker';
 import AdBanner from '@/components/AdBanner';
 
 export const metadata = {
@@ -24,7 +24,7 @@ const teamMembers = [
     email: 'gustavocastroinfo@gmail.com',
     phone: null,
     linkedin: 'https://www.linkedin.com/in/gustavo-castro-bernardes-rosa-24a827bb',
-    areas: 'Engenharia e Tech, Militar e governo',
+    areas: 'Inteligência Artificial & Agentes, Engenharia & hardware',
     color: 'linear-gradient(135deg, #1a73e8, #8e24aa)'
   },
   {
@@ -34,7 +34,7 @@ const teamMembers = [
     email: 'daidiva15@gmail.com',
     phone: null,
     linkedin: 'https://www.linkedin.com/in/daiene-meneses-dai-13561a20a',
-    areas: 'Ciência e espaço, esportes',
+    areas: 'Ciência & Fronteira Espacial',
     color: 'linear-gradient(135deg, #e91e63, #c2185b)'
   },
   {
@@ -44,7 +44,7 @@ const teamMembers = [
     email: 'nicholaigenov@gmail.com',
     phone: null,
     linkedin: null,
-    areas: 'IA Sem Mitos, Kaelara Insigths, Clima Tempo BR',
+    areas: 'Clima tempo, Passatempos',
     color: 'linear-gradient(135deg, #9c27b0, #6a1b9a)'
   },
   {
@@ -55,7 +55,7 @@ const teamMembers = [
     email: null,
     phone: '37 9968-8433',
     linkedin: null,
-    areas: 'Horoscopo, Medicina e Bio Tech, Religião',
+    areas: 'Horóscopo & Tarô, Religião',
     color: 'linear-gradient(135deg, #ff9800, #f57c00)'
   },
   {
@@ -65,7 +65,7 @@ const teamMembers = [
     email: 'dfggames715@gmail.com',
     phone: null,
     linkedin: null,
-    areas: 'Jogos, Passatempos',
+    areas: 'Tech & Gaming',
     color: 'linear-gradient(135deg, #00bcd4, #0097a7)'
   }
 ];
