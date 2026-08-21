@@ -1,19 +1,11 @@
-// src/app/constants.js
+﻿// src/app/constants.js
 export const CATEGORY_ICONS = {
-  geopolitica: 'public',
-  'politica-eleicoes': 'how_to_vote',
-  economia: 'trending_up',
-  jogos: 'sports_esports',
-  religiao: 'church',
-  'formiga-mg': 'location_city',
-  'engenharia-e-tech': 'memory',
-  medicina: 'medical_services',
-  ciencia: 'rocket_launch',
-  'kaelara-insights': 'favorite',
-  'ia-sem-mitos': 'auto_awesome',
-  esportes: 'sports_soccer',
-  'militar-e-governo': 'military_tech',
-  horoscopo: 'nights_stay',
-  clima: 'cloud',
-  passatempos: 'wb_sunny',
+  'ia-e-agentes': 'auto_awesome',
+  'engenharia-e-hardware': 'memory',
+  'ciencia-e-espaco': 'rocket_launch',
+  'tech-e-gaming': 'sports_esports',
+  'religiao': 'church',
+  'clima-tempo': 'cloud',
+  'passatempos': 'wb_sunny',
+  'horoscopo-e-taro': 'nights_stay'
 };

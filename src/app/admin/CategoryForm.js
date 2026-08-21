@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import { supabase } from '@/lib/supabase';
@@ -9,6 +9,7 @@ export default function CategoryForm() {
   const [colorCode, setColorCode] = useState('#1a73e8');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const [resetLoading, setResetLoading] = useState(false);
   const router = useRouter();
 
   const slugify = (text) => {
@@ -50,7 +51,6 @@ export default function CategoryForm() {
       setName('');
       setColorCode('#1a73e8');
       
-      // Atualiza a página para refletir o novo contador de categorias
       router.refresh();
 
     } catch (err) {
@@ -60,11 +60,62 @@ export default function CategoryForm() {
     }
   };
 
+  const handleSetupAdSense = async () => {
+    if (!window.confirm('Isso apagará TODOS os blocos antigos e criará os 8 novos blocos focados no AdSense. Tem certeza?')) {
+      return;
+    }
+
+    setResetLoading(true);
+    setMessage('Resetando blocos para o AdSense...');
+
+    try {
+      // 1. Delete all existing categories
+      await supabase.from('categories').delete().not('id', 'is', null);
+
+      // 2. Insert new categories
+      const newCategories = [
+        { name: 'Inteligência Artificial & Agentes', slug: 'ia-e-agentes', color_code: '#9c27b0' },
+        { name: 'Engenharia & hardware', slug: 'engenharia-e-hardware', color_code: '#00bcd4' },
+        { name: 'Ciência & Fronteira Espacial', slug: 'ciencia-e-espaco', color_code: '#e91e63' },
+        { name: 'Tech & Gaming', slug: 'tech-e-gaming', color_code: '#1a73e8' },
+        { name: 'Religião', slug: 'religiao', color_code: '#795548' },
+        { name: 'Clima tempo', slug: 'clima-tempo', color_code: '#0f9d58' },
+        { name: 'Passatempos', slug: 'passatempos', color_code: '#ffeb3b' },
+        { name: 'Horóscopo & Tarô', slug: 'horoscopo-e-taro', color_code: '#ff9800' }
+      ];
+
+      const { error: insertErr } = await supabase.from('categories').insert(newCategories);
+      
+      if (insertErr) {
+        throw new Error('Erro ao inserir blocos AdSense: ' + insertErr.message);
+      }
+
+      setMessage('Blocos recriados com sucesso!');
+      router.refresh();
+
+    } catch (err) {
+      setMessage(err.message);
+    } finally {
+      setResetLoading(false);
+    }
+  };
+
   return (
     <div style={{ border: '1px solid #dadce0', borderRadius: '8px', padding: '24px', marginBottom: '32px' }}>
-      <h2 style={{ fontSize: '18px', color: '#202124', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-        <span className="material-icons-extended" style={{color: '#34A853'}}>category</span> Criar Novo Bloco (Filtro)
-      </h2>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+        <h2 style={{ fontSize: '18px', color: '#202124', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span className="material-icons-extended" style={{color: '#34A853'}}>category</span> Gerenciar Blocos (Filtros)
+        </h2>
+        <button 
+          onClick={handleSetupAdSense}
+          disabled={resetLoading}
+          style={{ background: '#fbbc05', color: '#fff', border: 'none', padding: '8px 16px', borderRadius: '4px', fontWeight: 'bold', cursor: resetLoading ? 'wait' : 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}
+        >
+          <span className="material-icons-extended" style={{ fontSize: '18px' }}>monetization_on</span>
+          {resetLoading ? 'Configurando...' : 'Configurar Blocos AdSense'}
+        </button>
+      </div>
+
       <form onSubmit={handleCreateCategory} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         
         <input 
@@ -104,7 +155,7 @@ export default function CategoryForm() {
           disabled={loading}
           style={{ background: '#34A853', color: '#fff', border: 'none', padding: '12px', borderRadius: '4px', fontWeight: '500', cursor: loading ? 'wait' : 'pointer' }}
         >
-          {loading ? 'Salvando...' : 'Criar Bloco'}
+          {loading ? 'Salvando...' : 'Criar Bloco Manualmente'}
         </button>
       </form>
     </div>

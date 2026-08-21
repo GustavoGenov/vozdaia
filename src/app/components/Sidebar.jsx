@@ -17,7 +17,7 @@ export default function Sidebar({ categories }) {
       <div className="sidebar-divider"></div>
       {categories?.map((cat) => {
         const iconName = CATEGORY_ICONS[cat.slug] || 'category';
-        const targetHref = cat.slug === 'horoscopo' ? '/horoscopo' : cat.slug === 'clima' ? '/clima' : cat.slug === 'passatempos' ? '/#passatempos' : `/categoria/${cat.slug}`;
+        const targetHref = cat.slug === 'horoscopo-e-taro' ? '/horoscopo' : cat.slug === 'clima-tempo' ? '/clima' : cat.slug === 'passatempos' ? '/#passatempos' : `/categoria/${cat.slug}`;
         
         return (
           <Link key={cat.id} href={targetHref} className="nav-item">
