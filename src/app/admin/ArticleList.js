@@ -7,6 +7,7 @@ import Link from 'next/link';
 
 export default function ArticleList({ articles }) {
   const [loadingId, setLoadingId] = useState(null);
+  const [isDeletingAll, setIsDeletingAll] = useState(false);
   const router = useRouter();
 
   const handleDelete = async (id, title) => {
@@ -33,11 +34,49 @@ export default function ArticleList({ articles }) {
     }
   };
 
+  const handleDeleteAll = async () => {
+    if (!window.confirm('CUIDADO: Tem certeza que deseja APAGAR TODAS as notícias? Esta ação não pode ser desfeita e irá limpar o site.')) {
+      return;
+    }
+
+    setIsDeletingAll(true);
+
+    try {
+      const { error } = await supabase.from('articles').delete().not('id', 'is', null);
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      alert('TODAS as notícias foram excluídas com sucesso!');
+      router.refresh();
+      
+    } catch (error) {
+      alert(`Erro ao excluir tudo: ${error.message}`);
+    } finally {
+      setIsDeletingAll(false);
+    }
+  };
+
   return (
     <div style={{ border: '1px solid #dadce0', borderRadius: '8px', padding: '24px', marginBottom: '32px' }}>
-      <h2 style={{ fontSize: '18px', color: '#202124', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-        <span className="material-icons-extended" style={{color: '#EA4335'}}>article</span> Gerenciar Notícias Publicadas
-      </h2>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+        <h2 style={{ fontSize: '18px', color: '#202124', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span className="material-icons-extended" style={{color: '#EA4335'}}>article</span> Gerenciar Notícias Publicadas
+        </h2>
+        {articles && articles.length > 0 && (
+          <button 
+            onClick={handleDeleteAll}
+            disabled={isDeletingAll}
+            style={{ 
+              background: '#d93025', color: '#fff', border: 'none', padding: '8px 16px', borderRadius: '4px', cursor: isDeletingAll ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 'bold' 
+            }}
+          >
+            <span className="material-icons-extended" style={{ fontSize: '18px' }}>delete_forever</span>
+            {isDeletingAll ? 'Apagando tudo...' : 'Apagar Todas (Limpar Site)'}
+          </button>
+        )}
+      </div>
       
       {articles && articles.length > 0 ? (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
