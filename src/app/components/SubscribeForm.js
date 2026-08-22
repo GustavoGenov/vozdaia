@@ -33,7 +33,7 @@ export default function SubscribeForm() {
   return (
     <div style={{ background: '#f8f9fa', padding: '40px 20px', textAlign: 'center', borderTop: '1px solid #dadce0', marginTop: '60px' }}>
       <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-        <h3 style={{ fontSize: '24px', color: '#202124', marginBottom: '12px' }}>Bom dia! Assine a Voz da I.A</h3>
+        <h3 style={{ fontSize: '24px', color: '#202124', marginBottom: '12px' }}>Assine a Voz da I.A</h3>
         <p style={{ color: '#5f6368', marginBottom: '8px', fontSize: '16px' }}>Receba as notícias mais recentes de I.A e tecnologia diretamente no seu e-mail.</p>
         <p style={{ color: '#1a73e8', marginBottom: '24px', fontSize: '14px', fontWeight: '500', background: '#e8f0fe', padding: '12px', borderRadius: '8px' }}>
           ✨ É 100% gratuito! Receba nossas novidades e nos ajude a decidir sobre quais assuntos escreveremos mais, baseando-nos nos interesses dos nossos inscritos.

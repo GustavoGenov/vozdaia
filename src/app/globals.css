@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons+Extended');
 
 html {
-  font-size: 110%; /* Increase base zoom slightly */
+  font-size: 118%; /* Zoom otimizado para leitura confortável */
 }
 
 :root {

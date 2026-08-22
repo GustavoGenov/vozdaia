@@ -82,31 +82,29 @@ export default function LayoutShell({ categories, children }) {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: '24px',
+            gap: '20px',
             color: 'var(--gn-text-secondary)',
-            fontSize: '14px',
+            fontSize: '15px',
             textAlign: 'center'
           }}>
-            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '8px' }}>
-              <img src="/simbolo.png" alt="Voz da I.A Logo" style={{ height: '64px', width: '64px', objectFit: 'cover' }} />
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '8px' }}>
-              <img src="/simbolo.png" alt="Voz da I.A Logo" style={{ height: '64px', width: '64px', objectFit: 'cover' }} />
-            </div>
-            <div>
-              <h3 style={{ color: 'var(--gn-text)', marginBottom: '8px', fontSize: '20px', fontWeight: '700' }} className="google-sans">Voz da I.A</h3>
-              <p style={{ maxWidth: '600px', margin: '0 auto' }}>O portal focado em combater fake news com informação de alta tecnologia e precisão jornalística.</p>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '14px', justifyContent: 'center' }}>
+              <img src="/simbolo.png" alt="Voz da I.A Logo" style={{ height: '42px', width: '42px', objectFit: 'cover' }} />
+              <h3 style={{ color: 'var(--gn-text)', fontSize: '22px', fontWeight: '700', margin: 0 }} className="google-sans">Voz da I.A</h3>
             </div>
             
+            <p style={{ maxWidth: '640px', margin: '0 auto', lineHeight: '1.6' }}>
+              O portal focado em combater fake news com informação de alta tecnologia e precisão jornalística.
+            </p>
+            
             {/* Links Institucionais Centralizados */}
-            <div style={{ display: 'flex', gap: '24px', justifyContent: 'center', flexWrap: 'wrap', borderTop: '1px solid var(--gn-border)', paddingTop: '24px', width: '100%', maxWidth: '800px' }}>
+            <div style={{ display: 'flex', gap: '24px', justifyContent: 'center', flexWrap: 'wrap', borderTop: '1px solid var(--gn-border)', paddingTop: '20px', width: '100%', maxWidth: '800px' }}>
               <Link href="/sobre" style={{ fontWeight: '500' }} onClick={closeDrawer}>Sobre Nós</Link>
               <Link href="/equipe" style={{ fontWeight: '500' }} onClick={closeDrawer}>Nossa Equipe</Link>
               <Link href="/politica-de-privacidade" style={{ fontWeight: '500' }} onClick={closeDrawer}>Política de Privacidade</Link>
               <Link href="/termos" style={{ fontWeight: '500' }} onClick={closeDrawer}>Termos de Uso</Link>
             </div>
 
-            <div style={{ fontSize: '12px', marginTop: '8px' }}>
+            <div style={{ fontSize: '13px', marginTop: '4px' }}>
               &copy; {new Date().getFullYear()} Voz da I.A. Todos os direitos reservados.
             </div>
           </footer>
