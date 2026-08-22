@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons+Extended');
 
 html {
-  font-size: 118%; /* Zoom otimizado para leitura confortável */
+  font-size: 125%;
 }
 
 :root {
@@ -244,7 +244,7 @@ h1, h2, h3, .google-sans {
 
 .main-content {
   width: 100%;
-  max-width: 1080px;
+  max-width: 1340px;
   margin: 0 auto;
   padding: 24px 40px;
   flex: 1;
@@ -440,7 +440,7 @@ h1, h2, h3, .google-sans {
 
 .main-content {
   width: 100%;
-  max-width: 1080px;
+  max-width: 1340px;
   margin: 0 auto;
   padding: 24px 40px;
   flex: 1;

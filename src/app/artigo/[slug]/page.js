@@ -86,7 +86,7 @@ export default async function ArticlePage({ params }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <main className="main-content article-page-main" style={{ maxWidth: '720px', margin: '0 auto', width: '100%', overflowX: 'hidden', padding: '24px 16px' }}>
+      <main className="main-content article-page-main" style={{ maxWidth: '880px', margin: '0 auto', width: '100%', overflowX: 'hidden', padding: '24px 16px' }}>
         
         {/* Navegação e Categoria */}
         <div style={{ marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: 'var(--gn-text-secondary)' }}>
