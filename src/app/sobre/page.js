@@ -67,6 +67,20 @@ export default function Sobre() {
           </li>
         </ul>
 
+        <h2 className="google-sans" style={{ fontSize: '24px', color: 'var(--gn-blue)', marginBottom: '16px' }}>
+          Horário de Funcionamento e Cobertura Editorial
+        </h2>
+        <div style={{ padding: '24px', background: 'var(--gn-bg)', border: '1px solid var(--gn-border)', borderRadius: '12px', marginBottom: '40px' }}>
+          <p style={{ marginBottom: '16px', fontSize: '17px', display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--gn-text)' }}>
+            <span className="material-icons-extended" style={{ color: 'var(--gn-blue)' }}>schedule</span>
+            <strong>Expediente Editorial e Atendimento:</strong> Segunda a Sábado, das 07:00 às 19:00.
+          </p>
+          <p style={{ margin: 0, fontSize: '17px', display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--gn-text)' }}>
+            <span className="material-icons-extended" style={{ color: '#34A853' }}>bolt</span>
+            <strong>Publicações Automatizadas e Cobertura 24h:</strong> As postagens e boletins de inteligência artificial são automatizados 24 horas por dia, todos os dias da semana, variando de acordo com a relevância dos fatos tecnológicos globais.
+          </p>
+        </div>
+
         <div style={{ textAlign: 'center', marginTop: '48px', padding: '32px', background: 'var(--gn-search-bg)', borderRadius: '8px' }}>
           <p style={{ fontStyle: 'italic', fontSize: '20px', color: 'var(--gn-text)', fontWeight: '500', margin: 0 }}>
             "Não construímos apenas páginas; desenvolvemos pontes de conhecimento entre a inteligência humana e as fronteiras da inovação tecnológica."

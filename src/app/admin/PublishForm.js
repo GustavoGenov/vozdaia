@@ -65,10 +65,18 @@ export default function PublishForm({ categories }) {
 
   const generatedSlug = slugify(title);
 
-  // Contador de Palavras Completo (Título + Linha Fina + Corpo + Fontes)
+  // Contador de Palavras Completo (Tratamento de HTML Entities & &nbsp;)
   const wordCount = useMemo(() => {
-    const rawContent = content.replace(/<[^>]*>?/gm, ' ');
-    const combinedText = `${title} ${summary} ${rawContent} ${sources}`;
+    const rawContent = (content || '')
+      .replace(/&nbsp;| |&#160;/gi, ' ')
+      .replace(/&[a-z0-9#]+;/gi, ' ')
+      .replace(/<[^>]*>/g, ' ');
+    
+    const rawSummary = (summary || '').replace(/&nbsp;| |&#160;/gi, ' ').replace(/&[a-z0-9#]+;/gi, ' ');
+    const rawTitle = (title || '').replace(/&nbsp;| |&#160;/gi, ' ').replace(/&[a-z0-9#]+;/gi, ' ');
+    const rawSources = (sources || '').replace(/&nbsp;| |&#160;/gi, ' ').replace(/&[a-z0-9#]+;/gi, ' ');
+
+    const combinedText = `${rawTitle} ${rawSummary} ${rawContent} ${rawSources}`;
     const words = combinedText.trim().split(/\s+/).filter(w => w.length > 0);
     return words.length;
   }, [title, summary, content, sources]);
