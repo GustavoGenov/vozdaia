@@ -89,7 +89,7 @@ export default async function ArticlePage({ params }) {
       <main className="main-content article-page-main" style={{ maxWidth: '880px', margin: '0 auto', width: '100%', overflowX: 'hidden', padding: '24px 16px' }}>
         
         {/* Navegação e Categoria */}
-        <div style={{ marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: 'var(--gn-text-secondary)' }}>
+        <div style={{ marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', color: 'var(--gn-text-secondary)' }}>
           <Link href="/" style={{ color: 'var(--gn-blue)', display: 'flex', alignItems: 'center' }}>
             <span className="material-icons-extended" style={{fontSize: '16px'}}>arrow_back</span> Início
           </Link>
@@ -120,7 +120,7 @@ export default async function ArticlePage({ params }) {
           )}
           
           <div style={{ flex: '1 1 auto' }}>
-            <div style={{ fontSize: '15px', fontWeight: '600', color: 'var(--gn-text)' }}>
+            <div style={{ fontSize: '17px', fontWeight: '600', color: 'var(--gn-text)' }}>
               Por {article.author_name || article.author}
             </div>
             <div style={{ fontSize: '13px', color: 'var(--gn-text-secondary)', display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
@@ -152,7 +152,7 @@ export default async function ArticlePage({ params }) {
         {/* Conteúdo Rico (HTML) */}
         <article 
           className="article-body" 
-          style={{ fontSize: '18px', lineHeight: '1.8', color: 'var(--gn-text)', wordWrap: 'break-word', overflowWrap: 'anywhere' }}
+          style={{ fontSize: '20px', lineHeight: '1.85', color: 'var(--gn-text)', wordWrap: 'break-word', overflowWrap: 'anywhere' }}
         >
           <style dangerouslySetInnerHTML={{__html: `
             .article-body h2 { font-size: 24px; font-weight: 700; margin-top: 32px; margin-bottom: 16px; color: var(--gn-text); font-family: 'Google Sans', sans-serif; }

@@ -40,7 +40,8 @@ body {
   font-family: 'Roboto', 'Arial', sans-serif;
   background-color: var(--gn-bg);
   color: var(--gn-text);
-  line-height: 1.4;
+  font-size: 18px;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   display: flex;
   flex-direction: column;
@@ -206,7 +207,7 @@ h1, h2, h3, .google-sans {
   gap: 8px;
   padding: 6px 16px;
   color: var(--gn-text);
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 500;
   border-radius: 0 24px 24px 0;
   margin-right: 8px;
@@ -320,7 +321,7 @@ h1, h2, h3, .google-sans {
 }
 
 .article-card-category {
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   font-weight: 700;
   text-transform: uppercase;
   color: var(--gn-blue);
@@ -328,7 +329,7 @@ h1, h2, h3, .google-sans {
 }
 
 .article-card-title {
-  font-size: clamp(1rem, 3.5vw, 1.25rem);
+  font-size: 1.45rem;
   font-weight: 700;
   line-height: 1.35;
   color: var(--gn-text);
@@ -337,17 +338,17 @@ h1, h2, h3, .google-sans {
 .article-card-title a:hover { text-decoration: underline; }
 
 .article-card-summary {
-  font-size: 0.875rem;
+  font-size: 1.05rem;
   color: var(--gn-text-secondary);
-  line-height: 1.4;
+  line-height: 1.5;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
 .article-card-footer {
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   color: var(--gn-text-secondary);
   display: flex;
   align-items: center;
@@ -402,7 +403,7 @@ h1, h2, h3, .google-sans {
   gap: 8px;
   padding: 6px 16px;
   color: var(--gn-text);
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 500;
   border-radius: 0 24px 24px 0;
   margin-right: 8px;
