@@ -87,6 +87,12 @@ export default function LayoutShell({ categories, children }) {
             fontSize: '14px',
             textAlign: 'center'
           }}>
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '8px' }}>
+              <img src="/simbolo.png" alt="Voz da I.A Logo" style={{ height: '64px', width: '64px', objectFit: 'cover' }} />
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '8px' }}>
+              <img src="/simbolo.png" alt="Voz da I.A Logo" style={{ height: '64px', width: '64px', objectFit: 'cover' }} />
+            </div>
             <div>
               <h3 style={{ color: 'var(--gn-text)', marginBottom: '8px', fontSize: '20px', fontWeight: '700' }} className="google-sans">Voz da I.A</h3>
               <p style={{ maxWidth: '600px', margin: '0 auto' }}>O portal focado em combater fake news com informação de alta tecnologia e precisão jornalística.</p>

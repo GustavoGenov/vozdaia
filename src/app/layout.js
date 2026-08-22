@@ -4,6 +4,12 @@ import { supabase } from '@/lib/supabase';
 import { Providers } from './providers';
 import LayoutShell from './components/LayoutShell';
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 export const metadata = {
   title: 'Voz da I.A - Combate às Fake News com Tecnologia',
   description: 'O jornal focado em combater fake news com informação de alta tecnologia.',
