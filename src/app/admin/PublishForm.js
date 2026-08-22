@@ -85,39 +85,53 @@ export default function PublishForm({ categories }) {
     wordCountText = 'Texto longo (Bom, mas mantenha a legibilidade)';
   }
 
-  const handlePublish = async (e) => {
-    e.preventDefault();
-    if (!title || !categoryId || !summary || !content || !imageFile || !imageAlt) {
+  // Cor do SEO Description
+  let metaDescColor = '#dadce0';
+  if (metaDescription.length > 0 && metaDescription.length < 120) {
+    metaDescColor = '#F4B400'; // Amarelo (Curto)
+  } else if (metaDescription.length >= 120 && metaDescription.length <= 160) {
+    metaDescColor = '#34A853'; // Verde (Ideal)
+  } else if (metaDescription.length > 160) {
+    metaDescColor = '#EA4335'; // Vermelho (Longo)
+  }
+
+  const handlePublish = async (e, isDraft = false) => {
+    if (e && e.preventDefault) e.preventDefault();
+    if (!title || !categoryId || !summary || !content || (!imageFile && !isDraft) || !imageAlt) {
       setMessage('Preencha os campos obrigatórios (incluindo Alt Text da imagem).');
       return;
     }
 
-    if (wordCount < 300) {
+    if (!isDraft && wordCount < 300) {
       setMessage('O artigo está muito curto para ser indexado pelo AdSense. Tente atingir pelo menos 600 palavras.');
       return;
     }
 
     setLoading(true);
-    setMessage('Fazendo upload da imagem...');
+    let publicUrl = null;
 
     try {
-      const fileExt = imageFile.name.split('.').pop();
-      const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
-      const filePath = `${fileName}`;
+      if (imageFile) {
+        setMessage('Fazendo upload da imagem...');
+        const fileExt = imageFile.name.split('.').pop();
+        const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
+        const filePath = `${fileName}`;
 
-      const { error: uploadError } = await supabase.storage
-        .from('images')
-        .upload(filePath, imageFile);
+        const { error: uploadError } = await supabase.storage
+          .from('images')
+          .upload(filePath, imageFile);
 
-      if (uploadError) {
-        throw new Error('Erro ao fazer upload da imagem: ' + uploadError.message);
+        if (uploadError) {
+          throw new Error('Erro ao fazer upload da imagem: ' + uploadError.message);
+        }
+
+        const { data } = supabase.storage
+          .from('images')
+          .getPublicUrl(filePath);
+        publicUrl = data.publicUrl;
       }
 
-      const { data: { publicUrl } } = supabase.storage
-        .from('images')
-        .getPublicUrl(filePath);
-
-      setMessage('Imagem enviada! Publicando artigo...');
+      setMessage(isDraft ? 'Salvando rascunho...' : 'Publicando artigo...');
 
       const slug = slugify(title);
       
@@ -128,7 +142,7 @@ export default function PublishForm({ categories }) {
         category_id: categoryId,
         content: content,
         image_url: publicUrl,
-        published: true,
+        published: !isDraft,
         author: authorName, // campo original mantido por compatibilidade
         views: 0,
         // Novos Campos AdSense E-E-A-T
@@ -142,14 +156,16 @@ export default function PublishForm({ categories }) {
       }]);
 
       if (insertError) {
-        throw new Error('Erro ao publicar notícia: ' + insertError.message);
+        throw new Error('Erro ao salvar: ' + insertError.message);
       }
 
-      setMessage('Notícia publicada com sucesso!');
+      setMessage(isDraft ? 'Rascunho salvo com sucesso!' : 'Notícia publicada com sucesso!');
       
-      fetch('/api/ping-google', { method: 'POST' }).catch((e) =>
-        console.error('Erro de ping no Google:', e)
-      );
+      if (!isDraft) {
+        fetch('/api/ping-google', { method: 'POST' }).catch((e) =>
+          console.error('Erro de ping no Google:', e)
+        );
+      }
       
       // Reset
       setTitle('');
@@ -178,6 +194,7 @@ export default function PublishForm({ categories }) {
   const inputStyle = { width: '100%', padding: '12px', border: '1px solid #dadce0', borderRadius: '4px', fontSize: '14px', marginBottom: '16px' };
   const labelStyle = { fontSize: '14px', color: '#5f6368', fontWeight: '600', marginBottom: '8px', display: 'block' };
   const sectionStyle = { padding: '24px', background: '#f8f9fa', borderRadius: '8px', marginBottom: '24px', border: '1px solid #e0e0e0' };
+  const reqStar = <span style={{ color: '#d32f2f' }}>*</span>;
 
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '32px' }}>
@@ -187,11 +204,11 @@ export default function PublishForm({ categories }) {
           PAINEL DE PUBLICAÇÃO - VOZ DA I.A
         </h2>
         
-        <form onSubmit={handlePublish} style={{ display: 'flex', flexDirection: 'column' }}>
+        <form style={{ display: 'flex', flexDirection: 'column' }}>
           
           <div style={sectionStyle}>
             <h3 style={{ fontSize: '16px', color: '#202124', marginBottom: '16px' }}>1. Informações Principais</h3>
-            <label style={labelStyle}>Título da Matéria (H1)</label>
+            <label style={labelStyle}>Título da Matéria (H1) {reqStar}</label>
             <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} style={inputStyle} required />
             
             <label style={labelStyle}>Slug / URL Amigável (Automático)</label>
@@ -199,14 +216,14 @@ export default function PublishForm({ categories }) {
             
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
               <div>
-                <label style={labelStyle}>Categoria Oficial</label>
+                <label style={labelStyle}>Categoria Oficial {reqStar}</label>
                 <select value={categoryId} onChange={(e) => setCategoryId(e.target.value)} style={inputStyle} required>
                   <option value="">Selecione a Categoria</option>
                   {categories?.map(cat => <option key={cat.id} value={cat.id}>{cat.name}</option>)}
                 </select>
               </div>
               <div>
-                <label style={labelStyle}>Autor Responsável (E-E-A-T)</label>
+                <label style={labelStyle}>Autor Responsável (E-E-A-T) {reqStar}</label>
                 <select value={authorName} onChange={(e) => setAuthorName(e.target.value)} style={inputStyle} required>
                   {AUTHORS.map(a => <option key={a} value={a}>{a}</option>)}
                 </select>
@@ -216,9 +233,11 @@ export default function PublishForm({ categories }) {
 
           <div style={sectionStyle}>
             <h3 style={{ fontSize: '16px', color: '#202124', marginBottom: '16px' }}>2. Imagem de Destaque (SEO e Acessibilidade)</h3>
-            <input id="image-upload" type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files[0])} style={inputStyle} required />
+            <label style={labelStyle}>Upload de Imagem {reqStar}</label>
+            <input id="image-upload" type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files[0])} style={{...inputStyle, marginBottom: '4px'}} required />
+            <p style={{ fontSize: '13px', color: '#5f6368', marginTop: '0', marginBottom: '16px' }}>Dimensões recomendadas: 1200x630px (proporção 16:9). Formatos: WebP, JPG ou PNG. Tamanho máximo: 2 MB.</p>
             
-            <label style={labelStyle}>Texto Alternativo (Alt Text) - Obrigatório para AdSense</label>
+            <label style={labelStyle}>Texto Alternativo (Alt Text) {reqStar}</label>
             <input type="text" placeholder="Descreva a imagem para deficientes visuais e robôs do Google" value={imageAlt} onChange={(e) => setImageAlt(e.target.value)} style={inputStyle} required />
             
             <label style={labelStyle}>Créditos da Imagem</label>
@@ -227,10 +246,10 @@ export default function PublishForm({ categories }) {
 
           <div style={sectionStyle}>
             <h3 style={{ fontSize: '16px', color: '#202124', marginBottom: '16px' }}>3. Estrutura e Conteúdo</h3>
-            <label style={labelStyle}>Resumo / Linha Fina (Aparece nos cards)</label>
+            <label style={labelStyle}>Resumo / Linha Fina (Aparece nos cards) {reqStar}</label>
             <textarea value={summary} onChange={(e) => setSummary(e.target.value)} style={{ ...inputStyle, height: '80px', resize: 'vertical' }} required />
             
-            <label style={labelStyle}>Corpo da Matéria (Use H2, H3, e Citações)</label>
+            <label style={labelStyle}>Corpo da Matéria (Use H2, H3, e Citações) {reqStar}</label>
             <div style={{ background: '#fff', color: '#000' }}>
               <ReactQuill theme="snow" value={content} onChange={setContent} style={{ height: '400px', marginBottom: '50px' }} />
             </div>
@@ -253,10 +272,12 @@ export default function PublishForm({ categories }) {
           <div style={sectionStyle}>
             <h3 style={{ fontSize: '16px', color: '#202124', marginBottom: '16px' }}>4. Metadados SEO</h3>
             <label style={labelStyle}>Meta Title (Google Search) - {metaTitle.length}/60 chars</label>
-            <input type="text" placeholder="Deixe em branco para usar o Título H1" value={metaTitle} onChange={(e) => setMetaTitle(e.target.value)} style={{ ...inputStyle, borderColor: metaTitle.length > 60 ? '#EA4335' : '#dadce0' }} />
+            <input type="text" placeholder="Deixe em branco para usar o Título H1" value={metaTitle} onChange={(e) => setMetaTitle(e.target.value)} style={{ ...inputStyle, borderColor: metaTitle.length > 60 ? '#EA4335' : '#dadce0', borderWidth: metaTitle.length > 60 ? '2px' : '1px' }} />
             
-            <label style={labelStyle}>Meta Description - {metaDescription.length}/160 chars</label>
-            <textarea placeholder="Deixe em branco para usar o Resumo" value={metaDescription} onChange={(e) => setMetaDescription(e.target.value)} style={{ ...inputStyle, height: '80px', borderColor: metaDescription.length > 160 ? '#EA4335' : '#dadce0' }} />
+            <label style={labelStyle}>
+              Meta Description - <span style={{ color: metaDescColor }}>{metaDescription.length} chars (Ideal: 120-160)</span>
+            </label>
+            <textarea placeholder="Deixe em branco para usar o Resumo" value={metaDescription} onChange={(e) => setMetaDescription(e.target.value)} style={{ ...inputStyle, height: '80px', borderColor: metaDescColor, borderWidth: metaDescColor !== '#dadce0' ? '2px' : '1px' }} />
           </div>
 
           {message && (
@@ -270,8 +291,11 @@ export default function PublishForm({ categories }) {
           )}
 
           <div style={{ display: 'flex', gap: '16px' }}>
-            <button type="submit" disabled={loading} style={{ flex: 1, background: '#1a73e8', color: '#fff', border: 'none', padding: '16px', borderRadius: '8px', fontSize: '16px', fontWeight: '600', cursor: loading ? 'wait' : 'pointer', transition: 'background 0.2s' }}>
-              {loading ? 'Processando e Indexando...' : 'Publicar Matéria (AdSense Ready)'}
+            <button type="button" onClick={(e) => handlePublish(e, true)} disabled={loading} style={{ flex: 1, background: '#f1f3f4', color: '#5f6368', border: '1px solid #dadce0', padding: '16px', borderRadius: '8px', fontSize: '16px', fontWeight: '600', cursor: loading ? 'wait' : 'pointer', transition: 'background 0.2s' }}>
+              Salvar Rascunho
+            </button>
+            <button type="button" onClick={(e) => handlePublish(e, false)} disabled={loading} style={{ flex: 2, background: '#1a73e8', color: '#fff', border: 'none', padding: '16px', borderRadius: '8px', fontSize: '16px', fontWeight: '600', cursor: loading ? 'wait' : 'pointer', transition: 'background 0.2s' }}>
+              {loading ? 'Processando...' : 'Publicar Matéria (AdSense Ready)'}
             </button>
           </div>
         </form>
