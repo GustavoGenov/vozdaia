@@ -1,30 +1,41 @@
-import { supabase } from '@/lib/supabase';
+﻿import { supabase } from '@/lib/supabase';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import AdBanner from '@/components/AdBanner';
 import PageTracker from '../../components/PageTracker';
 
+const AUTHORS_META = {
+  "Gustavo de Castro Bernardes Rosa": { initials: "GC", role: "Tecnólogo em Redes / Eng. de I.A", img: "/equipe/gustavo.jpg", bio: "Especialista em Inteligência Artificial e Redes de Computação." },
+  "Daiene Maria de Meneses": { initials: "DM", role: "Pedagoga e Professora", img: "/equipe/daiene.jpg", bio: "Especialista em educação e desenvolvimento infantil." },
+  "RuiWenceslau de Oliveira": { initials: "RO", role: "Criador de Conteúdo e Youtuber", img: "/equipe/rui.jpg", bio: "Especialista em criação de conteúdo para mídias sociais." },
+  "Jhonatan d' Osogiyan (ou Pai Jhonatan)": { initials: "SJ", role: "Colunista de Cultura e Etnobotânica", img: "/equipe/jhonatan.jpg", bio: "Pesquisador de Tradições Populares, Psicologia e Herbalista." },
+  "Kaelara (Agente de IA Autônomo)": { initials: "KC", role: "Sistema de Análise e Monitoramento", img: "/equipe/kaelara.png", bio: "IA desenvolvida sob arquitetura LLM (Gemma/Google API)." },
+  "Gabriela Castro Bernardes Rosa": { initials: "GB", role: "Youtuber e Gamer", img: null, bio: "Produtora de conteúdo digital e games." }
+};
 
-// Gera Metadados Open Graph Dinâmicos para o SEO (WhatsApp, LinkedIn, etc)
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   
   const { data: article } = await supabase
     .from('articles')
-    .select('title, summary, image_url')
+    .select('title, summary, image_url, meta_title, meta_description, author_name, image_alt')
     .eq('slug', slug)
     .single();
 
   if (!article) return { title: 'Voz da I.A - Notícia não encontrada' };
 
+  const metaTitle = article.meta_title || article.title;
+  const metaDesc = article.meta_description || article.summary;
+
   return {
-    title: `${article.title} | Voz da I.A`,
-    description: article.summary,
+    title: `${metaTitle} | Voz da I.A`,
+    description: metaDesc,
     openGraph: {
-      title: `${article.title} | Voz da I.A`,
-      description: article.summary,
-      images: article.image_url ? [article.image_url] : [],
+      title: `${metaTitle} | Voz da I.A`,
+      description: metaDesc,
+      images: article.image_url ? [{ url: article.image_url, alt: article.image_alt || article.title }] : [],
       type: 'article',
+      authors: [article.author_name || 'Voz da I.A']
     },
   };
 }
@@ -32,7 +43,6 @@ export async function generateMetadata({ params }) {
 export default async function ArticlePage({ params }) {
   const { slug } = await params;
   
-  // Busca o artigo completo no Supabase
   const { data: article } = await supabase
     .from('articles')
     .select('*, categories(name, color_code)')
@@ -41,14 +51,41 @@ export default async function ArticlePage({ params }) {
 
   if (!article) notFound();
 
-  // Limpeza de caracteres non-breaking space (&nbsp; e \u00a0) que impedem a quebra de linha natural
   const cleanContent = article.content ? article.content.replace(/&nbsp;|\u00a0/g, ' ') : '';
   const cleanTitle = article.title ? article.title.replace(/&nbsp;|\u00a0/g, ' ') : '';
   const cleanSummary = article.summary ? article.summary.replace(/&nbsp;|\u00a0/g, ' ') : '';
+  
+  const authorData = AUTHORS_META[article.author_name] || AUTHORS_META["Gustavo de Castro Bernardes Rosa"];
+  const pubDate = new Date(article.created_at);
+  const modDate = article.updated_at ? new Date(article.updated_at) : pubDate;
+
+  // Schema.org JSON-LD para SEO (NewsArticle)
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    "headline": article.meta_title || cleanTitle,
+    "image": [
+      article.image_url
+    ],
+    "datePublished": pubDate.toISOString(),
+    "dateModified": modDate.toISOString(),
+    "author": [{
+        "@type": article.author_name?.includes("Kaelara") ? "SoftwareApplication" : "Person",
+        "name": article.author_name || 'Voz da I.A',
+        "url": "https://vozdaia.com/equipe"
+      }]
+  };
 
   return (
     <>
       <PageTracker articleId={article.id} categoryId={article.category_id} />
+      
+      {/* Schema.org Injection */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       <main className="main-content article-page-main" style={{ maxWidth: '720px', margin: '0 auto', width: '100%', overflowX: 'hidden', padding: '24px 16px' }}>
         
         {/* Navegação e Categoria */}
@@ -72,23 +109,27 @@ export default async function ArticlePage({ params }) {
           {cleanSummary}
         </p>
 
-        {/* Metadados da Matéria */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap', padding: '16px 0', borderTop: '1px solid var(--gn-border)', borderBottom: '1px solid var(--gn-border)', marginBottom: '32px', width: '100%' }}>
-          <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'var(--gn-search-bg)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--gn-text-secondary)', flexShrink: 0 }}>
-            <span className="material-icons-extended">person</span>
-          </div>
-          <div style={{ flex: '1 1 auto', minWidth: '160px' }}>
-            <div style={{ fontSize: '14px', fontWeight: '500', color: 'var(--gn-text)' }}>
-              Por {article.author === 'Administrador' ? 'Gustavo Castro e RuiWenceslau' : article.author}
+        {/* Metadados da Matéria (Autor e Data) */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap', padding: '20px 0', borderTop: '1px solid var(--gn-border)', borderBottom: '1px solid var(--gn-border)', marginBottom: '32px', width: '100%' }}>
+          {authorData.img ? (
+            <img src={authorData.img} alt={article.author_name} style={{ width: '48px', height: '48px', borderRadius: '50%', objectFit: 'cover' }} />
+          ) : (
+            <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: 'var(--gn-search-bg)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--gn-text-secondary)' }}>
+              {authorData.initials}
             </div>
-            <div style={{ fontSize: '13px', color: 'var(--gn-text-secondary)' }}>
-              Publicado em {new Date(article.created_at).toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo', day: 'numeric', month: 'long', year: 'numeric' })} às {new Date(article.created_at).toLocaleTimeString('pt-BR', { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit' })}
+          )}
+          
+          <div style={{ flex: '1 1 auto' }}>
+            <div style={{ fontSize: '15px', fontWeight: '600', color: 'var(--gn-text)' }}>
+              Por {article.author_name || article.author}
             </div>
-          </div>
-          <div style={{ display: 'flex', gap: '12px' }}>
-            {/* Ícones de compartilhamento */}
-            <span className="material-icons-extended" style={{color: 'var(--gn-text-secondary)', cursor: 'pointer'}}>share</span>
-            <span className="material-icons-extended" style={{color: 'var(--gn-text-secondary)', cursor: 'pointer'}}>bookmark_border</span>
+            <div style={{ fontSize: '13px', color: 'var(--gn-text-secondary)', display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
+              <span>{authorData.role}</span>
+              <span>•</span>
+              <span>
+                Publicado em {pubDate.toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo', day: 'numeric', month: 'long', year: 'numeric' })}
+              </span>
+            </div>
           </div>
         </div>
 
@@ -97,12 +138,12 @@ export default async function ArticlePage({ params }) {
           <figure style={{ margin: '0 0 40px 0' }}>
             <img 
               src={article.image_url} 
-              alt={cleanTitle} 
+              alt={article.image_alt || cleanTitle} 
               style={{ width: '100%', height: 'auto', maxHeight: '450px', objectFit: 'cover', borderRadius: '12px', display: 'block' }} 
             />
-            {article.image_credit && (
+            {article.image_credits && (
               <figcaption style={{ fontSize: '13px', color: 'var(--gn-text-secondary)', textAlign: 'right', marginTop: '8px', fontStyle: 'italic' }}>
-                Crédito: {article.image_credit}
+                Crédito: {article.image_credits}
               </figcaption>
             )}
           </figure>
@@ -115,21 +156,58 @@ export default async function ArticlePage({ params }) {
         >
           <style dangerouslySetInnerHTML={{__html: `
             .article-body h2 { font-size: 24px; font-weight: 700; margin-top: 32px; margin-bottom: 16px; color: var(--gn-text); font-family: 'Google Sans', sans-serif; }
+            .article-body h3 { font-size: 20px; font-weight: 600; margin-top: 24px; margin-bottom: 12px; color: var(--gn-text); font-family: 'Google Sans', sans-serif; }
             .article-body p { margin-bottom: 20px; }
             .article-body strong { font-weight: 600; }
             .article-body a { color: var(--gn-blue); text-decoration: none; }
             .article-body a:hover { text-decoration: underline; }
+            .article-body blockquote { border-left: 4px solid var(--gn-blue); padding-left: 16px; font-style: italic; color: var(--gn-text-secondary); margin: 24px 0; background: var(--gn-surface); padding: 16px; border-radius: 0 8px 8px 0; }
             .article-body hr { border: 0; border-top: 1px solid var(--gn-border); margin: 32px 0; }
+            .article-body ul, .article-body ol { margin-bottom: 20px; padding-left: 24px; }
+            .article-body li { margin-bottom: 8px; }
           `}} />
           <div dangerouslySetInnerHTML={{ __html: cleanContent }} />
         </article>
 
-        {/* Disclaimer para Cultura, Filosofia & Bem-Estar */}
-        {article.categories?.slug === 'cultura-filosofia-bem-estar' && (
-          <div style={{ marginTop: '32px', padding: '16px', backgroundColor: 'var(--gn-surface)', borderLeft: '4px solid #d81b60', borderRadius: '4px', fontSize: '14px', color: 'var(--gn-text-secondary)', fontStyle: 'italic' }}>
-            “Este artigo reflete a visão cultural e os estudos do colunista especialista convidado, tendo caráter exclusivamente informativo, filosófico e cultural.”
+        {/* Disclaimers Transparentes */}
+        {article.disclaimer_type === 'opiniao' && (
+          <div style={{ marginTop: '40px', padding: '16px', backgroundColor: '#fdf3f4', borderLeft: '4px solid #d81b60', borderRadius: '4px', fontSize: '14px', color: '#c2185b' }}>
+            <strong>Nota Editorial:</strong> Este artigo reflete a visão cultural e opinativa do autor, tendo caráter exclusivamente informativo e filosófico. Não se trata de prestação de serviços comerciais.
           </div>
         )}
+        {article.disclaimer_type === 'tecnica' && (
+          <div style={{ marginTop: '40px', padding: '16px', backgroundColor: '#e8f0fe', borderLeft: '4px solid #1a73e8', borderRadius: '4px', fontSize: '14px', color: '#174ea6' }}>
+            <strong>Cobertura Técnica:</strong> Este conteúdo foi redigido com base em fontes técnicas e educacionais verificadas.
+          </div>
+        )}
+
+        {/* Fontes e Referências */}
+        {article.sources && (
+          <div style={{ marginTop: '40px', padding: '24px', background: 'var(--gn-surface)', border: '1px solid var(--gn-border)', borderRadius: '12px' }}>
+            <h3 style={{ fontSize: '16px', color: 'var(--gn-text)', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span className="material-icons-extended" style={{ fontSize: '18px' }}>menu_book</span>
+              Fontes e Referências
+            </h3>
+            <div style={{ fontSize: '14px', color: 'var(--gn-text-secondary)', lineHeight: '1.6', whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
+              {article.sources}
+            </div>
+          </div>
+        )}
+
+        {/* Mini-Bio do Autor */}
+        <div style={{ marginTop: '40px', padding: '24px', background: 'var(--gn-surface)', border: '1px solid var(--gn-border)', borderRadius: '12px', display: 'flex', gap: '16px', alignItems: 'center' }}>
+          {authorData.img ? (
+            <img src={authorData.img} alt={article.author_name} style={{ width: '64px', height: '64px', borderRadius: '50%', objectFit: 'cover' }} />
+          ) : (
+            <div style={{ width: '64px', height: '64px', borderRadius: '50%', background: 'var(--gn-search-bg)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--gn-text-secondary)', fontSize: '20px', fontWeight: '500' }}>
+              {authorData.initials}
+            </div>
+          )}
+          <div>
+            <div style={{ fontSize: '16px', fontWeight: '600', color: 'var(--gn-text)', marginBottom: '4px' }}>{article.author_name || article.author}</div>
+            <div style={{ fontSize: '14px', color: 'var(--gn-text-secondary)' }}>{authorData.bio}</div>
+          </div>
+        </div>
 
         {/* Anúncio AdSense Fim do Artigo */}
         <div style={{ marginTop: '48px', borderTop: '1px solid var(--gn-border)', paddingTop: '24px' }}>
