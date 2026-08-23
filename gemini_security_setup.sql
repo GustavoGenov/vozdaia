@@ -16,10 +16,11 @@ END
 $ $;
 
 -- 3. Habilitar Row Level Security (RLS) nas tabelas principais
-ALTER TABLE IF EXISTS public.posts ENABLE ROW LEVEL SECURITY;
+ALTER TABLE IF EXISTS public.articles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE IF EXISTS public.categories ENABLE ROW LEVEL SECURITY;
-ALTER TABLE IF EXISTS public.authors ENABLE ROW LEVEL SECURITY;
-ALTER TABLE IF EXISTS public.metrics ENABLE ROW LEVEL SECURITY;
+ALTER TABLE IF EXISTS public.comments ENABLE ROW LEVEL SECURITY;
+ALTER TABLE IF EXISTS public.page_views ENABLE ROW LEVEL SECURITY;
+ALTER TABLE IF EXISTS public.subscribers ENABLE ROW LEVEL SECURITY;
 
 -- 4. Conceder permissão EXCLUSIVA de SELECT (Leitura) ao agente
 GRANT USAGE ON SCHEMA public TO gemini_spark_agent;
@@ -32,18 +33,18 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA public REVOKE INSERT, UPDATE, DELETE, TRUNCAT
 
 -- 6. Criação das Políticas de Acesso RLS (Row Level Security)
 
--- Política para Leitura de Todos os Posts (Publicados e Rascunhos) pelo Agente
-DROP POLICY IF EXISTS "Agente_Leitura_Total_Posts" ON public.posts;
-CREATE POLICY "Agente_Leitura_Total_Posts"
-ON public.posts
+-- Política para Leitura de Todos os Artigos pelo Agente
+DROP POLICY IF EXISTS "Agente_Leitura_Total_Articles" ON public.articles;
+CREATE POLICY "Agente_Leitura_Total_Articles"
+ON public.articles
 FOR SELECT
 TO gemini_spark_agent
 USING (true);
 
--- Política para Escrita Restrita: Apenas o Administrador Master (Você) pode alterar dados
-DROP POLICY IF EXISTS "Admin_Acesso_Total_Posts" ON public.posts;
-CREATE POLICY "Admin_Acesso_Total_Posts"
-ON public.posts
+-- Política para Escrita Restrita: Apenas o Administrador Master (Você) pode alterar artigos
+DROP POLICY IF EXISTS "Admin_Acesso_Total_Articles" ON public.articles;
+CREATE POLICY "Admin_Acesso_Total_Articles"
+ON public.articles
 FOR ALL
 TO authenticated
 USING (auth.jwt() ->> 'email' = 'nicholaigenov@gmail.com')
