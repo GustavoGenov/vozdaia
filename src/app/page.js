@@ -4,6 +4,7 @@ import AdBanner from '@/components/AdBanner';
 import PageTracker from './components/PageTracker';
 
 export const revalidate = 60;
+export const dynamic = 'force-dynamic';
 
 export default async function Home() {
   const { data: articles, error } = await supabase

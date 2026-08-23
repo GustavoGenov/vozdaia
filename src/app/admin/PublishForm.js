@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import 'react-quill-new/dist/quill.snow.css';
@@ -65,19 +65,22 @@ export default function PublishForm({ categories }) {
 
   const generatedSlug = slugify(title);
 
-  // Contador de Palavras Completo (Tratamento de HTML Entities & &nbsp;)
+  // Contador de Palavras (DOMParser para robustez contra HTML lixo de editores)
   const wordCount = useMemo(() => {
-    const rawContent = (content || '')
-      .replace(/&nbsp;| |&#160;/gi, ' ')
-      .replace(/&[a-z0-9#]+;/gi, ' ')
-      .replace(/<[^>]*>/g, ' ');
+    let parsedContent = content || '';
+    if (typeof window !== 'undefined') {
+      const parser = new window.DOMParser();
+      const doc = parser.parseFromString(parsedContent, 'text/html');
+      parsedContent = doc.body.textContent || '';
+    } else {
+      parsedContent = parsedContent.replace(/<[^>]*>/g, ' ');
+    }
     
-    const rawSummary = (summary || '').replace(/&nbsp;| |&#160;/gi, ' ').replace(/&[a-z0-9#]+;/gi, ' ');
-    const rawTitle = (title || '').replace(/&nbsp;| |&#160;/gi, ' ').replace(/&[a-z0-9#]+;/gi, ' ');
-    const rawSources = (sources || '').replace(/&nbsp;| |&#160;/gi, ' ').replace(/&[a-z0-9#]+;/gi, ' ');
-
-    const combinedText = `${rawTitle} ${rawSummary} ${rawContent} ${rawSources}`;
-    const words = combinedText.trim().split(/\s+/).filter(w => w.length > 0);
+    const combinedText = `${title || ''} ${summary || ''} ${parsedContent} ${sources || ''}`
+      .replace(/&nbsp;/gi, ' ')
+      .replace(/\u00A0/g, ' ');
+      
+    const words = combinedText.trim().split(/[\s\n\r\t]+/).filter(w => w.length > 0);
     return words.length;
   }, [title, summary, content, sources]);
 

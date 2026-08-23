@@ -1,4 +1,4 @@
-import './globals.css';
+﻿import './globals.css';
 import Script from 'next/script';
 import { supabase } from '@/lib/supabase';
 import { Providers } from './providers';
@@ -11,10 +11,10 @@ export const viewport = {
 };
 
 export const metadata = {
-  title: 'Voz da I.A - Combate às Fake News com Tecnologia',
-  description: 'O jornal focado em combater fake news com informação de alta tecnologia.',
+  title: 'Voz da I.A - Combate Ã s Fake News com Tecnologia',
+  description: 'O jornal focado em combater fake news com informaÃ§Ã£o de alta tecnologia.',
   verification: {
-    google: '1YkiwnFQje5MEJRsiTxJdMh7F1KobrpEPMdLtg92qQo',
+    google: 'demFjjgkORq1aeNSlcUdOt7ZwTQxtocBJrJVej5_KVM',
   },
   other: {
     'google-adsense-account': 'ca-pub-5759690232636098'
@@ -41,7 +41,7 @@ export default async function RootLayout({ children }) {
   if (!processedCategories.some(cat => cat.slug === 'horoscopo')) {
     processedCategories.push({
       id: 'horoscopo-virtual-id',
-      name: 'Horóscopo & Tarô',
+      name: 'HorÃ³scopo & TarÃ´',
       slug: 'horoscopo',
       color_code: '#e040fb',
       views: 0
@@ -81,7 +81,7 @@ export default async function RootLayout({ children }) {
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Extended" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
         
-        {/* Script Global do Google AdSense (Tag HTML clássica para verificação automática de Bots) */}
+        {/* Script Global do Google AdSense (Tag HTML clÃ¡ssica para verificaÃ§Ã£o automÃ¡tica de Bots) */}
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5759690232636098"

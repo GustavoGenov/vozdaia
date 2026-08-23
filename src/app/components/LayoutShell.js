@@ -76,20 +76,20 @@ export default function LayoutShell({ categories, children }) {
           {/* INSTITUTIONAL FOOTER */}
           <footer style={{
             marginTop: 'auto',
-            padding: '40px 24px',
+            padding: '24px 20px',
             borderTop: '1px solid var(--gn-border)',
             background: 'var(--gn-surface)',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: '20px',
+            gap: '12px',
             color: 'var(--gn-text-secondary)',
-            fontSize: '15px',
+            fontSize: '14px',
             textAlign: 'center'
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '14px', justifyContent: 'center' }}>
-              <img src="/simbolo.png" alt="Voz da I.A Logo" style={{ height: '42px', width: '42px', objectFit: 'cover' }} />
-              <h3 style={{ color: 'var(--gn-text)', fontSize: '22px', fontWeight: '700', margin: 0 }} className="google-sans">Voz da I.A</h3>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', justifyContent: 'center' }}>
+              <img src="/simbolo.png" alt="Voz da I.A Logo" style={{ height: '32px', width: '32px', objectFit: 'cover' }} />
+              <h3 style={{ color: 'var(--gn-text)', fontSize: '18px', fontWeight: '700', margin: 0 }} className="google-sans">Voz da I.A</h3>
             </div>
             
             <p style={{ maxWidth: '640px', margin: '0 auto', lineHeight: '1.6' }}>
