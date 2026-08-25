@@ -12,7 +12,7 @@ export const viewport = {
 
 export const metadata = {
   title: 'Voz da I.A - Combate Ã s Fake News com Tecnologia',
-  description: 'O jornal focado em combater fake news com informaÃ§Ã£o de alta tecnologia.',
+  description: 'O Voz da I.A é o primeiro jornal inteligente 100% focado em combater fake news através de alta tecnologia, checagem de fatos e notícias verificadas em tempo real.',
   verification: {
     google: 'demFjjgkORq1aeNSlcUdOt7ZwTQxtocBJrJVej5_KVM',
   },
@@ -81,12 +81,13 @@ export default async function RootLayout({ children }) {
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Extended" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
         
-        {/* Script Global do Google AdSense (Tag HTML clÃ¡ssica para verificaÃ§Ã£o automÃ¡tica de Bots) */}
-        <script
+        {/* Script Global do Google AdSense (Tag HTML clássica para verificação automática de Bots) */}
+        <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5759690232636098"
           crossOrigin="anonymous"
-        ></script>
+          strategy="afterInteractive"
+        />
 
         {/* Subscribe with Google (SWG Basic) */}
         <Script

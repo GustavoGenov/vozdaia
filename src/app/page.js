@@ -1,10 +1,10 @@
-import { supabase } from '@/lib/supabase';
+﻿import { supabase } from '@/lib/supabase';
 import Link from 'next/link';
 import AdBanner from '@/components/AdBanner';
 import PageTracker from './components/PageTracker';
 
 export const revalidate = 60;
-export const dynamic = 'force-dynamic';
+
 
 export default async function Home() {
   const { data: articles, error } = await supabase
@@ -23,7 +23,7 @@ export default async function Home() {
 
       <div className="news-grid">
         {error ? (
-          <p>Erro ao carregar notícias: {error.message}</p>
+          <p>Erro ao carregar notÃ­cias: {error.message}</p>
         ) : articles && articles.length > 0 ? (
           articles.map((article) => (
             <article key={article.id} className="article-card">
@@ -73,7 +73,7 @@ export default async function Home() {
       {/* Banners do Ecossistema */}
       <div style={{ borderTop: '1px solid var(--gn-border)', paddingTop: '24px', marginTop: '40px' }}>
         <h3 className="google-sans" style={{ fontSize: '16px', marginBottom: '16px', color: 'var(--gn-text-secondary)' }}>
-          Acesso Rápido aos Nossos Projetos
+          Acesso RÃ¡pido aos Nossos Projetos
         </h3>
         <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
           {/* Banner IA */}
@@ -83,7 +83,7 @@ export default async function Home() {
             </div>
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: '14px', fontWeight: '500', color: 'var(--gn-text)' }}>Kaelara Online</div>
-              <div style={{ fontSize: '12px', color: 'var(--gn-text-secondary)' }}>Fale com nossa Inteligência Artificial</div>
+              <div style={{ fontSize: '12px', color: 'var(--gn-text-secondary)' }}>Fale com nossa InteligÃªncia Artificial</div>
             </div>
           </a>
 
@@ -98,14 +98,14 @@ export default async function Home() {
             </div>
           </a>
 
-          {/* Banner Jurídico */}
+          {/* Banner JurÃ­dico */}
           <a href="https://buscador-processos.vercel.app/?mode=jurisprudencia" target="_blank" style={{ display: 'flex', alignItems: 'center', gap: '12px', background: 'var(--gn-surface)', border: '1px solid var(--gn-border)', borderRadius: '8px', padding: '12px', transition: 'box-shadow 0.2s', flex: '1 1 300px' }}>
             <div style={{ width: '48px', height: '48px', borderRadius: '8px', background: '#FF6D00', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
               <span className="material-icons-extended">gavel</span>
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: '14px', fontWeight: '500', color: 'var(--gn-text)' }}>Buscador Jurídico</div>
-              <div style={{ fontSize: '12px', color: 'var(--gn-text-secondary)' }}>Consultas de processos e jurisprudência</div>
+              <div style={{ fontSize: '14px', fontWeight: '500', color: 'var(--gn-text)' }}>Buscador JurÃ­dico</div>
+              <div style={{ fontSize: '12px', color: 'var(--gn-text-secondary)' }}>Consultas de processos e jurisprudÃªncia</div>
             </div>
           </a>
         </div>
