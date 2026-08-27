@@ -38,13 +38,13 @@ export default async function sitemap() {
   try {
     const { data: articles, error: artError } = await supabase
       .from('articles')
-      .select('slug, created_at')
+      .select('slug, created_at, updated_at')
       .eq('published', true);
 
     if (!artError && articles) {
       const articleRoutes = articles.map((article) => ({
         url: `${baseUrl}/artigo/${article.slug}`,
-        lastModified: new Date(article.created_at),
+        lastModified: new Date(article.updated_at || article.created_at),
         changeFrequency: 'weekly',
         priority: 0.7,
       }));
