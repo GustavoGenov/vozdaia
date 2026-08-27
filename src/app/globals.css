@@ -1640,10 +1640,11 @@ body {
 /* TRADUTOR CUSTOMIZADO - ESCONDE BRANDING DO GOOGLE */
 .google-translate-wrapper {
   overflow: hidden;
-  border-radius: 4px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
 }
 .goog-te-gadget {
-  font-family: transparent !important;
   font-size: 0px !important; 
   color: transparent !important;
 }

@@ -106,6 +106,24 @@ export default async function RootLayout({ children }) {
             });
           `}
         </Script>
+
+        {/* Google Translate API */}
+        <Script id="google-translate-init" strategy="lazyOnload">
+          {`
+            window.googleTranslateElementInit = function() {
+              new google.translate.TranslateElement({
+                pageLanguage: 'pt',
+                autoDisplay: false,
+                includedLanguages: 'en,es,fr,de,it,pt',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+              }, 'google_translate_element');
+            };
+          `}
+        </Script>
+        <Script
+          src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+          strategy="lazyOnload"
+        />
       </head>
       <body suppressHydrationWarning>
         <Providers>
