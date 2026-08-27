@@ -52,59 +52,148 @@ export default async function AdminDashboard() {
   const { data: recentArticles } = await supabase.from('articles').select('*, categories(name)').order('created_at', { ascending: false });
 
   return (
-    <div className="main-content">
-      <h1 style={{ fontSize: '28px', color: 'var(--gn-text)', marginBottom: '8px' }}>Dashboard do Jornal</h1>
-      <p style={{ color: 'var(--gn-text-secondary)', marginBottom: '32px' }}>Métricas detalhadas e controle de publicações.</p>
+    <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+      {/* Header do Painel */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '28px', flexWrap: 'wrap', gap: '16px' }}>
+        <div>
+          <h1 style={{ fontSize: '26px', fontWeight: '800', color: 'var(--text)', marginBottom: '4px', letterSpacing: '-0.3px' }}>
+            Dashboard Editorial & Métricas
+          </h1>
+          <p style={{ color: 'var(--text-muted)', fontSize: '14px', margin: 0 }}>
+            Controle operacional, publicação de notícias (limite de 750 palavras) e monitoramento de audiência.
+          </p>
+        </div>
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <a href="#editor" className="btn btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.85rem' }}>
+            <span>✍️</span> Escrever Nova Notícia
+          </a>
+        </div>
+      </div>
 
-      {/* Stats Strip */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '24px' }}>
-        <div style={{ padding: '16px', border: '1px solid #dadce0', borderRadius: '8px', background: '#e8eaed', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <div style={{ fontSize: '12px', color: '#5f6368', fontWeight: '600', textTransform: 'uppercase' }}>Visitas Hoje</div>
-          <div style={{ fontSize: '28px', color: '#1a73e8', fontWeight: '700' }}>{dailyViewsCount || 0}</div>
+      {/* Grid de Estatísticas Principais */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '18px', marginBottom: '28px' }}>
+        {/* Card 1: Visitas Hoje */}
+        <div style={{ padding: '20px', borderRadius: '14px', background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(59, 130, 246, 0.02))', border: '1px solid rgba(59, 130, 246, 0.2)', display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(59, 130, 246, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#2563eb' }}>
+            <span className="material-icons-extended" style={{ fontSize: '24px' }}>visibility</span>
+          </div>
+          <div>
+            <div style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.4px' }}>Visitas Hoje</div>
+            <div style={{ fontSize: '26px', color: 'var(--text)', fontWeight: '800' }}>{dailyViewsCount || 0}</div>
+          </div>
         </div>
-        <div style={{ padding: '16px', border: '1px solid #dadce0', borderRadius: '8px', background: '#f8f9fa', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <div style={{ fontSize: '12px', color: '#5f6368', fontWeight: '600', textTransform: 'uppercase' }}>Visitas Totais</div>
-          <div style={{ fontSize: '28px', color: '#F4B400', fontWeight: '700' }}>{viewsCount || 0}</div>
+
+        {/* Card 2: Visitas Totais */}
+        <div style={{ padding: '20px', borderRadius: '14px', background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(245, 158, 11, 0.02))', border: '1px solid rgba(245, 158, 11, 0.2)', display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(245, 158, 11, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#d97706' }}>
+            <span className="material-icons-extended" style={{ fontSize: '24px' }}>analytics</span>
+          </div>
+          <div>
+            <div style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.4px' }}>Leituras Totais</div>
+            <div style={{ fontSize: '26px', color: 'var(--text)', fontWeight: '800' }}>{viewsCount || 0}</div>
+          </div>
         </div>
-        <div style={{ padding: '16px', border: '1px solid #dadce0', borderRadius: '8px', background: '#f8f9fa', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <div style={{ fontSize: '12px', color: '#5f6368', fontWeight: '600', textTransform: 'uppercase' }}>Inscritos</div>
-          <div style={{ fontSize: '28px', color: '#8e24aa', fontWeight: '700' }}>{subsCount || 0}</div>
+
+        {/* Card 3: Inscritos na Newsletter */}
+        <div style={{ padding: '20px', borderRadius: '14px', background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.08), rgba(168, 85, 247, 0.02))', border: '1px solid rgba(168, 85, 247, 0.2)', display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(168, 85, 247, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#9333ea' }}>
+            <span className="material-icons-extended" style={{ fontSize: '24px' }}>mail_outline</span>
+          </div>
+          <div>
+            <div style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.4px' }}>Inscritos Newsletter</div>
+            <div style={{ fontSize: '26px', color: 'var(--text)', fontWeight: '800' }}>{subsCount || 0}</div>
+          </div>
         </div>
-        <div style={{ padding: '16px', border: '1px solid #dadce0', borderRadius: '8px', background: '#f8f9fa', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <div style={{ fontSize: '12px', color: '#5f6368', fontWeight: '600', textTransform: 'uppercase' }}>Notícias</div>
-          <div style={{ fontSize: '28px', color: '#34A853', fontWeight: '700' }}>{articlesCount || 0}</div>
+
+        {/* Card 4: Notícias Publicadas */}
+        <div style={{ padding: '20px', borderRadius: '14px', background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(16, 185, 129, 0.02))', border: '1px solid rgba(16, 185, 129, 0.2)', display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(16, 185, 129, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#059669' }}>
+            <span className="material-icons-extended" style={{ fontSize: '24px' }}>newspaper</span>
+          </div>
+          <div>
+            <div style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.4px' }}>Notícias Publicadas</div>
+            <div style={{ fontSize: '26px', color: 'var(--text)', fontWeight: '800' }}>{articlesCount || 0}</div>
+          </div>
+        </div>
+      </div>
+
+      {/* PAINEL DE CONFORMIDADE GOOGLE ADSENSE */}
+      <div id="adsense" style={{ padding: '24px', borderRadius: '14px', background: 'linear-gradient(135deg, rgba(30, 64, 175, 0.06), rgba(30, 64, 175, 0.02))', border: '1px solid rgba(37, 99, 235, 0.25)', marginBottom: '32px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
+          <span className="material-icons-extended" style={{ color: '#2563eb', fontSize: '24px' }}>verified</span>
+          <h3 style={{ fontSize: '16px', fontWeight: '700', color: 'var(--text)', margin: 0 }}>
+            Status de Conformidade com o Google AdSense
+          </h3>
+          <span style={{ fontSize: '11px', background: '#10b981', color: '#fff', padding: '3px 8px', borderRadius: '12px', fontWeight: '700' }}>
+            APROVADO / CONFORME
+          </span>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '12px', fontSize: '13px', color: 'var(--text)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span style={{ color: '#10b981' }}>✓</span> Conta AdSense: <strong>ca-pub-5759690232636098</strong>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span style={{ color: '#10b981' }}>✓</span> Política de Privacidade & Termos Ativos
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span style={{ color: '#10b981' }}>✓</span> Quem Somos, Autoria e Contato no Rodapé
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span style={{ color: '#10b981' }}>✓</span> Sitemap Dinâmico ISO 8601 & robots.txt
+          </div>
         </div>
       </div>
 
       {/* Rankings Compactos */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px', marginBottom: '40px' }}>
-        <div style={{ padding: '16px', border: '1px solid #dadce0', borderRadius: '8px', background: '#fff' }}>
-          <div style={{ fontSize: '14px', color: '#202124', fontWeight: '700', textTransform: 'uppercase', marginBottom: '12px', borderBottom: '2px solid #1a73e8', paddingBottom: '8px' }}>Top Manchetes Mais Lidas</div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px', marginBottom: '36px' }}>
+        <div style={{ padding: '20px', border: '1px solid var(--border)', borderRadius: '14px', background: 'var(--card)', boxShadow: 'var(--shadow)' }}>
+          <div style={{ fontSize: '14px', color: 'var(--text)', fontWeight: '700', textTransform: 'uppercase', marginBottom: '16px', borderBottom: '2px solid #2563eb', paddingBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span className="material-icons-extended" style={{ fontSize: '18px', color: '#2563eb' }}>trending_up</span>
+            Top Matérias Mais Lidas
+          </div>
           <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
             {topArticles?.map((art, idx) => (
-              <li key={idx} style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', borderBottom: '1px solid #f1f3f4', fontSize: '13px' }}>
-                <span style={{ color: '#3c4043', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '220px' }}>{idx + 1}. {art.title}</span>
-                <span style={{ fontWeight: '600', color: '#1a73e8' }}>{art.views}</span>
+              <li key={idx} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid var(--border)', fontSize: '13px' }}>
+                <span style={{ color: 'var(--text)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '240px', fontWeight: '500' }}>
+                  {idx + 1}. {art.title}
+                </span>
+                <span style={{ fontWeight: '700', color: '#2563eb', background: 'rgba(37, 99, 235, 0.1)', padding: '2px 8px', borderRadius: '10px', fontSize: '12px' }}>
+                  {art.views || 0} views
+                </span>
               </li>
             ))}
           </ul>
         </div>
-        <div style={{ padding: '16px', border: '1px solid #dadce0', borderRadius: '8px', background: '#fff' }}>
-          <div style={{ fontSize: '14px', color: '#202124', fontWeight: '700', textTransform: 'uppercase', marginBottom: '12px', borderBottom: '2px solid #EA4335', paddingBottom: '8px' }}>Visitas por Bloco (Categoria)</div>
+
+        <div style={{ padding: '20px', border: '1px solid var(--border)', borderRadius: '14px', background: 'var(--card)', boxShadow: 'var(--shadow)' }}>
+          <div style={{ fontSize: '14px', color: 'var(--text)', fontWeight: '700', textTransform: 'uppercase', marginBottom: '16px', borderBottom: '2px solid #ea580c', paddingBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span className="material-icons-extended" style={{ fontSize: '18px', color: '#ea580c' }}>pie_chart</span>
+            Visitas por Editoria (Bloco)
+          </div>
           <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
             {topCategories?.map((cat, idx) => (
-              <li key={idx} style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', borderBottom: '1px solid #f1f3f4', fontSize: '13px' }}>
-                <span style={{ color: '#3c4043' }}>{idx + 1}. {cat.name}</span>
-                <span style={{ fontWeight: '600', color: '#EA4335' }}>{cat.views}</span>
+              <li key={idx} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid var(--border)', fontSize: '13px' }}>
+                <span style={{ color: 'var(--text)', fontWeight: '500' }}>{cat.name}</span>
+                <span style={{ fontWeight: '700', color: '#ea580c', background: 'rgba(234, 88, 12, 0.1)', padding: '2px 8px', borderRadius: '10px', fontSize: '12px' }}>
+                  {cat.views || 0} views
+                </span>
               </li>
             ))}
           </ul>
         </div>
       </div>
 
-      <PublishForm categories={categories} />
-      <CategoryForm />
-      <ArticleList articles={recentArticles} />
+      <div id="editor" style={{ marginBottom: '32px' }}>
+        <PublishForm categories={categories} />
+      </div>
+
+      <div id="blocos" style={{ marginBottom: '32px' }}>
+        <CategoryForm />
+      </div>
+
+      <div id="artigos" style={{ marginBottom: '32px' }}>
+        <ArticleList articles={recentArticles} />
+      </div>
 
     </div>
   );
