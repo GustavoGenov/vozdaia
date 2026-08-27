@@ -71,13 +71,29 @@ export default function Sobre() {
           Horário de Funcionamento e Cobertura Editorial
         </h2>
         <div style={{ padding: '24px', background: 'var(--gn-bg)', border: '1px solid var(--gn-border)', borderRadius: '12px', marginBottom: '40px' }}>
-          <p style={{ marginBottom: '16px', fontSize: '17px', display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--gn-text)' }}>
-            <span className="material-icons-extended" style={{ color: 'var(--gn-blue)' }}>schedule</span>
-            <strong>Expediente Editorial e Atendimento:</strong> Segunda a Sábado, das 07:00 às 19:00.
+          <p style={{ marginBottom: '16px', fontSize: '17px', display: 'flex', alignItems: 'flex-start', gap: '10px', color: 'var(--gn-text)' }}>
+            <span className="material-icons-extended" style={{ color: 'var(--gn-blue)', marginTop: '4px' }}>schedule</span>
+            <span>
+              <strong>Expediente de Atendimento:</strong> Nosso horário de funcionamento ocorre de acordo com a escala de trabalho (12x36) do Fundador e do Cofundador. No entanto, procuramos responder mensagens e dar suporte nos nossos dias de folga, e também no período noturno, das 19:00 às 21:00.
+            </span>
           </p>
-          <p style={{ margin: 0, fontSize: '17px', display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--gn-text)' }}>
-            <span className="material-icons-extended" style={{ color: '#34A853' }}>bolt</span>
-            <strong>Publicações Automatizadas e Cobertura 24h:</strong> As postagens e boletins de inteligência artificial são automatizados 24 horas por dia, todos os dias da semana, variando de acordo com a relevância dos fatos tecnológicos globais.
+          <p style={{ marginBottom: '16px', fontSize: '17px', display: 'flex', alignItems: 'flex-start', gap: '10px', color: 'var(--gn-text)' }}>
+            <span className="material-icons-extended" style={{ color: '#34A853', marginTop: '4px' }}>bolt</span>
+            <span>
+              <strong>Publicações Automatizadas (24h):</strong> As postagens e boletins de inteligência artificial não param. Elas são automatizadas pela nossa IA, <strong>Kaelara</strong>, que atua 24 horas por dia, todos os dias da semana, garantindo a cobertura dos fatos tecnológicos.
+            </span>
+          </p>
+          <p style={{ marginBottom: '16px', fontSize: '17px', display: 'flex', alignItems: 'flex-start', gap: '10px', color: 'var(--gn-text)' }}>
+            <span className="material-icons-extended" style={{ color: '#FBBC05', marginTop: '4px' }}>groups</span>
+            <span>
+              <strong>Nossos Colunistas:</strong> O jornal atualmente não possui renda. Por isso, todos os nossos colunistas são voluntários. Como forma de agradecimento, o portal funciona como uma vitrine para a divulgação do excelente trabalho e portfólio de cada um deles.
+            </span>
+          </p>
+          <p style={{ margin: 0, fontSize: '17px', display: 'flex', alignItems: 'flex-start', gap: '10px', color: 'var(--gn-text)' }}>
+            <span className="material-icons-extended" style={{ color: '#EA4335', marginTop: '4px' }}>mail</span>
+            <span>
+              <strong>Contato:</strong> Caso alguém precise entrar em contato, tirar dúvidas ou propor parcerias, sinta-se à vontade para enviar um e-mail diretamente para o fundador: <strong><a href="mailto:gustavocastroinfo@gmail.com" style={{ color: 'var(--gn-blue)', textDecoration: 'none' }}>gustavocastroinfo@gmail.com</a></strong>.
+            </span>
           </p>
         </div>
 
