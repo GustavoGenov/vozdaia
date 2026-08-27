@@ -875,25 +875,66 @@ body {
   --shadow: 0 4px 20px rgba(0,0,0,0.3);
 }
 
-/* Header & Nav */
+/* Header & Block Divisions */
 .header {
   background: var(--primary);
   color: white;
-  padding: 0.75rem 0;
+  padding: 0;
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 14px rgba(0,0,0,0.18);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
 .header-inner {
-  max-width: 1280px;
+  max-width: 1340px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 1.2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
+  min-height: 64px;
+  gap: 1rem;
+}
+
+/* Bloco 1: Identidade e Marca */
+.header-brand-block {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 18px 8px 0;
+  border-right: 1px solid rgba(255,255,255,0.12);
+  flex-shrink: 0;
+}
+
+.header-logo-symbol {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 9px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.35);
+  transition: transform 0.2s ease;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.header-logo-symbol:hover {
+  transform: scale(1.05);
+}
+
+.header-brand-title {
+  font-weight: 700;
+  font-size: 1.22rem;
+  letter-spacing: -0.3px;
+  color: white;
+  line-height: 1.15;
+}
+
+.header-brand-subtitle {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #60a5fa;
+  font-weight: 600;
 }
 
 .logo {
@@ -901,8 +942,6 @@ body {
   align-items: center;
   gap: 0.7rem;
   font-weight: 700;
-  font-size: 1.35rem;
-  letter-spacing: -0.3px;
   color: white;
   text-decoration: none;
 }
@@ -911,44 +950,59 @@ body {
   color: white;
 }
 
-.logo-icon {
-  width: 36px;
-  height: 36px;
-  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-  border-radius: 10px;
+/* Bloco 2: Navegação com divisórias e blocos elegantes */
+.header-nav-block {
   display: flex;
   align-items: center;
+  gap: 6px;
+  padding: 0 16px;
+  flex: 1;
   justify-content: center;
-  font-weight: 800;
-  font-size: 1.1rem;
-  color: white;
+  overflow-x: auto;
+}
+.header-nav-block::-webkit-scrollbar {
+  display: none;
 }
 
-.nav {
-  display: flex;
-  gap: 1.5rem;
-  font-size: 0.95rem;
+.nav-block-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.88rem;
   font-weight: 500;
-  align-items: center;
-}
-
-.nav a {
-  color: #e2e8f0;
-  opacity: 0.85;
-  transition: opacity 0.2s, color 0.2s;
+  color: #cbd5e1;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.2s ease;
+  white-space: nowrap;
   text-decoration: none;
 }
 
-.nav a:hover {
-  opacity: 1;
+.nav-block-item:hover {
+  background: rgba(255, 255, 255, 0.12);
   color: white;
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
   text-decoration: none;
 }
 
-.header-actions {
+.nav-block-item.active {
+  background: rgba(59, 130, 246, 0.2);
+  border-color: var(--accent);
+  color: #93c5fd;
+  font-weight: 600;
+}
+
+/* Bloco 3: Utilitários e Ações */
+.header-actions-block {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 12px;
+  padding: 8px 0 8px 18px;
+  border-left: 1px solid rgba(255,255,255,0.12);
+  flex-shrink: 0;
 }
 
 .btn {

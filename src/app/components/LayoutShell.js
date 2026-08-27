@@ -12,10 +12,12 @@ export default function LayoutShell({ categories, children }) {
 
   return (
     <>
-      {/* HEADER PRINCIPAL MODERNO */}
+      {/* HEADER PRINCIPAL COM DIVISÕES DE BLOCOS */}
       <header className="header">
         <div className="header-inner">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          
+          {/* BLOCO 1: IDENTIDADE / LOGO */}
+          <div className="header-brand-block">
             <button 
               className="menu-btn" 
               onClick={toggleDrawer} 
@@ -25,34 +27,58 @@ export default function LayoutShell({ categories, children }) {
               <span className="material-icons-extended" style={{ fontSize: '26px' }}>menu</span>
             </button>
 
-            <Link href="/" className="logo" onClick={closeDrawer}>
-              <div className="logo-icon">V</div>
-              <span>Voz da I.A</span>
+            <Link href="/" className="logo" onClick={closeDrawer} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <img 
+                src="/simbolo.png" 
+                alt="Símbolo Voz da I.A" 
+                className="header-logo-symbol"
+              />
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <span className="header-brand-title">Voz da I.A</span>
+                <span className="header-brand-subtitle">Jornal Inteligente</span>
+              </div>
             </Link>
           </div>
 
-          <nav className="nav">
-            <Link href="/categoria/ia-e-agentes">Inteligência Artificial</Link>
-            <Link href="/categoria/ciencia-e-espaco">Ciência & Espaço</Link>
-            <Link href="/categoria/tech-e-gaming">Tech & Gaming</Link>
-            <Link href="/categoria/cultura-filosofia-bem-estar">Cultura</Link>
-            <Link href="/#formiga-em-foco">Formiga</Link>
-            <Link href="/clima">Clima</Link>
-            <Link href="/horoscopo">Horóscopo</Link>
+          {/* BLOCO 2: NAVEGAÇÃO & EDITORIAS */}
+          <nav className="header-nav-block nav">
+            <Link href="/categoria/ia-e-agentes" className="nav-block-item">
+              <span>🤖</span> IA & Agentes
+            </Link>
+            <Link href="/categoria/ciencia-e-espaco" className="nav-block-item">
+              <span>🚀</span> Ciência
+            </Link>
+            <Link href="/categoria/tech-e-gaming" className="nav-block-item">
+              <span>🎮</span> Tech & Games
+            </Link>
+            <Link href="/categoria/cultura-filosofia-bem-estar" className="nav-block-item">
+              <span>🎨</span> Cultura
+            </Link>
+            <Link href="/#formiga-em-foco" className="nav-block-item">
+              <span>🏛️</span> Formiga
+            </Link>
+            <Link href="/clima" className="nav-block-item">
+              <span>🌦️</span> Clima
+            </Link>
+            <Link href="/horoscopo" className="nav-block-item">
+              <span>🔮</span> Horóscopo
+            </Link>
           </nav>
 
-          <div className="header-actions">
-            <Link href="#newsletter" className="btn btn-primary" style={{ whiteSpace: 'nowrap' }}>
-              Assinar Newsletter
-            </Link>
-            
+          {/* BLOCO 3: UTILITÁRIOS & AÇÕES */}
+          <div className="header-actions-block header-actions">
             <div id="google_translate_element" className="google-translate-wrapper"></div>
             <ThemeToggle />
             
-            <Link href="/admin" className="profile-avatar" title="Painel Administrativo" style={{ textDecoration: 'none' }}>
+            <Link href="#newsletter" className="btn btn-primary" style={{ whiteSpace: 'nowrap', padding: '0.45rem 0.9rem', fontSize: '0.85rem' }}>
+              Newsletter
+            </Link>
+            
+            <Link href="/admin" className="profile-avatar" title="Painel Administrativo" style={{ textDecoration: 'none', width: '32px', height: '32px', fontSize: '14px' }}>
               G
             </Link>
           </div>
+
         </div>
       </header>
 
@@ -92,8 +118,8 @@ export default function LayoutShell({ categories, children }) {
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Link href="/" className="logo" onClick={closeDrawer} style={{ color: 'var(--text)' }}>
-            <div className="logo-icon">V</div>
+          <Link href="/" className="logo" onClick={closeDrawer} style={{ color: 'var(--text)', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <img src="/simbolo.png" alt="Símbolo Voz da I.A" style={{ width: '34px', height: '34px', borderRadius: '8px', objectFit: 'cover' }} />
             <span style={{ fontWeight: 700, fontSize: '1.2rem' }}>Voz da I.A</span>
           </Link>
           <button onClick={closeDrawer} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text)' }}>
@@ -162,8 +188,8 @@ export default function LayoutShell({ categories, children }) {
             <div className="footer-inner">
               {/* Coluna 1: Sobre o Jornal */}
               <div>
-                <div className="logo" style={{ marginBottom: '1rem' }}>
-                  <div className="logo-icon">V</div>
+                <div className="logo" style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <img src="/simbolo.png" alt="Símbolo Voz da I.A" style={{ width: '38px', height: '38px', borderRadius: '8px', objectFit: 'cover' }} />
                   <span>Voz da I.A</span>
                 </div>
                 <p style={{ fontSize: '0.9rem', lineHeight: '1.6', color: '#94a3b8' }}>
