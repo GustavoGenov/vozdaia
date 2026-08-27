@@ -21,7 +21,7 @@ export default async function AdminDashboard() {
 
   const startOfToday = new Date();
   startOfToday.setHours(0, 0, 0, 0);
-  const { count: dailyViewsCount } = await supabase.from('page_views').select('*', { count: 'exact', head: true }).gte('viewed_at', startOfToday.toISOString());
+  const { count: dailyViewsCount } = await supabase.from('page_views').select('*', { count: 'exact', head: true }).gte('created_at', startOfToday.toISOString());
 
   const { data: categoriesData } = await supabase.from('categories').select('*');
   const sortOrder = { 'IA Sem Mitos': 1, 'Kaelara Insights': 2 };

@@ -10,10 +10,21 @@ import 'react-quill-new/dist/quill.snow.css';
 
 const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 
+const AUTHORS = [
+  "Gustavo de Castro Bernardes Rosa",
+  "RuiWenceslau de Oliveira",
+  "Beatriz Freire",
+  "Daiene Maria de Meneses",
+  "Jhonatan d' Osogiyan (ou Pai Jhonatan)",
+  "Kaelara (Agente de IA Autônomo)",
+  "Gabriela Castro Bernardes Rosa"
+];
+
 export default function EditForm({ article, categories }) {
   const [title, setTitle] = useState(article.title || '');
   const [summary, setSummary] = useState(article.summary || '');
   const [categoryId, setCategoryId] = useState(article.category_id || '');
+  const [authorName, setAuthorName] = useState(article.author_name || AUTHORS[0]);
   const [content, setContent] = useState(article.content || '');
   const [imageFile, setImageFile] = useState(null);
   const [imageCredit, setImageCredit] = useState(article.image_credit || '');
@@ -74,6 +85,7 @@ export default function EditForm({ article, categories }) {
         slug,
         summary,
         category_id: categoryId,
+        author_name: authorName,
         content: content,
         image_url: publicUrl,
         image_credit: imageCredit,
@@ -120,20 +132,35 @@ export default function EditForm({ article, categories }) {
           />
         </div>
 
-        {/* Categoria */}
-        <div>
-          <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500', color: '#202124' }}>Bloco (Filtro) *</label>
-          <select 
-            value={categoryId}
-            onChange={(e) => setCategoryId(e.target.value)}
-            style={{ width: '100%', padding: '12px', border: '1px solid #dadce0', borderRadius: '4px', fontSize: '16px', background: '#fff' }}
-            required
-          >
-            <option value="">Selecione um Bloco</option>
-            {categories?.map(cat => (
-              <option key={cat.id} value={cat.id}>{cat.name}</option>
-            ))}
-          </select>
+        {/* Categoria e Autor */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+          <div>
+            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500', color: '#202124' }}>Bloco (Filtro) *</label>
+            <select 
+              value={categoryId}
+              onChange={(e) => setCategoryId(e.target.value)}
+              style={{ width: '100%', padding: '12px', border: '1px solid #dadce0', borderRadius: '4px', fontSize: '16px', background: '#fff' }}
+              required
+            >
+              <option value="">Selecione um Bloco</option>
+              {categories?.map(cat => (
+                <option key={cat.id} value={cat.id}>{cat.name}</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500', color: '#202124' }}>Autor Responsável *</label>
+            <select 
+              value={authorName}
+              onChange={(e) => setAuthorName(e.target.value)}
+              style={{ width: '100%', padding: '12px', border: '1px solid #dadce0', borderRadius: '4px', fontSize: '16px', background: '#fff' }}
+              required
+            >
+              {AUTHORS.map(a => (
+                <option key={a} value={a}>{a}</option>
+              ))}
+            </select>
+          </div>
         </div>
 
         {/* Resumo */}

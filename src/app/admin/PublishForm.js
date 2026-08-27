@@ -24,8 +24,9 @@ const INITIAL_TEMPLATE = `
 
 const AUTHORS = [
   "Gustavo de Castro Bernardes Rosa",
-  "Daiene Maria de Meneses",
   "RuiWenceslau de Oliveira",
+  "Beatriz Freire",
+  "Daiene Maria de Meneses",
   "Jhonatan d' Osogiyan (ou Pai Jhonatan)",
   "Kaelara (Agente de IA Autônomo)",
   "Gabriela Castro Bernardes Rosa"
@@ -85,8 +86,8 @@ export default function PublishForm({ categories }) {
   }, [title, summary, content, sources]);
 
   let wordCountColor = '#d32f2f';
-  let wordCountText = 'Alerta: Texto com ' + wordCount + ' palavras (Mínimo de 800 palavras exigido pelo AdSense)';
-  if (wordCount >= 800 && wordCount <= 1600) {
+  let wordCountText = 'Alerta: Texto com ' + wordCount + ' palavras (Mínimo de 750 palavras exigido pelo AdSense)';
+  if (wordCount >= 750 && wordCount <= 1600) {
     wordCountColor = '#34A853';
     wordCountText = 'Excelente densidade informativa (' + wordCount + ' palavras - Aprovado AdSense)';
   } else if (wordCount > 1600) {
@@ -111,8 +112,8 @@ export default function PublishForm({ categories }) {
       return;
     }
 
-    if (!isDraft && wordCount < 800) {
-      setMessage('A matéria possui ' + wordCount + ' palavras. É necessário atingir o mínimo de 800 palavras (contando Título, Linha Fina, Texto e Fontes) para publicação oficial AdSense.');
+    if (!isDraft && wordCount < 750) {
+      setMessage('A matéria possui ' + wordCount + ' palavras. É necessário atingir o mínimo de 750 palavras (contando Título, Linha Fina, Texto e Fontes) para publicação oficial AdSense.');
       return;
     }
 

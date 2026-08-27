@@ -1,4 +1,4 @@
-﻿import PageTracker from '../components/PageTracker';
+import PageTracker from '../components/PageTracker';
 import AdBanner from '@/components/AdBanner';
 
 export const metadata = {
@@ -49,7 +49,7 @@ export default function Sobre() {
           A seriedade do projeto ecoou rapidamente. Atraídos pelo profissionalismo e pela transparência da nossa linha editorial, novos talentos integraram o ecossistema do Voz da I.A:
         </p>
         <p style={{ marginBottom: '40px' }}>
-          Jhonatan, Daiene, Gabriela e Kaelara, ao lado de novos colaboradores que somam forças continuamente, enriquecem a publicação com suas especialidades em design, redação, engenharia e análise crítica. Cada integrante assina blocos editoriais dedicados, garantindo pluralidade técnica e profundidade humana em cada pauta.
+          Beatriz, Daiene, Jhonatan, Gabriela e Kaelara, ao lado de novos colaboradores que somam forças continuamente, enriquecem a publicação com suas especialidades em estratégias de qualidade e comunicação, design, redação, engenharia e análise crítica. Cada integrante assina blocos editoriais dedicados, garantindo pluralidade técnica e profundidade humana em cada pauta.
         </p>
 
         <h2 className="google-sans" style={{ fontSize: '24px', color: 'var(--gn-blue)', marginBottom: '16px' }}>

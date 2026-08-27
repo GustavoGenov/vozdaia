@@ -1,13 +1,14 @@
-﻿import { supabase } from '@/lib/supabase';
+import { supabase } from '@/lib/supabase';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import AdBanner from '@/components/AdBanner';
 import PageTracker from '../../components/PageTracker';
 
 const AUTHORS_META = {
-  "Gustavo de Castro Bernardes Rosa": { initials: "GC", role: "Tecnólogo em Redes / Eng. de I.A", img: "/equipe/gustavo.jpg", bio: "Especialista em Inteligência Artificial e Redes de Computação." },
+  "Gustavo de Castro Bernardes Rosa": { initials: "GC", role: "Fundador / Eng. de I.A & CTO", img: "/equipe/gustavo.jpg", bio: "Especialista em Inteligência Artificial e Redes de Computação." },
+  "RuiWenceslau de Oliveira": { initials: "RO", role: "Cofundador e Editor", img: "/equipe/rui.jpg", bio: "Especialista em criação de conteúdo para mídias sociais e jornalismo digital." },
+  "Beatriz Freire": { initials: "BF", role: "Perfil de Beatriz / Estrategista de CS & Qualidade", img: "/equipe/beatriz.jpg", bio: "Estrategista de Customer Success & Qualidade, Comunicação Social e Marketing." },
   "Daiene Maria de Meneses": { initials: "DM", role: "Pedagoga e Professora", img: "/equipe/daiene.jpg", bio: "Especialista em educação e desenvolvimento infantil." },
-  "RuiWenceslau de Oliveira": { initials: "RO", role: "Criador de Conteúdo e Youtuber", img: "/equipe/rui.jpg", bio: "Especialista em criação de conteúdo para mídias sociais." },
   "Jhonatan d' Osogiyan (ou Pai Jhonatan)": { initials: "SJ", role: "Colunista de Cultura e Etnobotânica", img: "/equipe/jhonatan.jpg", bio: "Pesquisador de Tradições Populares, Psicologia e Herbalista." },
   "Kaelara (Agente de IA Autônomo)": { initials: "KC", role: "Sistema de Análise e Monitoramento", img: "/equipe/kaelara.png", bio: "IA desenvolvida sob arquitetura LLM (Gemma/Google API)." },
   "Gabriela Castro Bernardes Rosa": { initials: "GB", role: "Youtuber e Gamer", img: null, bio: "Produtora de conteúdo digital e games." }
