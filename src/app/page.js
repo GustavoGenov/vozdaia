@@ -144,7 +144,7 @@ export default async function Home() {
       </section>
 
       {/* SEÇÃO FORMIGA EM FOCO */}
-      <div className="section-title" id="formiga-em-foco">
+      <div className="section-title" id="formiga-em-foco" style={{ marginTop: '5.5rem' }}>
         <h2><span></span> Formiga em Foco & Sociedade</h2>
         <Link href="/categoria/cultura-filosofia-bem-estar" className="see-all">
           Ver todos →
@@ -186,6 +186,44 @@ export default async function Home() {
       <div style={{ margin: '40px 0' }}>
         <AdBanner dataAdSlot="SEU_SLOT_HOME_1" />
       </div>
+
+      {/* COLUNA DO GUSTAVO / OPINIÃO E TECNOLOGIA */}
+      <div className="section-title" id="coluna-do-gustavo" style={{ marginTop: '3.5rem' }}>
+        <h2>
+          <span style={{ background: 'linear-gradient(135deg, #f59e0b, #ea580c)' }}></span> 
+          Coluna do Gustavo
+        </h2>
+        <Link href="/equipe" className="see-all">
+          Conheça o autor →
+        </Link>
+      </div>
+
+      <section style={{ 
+        background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(245, 158, 11, 0.02))', 
+        border: '1px solid rgba(245, 158, 11, 0.15)',
+        borderRadius: '16px',
+        padding: '28px',
+        marginBottom: '40px',
+        display: 'flex',
+        gap: '24px',
+        alignItems: 'center',
+        flexWrap: 'wrap'
+      }}>
+        <div style={{ width: '100px', height: '100px', borderRadius: '50%', overflow: 'hidden', border: '3px solid #f59e0b', flexShrink: 0 }}>
+          <img src="/simbolo.png" alt="Gustavo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        </div>
+        <div style={{ flex: 1, minWidth: '280px' }}>
+          <div style={{ display: 'inline-block', background: '#fef3c7', color: '#b45309', fontSize: '12px', fontWeight: '700', padding: '4px 10px', borderRadius: '12px', marginBottom: '12px', textTransform: 'uppercase' }}>
+            Visão & Editorial
+          </div>
+          <h3 style={{ fontSize: '1.4rem', fontWeight: '700', color: 'var(--text)', marginBottom: '10px', lineHeight: 1.3 }}>
+            Bem-vindo à Voz da I.A: Como a tecnologia molda a nossa realidade e combate a desinformação.
+          </h3>
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', lineHeight: 1.6, marginBottom: '0' }}>
+            Uma análise franca sobre o ecossistema tecnológico global, os desafios da inteligência artificial e o impacto direto na nossa sociedade. Acompanhe os artigos técnicos, ensaios e reflexões do fundador do portal.
+          </p>
+        </div>
+      </section>
 
       {/* SEÇÃO DEMAIS PUBLICAÇÕES */}
       <div className="section-title">
