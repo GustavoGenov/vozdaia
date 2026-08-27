@@ -12,74 +12,98 @@ export default function LayoutShell({ categories, children }) {
 
   return (
     <>
-      {/* HEADER PRINCIPAL COM DIVISÕES DE BLOCOS */}
-      <header className="header">
-        <div className="header-inner">
-          
-          {/* BLOCO 1: IDENTIDADE / LOGO */}
-          <div className="header-brand-block">
-            <button 
-              className="menu-btn" 
-              onClick={toggleDrawer} 
-              aria-label="Menu principal"
-              style={{ color: 'white', padding: '6px' }}
-            >
-              <span className="material-icons-extended" style={{ fontSize: '26px' }}>menu</span>
-            </button>
-
-            <Link href="/" className="logo" onClick={closeDrawer} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <img 
-                src="/simbolo.png" 
-                alt="Símbolo Voz da I.A" 
-                className="header-logo-symbol"
-              />
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <span className="header-brand-title">Voz da I.A</span>
-                <span className="header-brand-subtitle">Jornal Inteligente</span>
-              </div>
-            </Link>
-          </div>
-
-          {/* BLOCO 2: NAVEGAÇÃO & EDITORIAS */}
-          <nav className="header-nav-block nav">
-            <Link href="/categoria/ia-e-agentes" className="nav-block-item">
-              <span>🤖</span> IA & Agentes
-            </Link>
-            <Link href="/categoria/ciencia-e-espaco" className="nav-block-item">
-              <span>🚀</span> Ciência
-            </Link>
-            <Link href="/categoria/tech-e-gaming" className="nav-block-item">
-              <span>🎮</span> Tech & Games
-            </Link>
-            <Link href="/categoria/cultura-filosofia-bem-estar" className="nav-block-item">
-              <span>🎨</span> Cultura
-            </Link>
-            <Link href="/#formiga-em-foco" className="nav-block-item">
-              <span>🏛️</span> Formiga
-            </Link>
-            <Link href="/clima" className="nav-block-item">
-              <span>🌦️</span> Clima
-            </Link>
-            <Link href="/horoscopo" className="nav-block-item">
-              <span>🔮</span> Horóscopo
-            </Link>
-          </nav>
-
-          {/* BLOCO 3: UTILITÁRIOS & AÇÕES */}
-          <div className="header-actions-block header-actions">
-            <div id="google_translate_element" className="google-translate-wrapper"></div>
-            <ThemeToggle />
+      {/* HEADER PRINCIPAL REESTRUTURADO EM 2 LINHAS COM BRILHO AZUL REFLEXIVO */}
+      <header className="header header-2tier">
+        
+        {/* LINHA 1: MARCA, TAGLINE E UTILITÁRIOS */}
+        <div className="header-top-row">
+          <div className="header-inner">
             
-            <Link href="#newsletter" className="btn btn-primary" style={{ whiteSpace: 'nowrap', padding: '0.45rem 0.9rem', fontSize: '0.85rem' }}>
-              Newsletter
-            </Link>
-            
-            <Link href="/admin" className="profile-avatar" title="Painel Administrativo" style={{ textDecoration: 'none', width: '32px', height: '32px', fontSize: '14px' }}>
-              G
-            </Link>
-          </div>
+            {/* Bloco 1: Identidade da Marca */}
+            <div className="header-brand-block">
+              <button 
+                className="menu-btn" 
+                onClick={toggleDrawer} 
+                aria-label="Menu principal"
+                style={{ color: 'white', padding: '6px', background: 'rgba(255,255,255,0.1)', borderRadius: '8px' }}
+              >
+                <span className="material-icons-extended" style={{ fontSize: '24px' }}>menu</span>
+              </button>
 
+              <Link href="/" className="logo" onClick={closeDrawer} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <img 
+                  src="/simbolo.png" 
+                  alt="Símbolo Voz da I.A" 
+                  className="header-logo-symbol"
+                />
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                  <span className="header-brand-title">Voz da I.A</span>
+                  <span className="header-brand-subtitle">Combate às Fake News com Tecnologia</span>
+                </div>
+              </Link>
+            </div>
+
+            {/* Bloco Central: Tagline / Destaque */}
+            <div className="header-center-tagline">
+              <span className="tagline-badge">Jornalismo 100% Verificado</span>
+              <span className="tagline-text">Ciência, Tecnologia & Inovação em Tempo Real</span>
+            </div>
+
+            {/* Bloco 3: Ações e Utilitários */}
+            <div className="header-actions-block header-actions">
+              <div id="google_translate_element" className="google-translate-wrapper"></div>
+              <ThemeToggle />
+              
+              <Link href="#newsletter" className="btn btn-header-action">
+                <span>✉️</span> Assinar Newsletter
+              </Link>
+              
+              <Link href="/admin" className="profile-avatar" title="Painel Administrativo" style={{ textDecoration: 'none' }}>
+                G
+              </Link>
+            </div>
+
+          </div>
         </div>
+
+        {/* LINHA 2: TODAS AS EDITORIAS EM BLOCOS VISÍVEIS */}
+        <div className="header-bottom-row">
+          <div className="header-inner">
+            <nav className="header-categories-nav">
+              <Link href="/categoria/ia-e-agentes" className="nav-pill-item">
+                <span>🤖</span> IA & Agentes
+              </Link>
+              <Link href="/categoria/ciencia-e-espaco" className="nav-pill-item">
+                <span>🚀</span> Ciência & Espaço
+              </Link>
+              <Link href="/categoria/tech-e-gaming" className="nav-pill-item">
+                <span>🎮</span> Tech & Games
+              </Link>
+              <Link href="/categoria/cultura-filosofia-bem-estar" className="nav-pill-item">
+                <span>🎨</span> Cultura & Filosofia
+              </Link>
+              <Link href="/categoria/engenharia-e-hardware" className="nav-pill-item">
+                <span>⚙️</span> Hardware & Engenharia
+              </Link>
+              <Link href="/#formiga-em-foco" className="nav-pill-item pill-highlight-green">
+                <span>🏛️</span> Formiga em Foco
+              </Link>
+              <Link href="/clima" className="nav-pill-item">
+                <span>🌦️</span> Clima Tempo BR
+              </Link>
+              <Link href="/horoscopo" className="nav-pill-item">
+                <span>🔮</span> Horóscopo & Tarô
+              </Link>
+              <Link href="/equipe" className="nav-pill-item">
+                <span>👥</span> Nossa Equipe
+              </Link>
+              <Link href="/sobre" className="nav-pill-item">
+                <span>ℹ️</span> Sobre Nós
+              </Link>
+            </nav>
+          </div>
+        </div>
+
       </header>
 
       {/* OVERLAY E MOBILE DRAWER */}
