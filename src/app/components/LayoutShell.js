@@ -51,6 +51,7 @@ export default function LayoutShell({ categories, children }) {
 
             {/* Bloco 3: Ações e Utilitários */}
             <div className="header-actions-block header-actions">
+              <div id="google_translate_element" className="google-translate-wrapper"></div>
               <ThemeToggle />
               
               <Link href="#newsletter" className="btn btn-header-action">
