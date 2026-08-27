@@ -43,20 +43,17 @@ export default function LayoutShell({ categories, children }) {
               </Link>
             </div>
 
-            {/* Bloco Central: Tagline / Destaque */}
-            <div className="header-center-tagline">
-              <span className="tagline-badge">Edição Digital</span>
-              <span className="tagline-text">Ciência, Tecnologia & Inovação em Tempo Real</span>
+            {/* Bloco Central: Busca (Substituindo a antiga Tagline) */}
+            <div className="header-center-tagline" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1, padding: '0 20px' }}>
+              <form action="/busca" method="GET" style={{ display: 'flex', alignItems: 'center', background: 'rgba(255,255,255,0.1)', borderRadius: '24px', padding: '8px 16px', border: '1px solid rgba(255,255,255,0.2)', width: '100%', maxWidth: '400px' }}>
+                <span className="material-icons-extended" style={{ fontSize: '18px', color: 'rgba(255,255,255,0.7)', marginRight: '8px' }}>search</span>
+                <input type="text" name="q" placeholder="Pesquisar notícias..." required style={{ background: 'transparent', border: 'none', color: '#fff', outline: 'none', fontSize: '14px', width: '100%' }} />
+              </form>
             </div>
 
             {/* Bloco 3: Ações e Utilitários */}
             <div className="header-actions-block header-actions">
-              <form action="/busca" method="GET" style={{ display: 'flex', alignItems: 'center', background: 'rgba(255,255,255,0.1)', borderRadius: '20px', padding: '4px 12px', border: '1px solid rgba(255,255,255,0.2)' }}>
-                <input type="text" name="q" placeholder="Buscar..." required style={{ background: 'transparent', border: 'none', color: '#fff', outline: 'none', fontSize: '13px', width: '100px' }} />
-                <button type="submit" style={{ background: 'transparent', border: 'none', color: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-                  <span className="material-icons-extended" style={{ fontSize: '16px' }}>search</span>
-                </button>
-              </form>
+              <div id="google_translate_element" className="google-translate-wrapper"></div>
               <ThemeToggle />
               
               <Link href="#newsletter" className="btn btn-header-action">
