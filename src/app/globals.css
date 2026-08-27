@@ -1646,3 +1646,33 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* Oculta o branding / logo textual injetado pelo Google Translate */
+.goog-logo-link {
+  display: none !important;
+}
+
+.goog-te-gadget {
+  color: transparent !important; /* Esconde o texto 'Google Tradutor' */
+  font-size: 0px !important;     /* Zera a tipografia do texto injetado */
+}
+
+/* Garante que o select de idiomas continue visível e estilizado */
+.goog-te-gadget .goog-te-combo {
+  display: inline-block !important;
+  color: #1e293b !important;     /* Cor do texto dentro do select */
+  font-size: 14px !important;    /* Tamanho legível */
+  border-radius: 8px !important;
+  padding: 4px 8px !important;
+  background-color: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  cursor: pointer !important;
+}
+
+/* Oculta o banner superior que o Google às vezes força no topo da página */
+.goog-te-banner-frame.skiptranslate {
+  display: none !important;
+}
+body {
+  top: 0px !important;
+}
