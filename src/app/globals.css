@@ -641,10 +641,19 @@ h1, h2, h3, .google-sans {
 
 .article-body table {
   width: 100% !important;
+  max-width: 100%;
   overflow-x: auto;
   display: block;
   border-collapse: collapse;
-  margin: 20px 0;
+  margin: 24px auto;
+  font-size: 0.85rem; /* Fonte menor para evitar cortes */
+  line-height: 1.4;
+}
+
+@media (min-width: 992px) {
+  .article-body table {
+    width: 85% !important; /* Diminui a largura em telas maiores */
+  }
 }
 .article-body table td, 
 .article-body table th {
