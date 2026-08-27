@@ -71,17 +71,14 @@ export default async function CategoryPage({ params }) {
 
 
   return (
-    <main className="main-content">
+    <main className="container">
       <PageTracker categoryId={category.id} />
       
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
-        <h1 className="page-title google-sans" style={{ marginBottom: 0 }}>
+      <div className="section-title" style={{ marginTop: '1rem', marginBottom: '2rem' }}>
+        <h2>
+          <span style={{ background: category.color_code || 'var(--accent)' }}></span>
           {category.name}
-        </h1>
-        <span style={{ 
-          background: category.color_code || 'var(--gn-blue)', 
-          width: '12px', height: '12px', borderRadius: '50%', display: 'inline-block' 
-        }}></span>
+        </h2>
       </div>
 
       {category.slug === 'horoscopo-e-taro' && (
@@ -96,45 +93,41 @@ export default async function CategoryPage({ params }) {
         </div>
       )}
 
-      <div className="news-grid">
+      <div className="articles-grid">
         {error ? (
           <p>Erro ao carregar notícias: {error.message}</p>
         ) : articles && articles.length > 0 ? (
           articles.map((article) => (
-            <article key={article.id} className="article-card">
-              {article.image_url ? (
-                <img src={article.image_url} alt={article.title} className="article-card-img" />
-              ) : (
-                <div className="article-card-img" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--gn-text-secondary)' }}>
-                  <span className="material-icons-extended" style={{fontSize: '32px'}}>image</span>
-                </div>
-              )}
-              
-              <div className="article-card-content">
-                {article.categories && (
-                  <div className="article-card-category" style={{color: article.categories.slug === 'religiao' ? '#8e24aa' : (article.categories.color_code || 'var(--gn-blue)')}}>
-                    {article.categories.name}
+            <Link key={article.id} href={`/artigo/${article.slug}`} className="card">
+              <div className="card-img-wrap">
+                {article.image_url ? (
+                  <img src={article.image_url} alt={article.title} />
+                ) : (
+                  <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--border)' }}>
+                    <span className="material-icons-extended" style={{ fontSize: '32px', color: 'var(--text-muted)' }}>image</span>
                   </div>
                 )}
-                
-                <h3 className="article-card-title google-sans">
-                  <Link href={`/artigo/${article.slug}`}>{article.title}</Link>
-                </h3>
-                
-                <p className="article-card-summary">
+              </div>
+
+              <div className="card-body">
+                <span className="category" style={{ color: category.color_code || 'var(--accent)' }}>
+                  {category.name}
+                </span>
+                <h3>{article.title}</h3>
+                <p>
                   {article.summary?.length > 120 ? article.summary.substring(0, 120) + '...' : article.summary}
                 </p>
-                
-                <div className="article-card-footer">
-                  <span>Voz da I.A</span>
+                <div className="meta">
+                  <span>{article.author_name || 'Voz da I.A'}</span>
+                  <span>•</span>
                   <span>{new Date(article.created_at).toLocaleDateString('pt-BR')}</span>
                 </div>
               </div>
-            </article>
+            </Link>
           ))
         ) : (
-           <div style={{ textAlign: 'center', padding: '60px', color: 'var(--gn-text-secondary)', gridColumn: '1 / -1' }}>
-              <span className="material-icons-extended" style={{ fontSize: '48px', color: 'var(--gn-border)', marginBottom: '16px' }}>article</span>
+           <div style={{ textAlign: 'center', padding: '60px', color: 'var(--text-muted)', gridColumn: '1 / -1' }}>
+              <span className="material-icons-extended" style={{ fontSize: '48px', color: 'var(--border)', marginBottom: '16px' }}>article</span>
               <h2>Nenhum artigo publicado ainda nesta categoria.</h2>
           </div>
         )}
