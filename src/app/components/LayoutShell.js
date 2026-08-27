@@ -12,91 +12,115 @@ export default function LayoutShell({ categories, children }) {
 
   return (
     <>
-      {/* HEADER PRINCIPAL REESTRUTURADO EM 2 LINHAS COM BRILHO AZUL REFLEXIVO */}
+      {/* HEADER PRINCIPAL REESTRUTURADO EM 2 LINHAS COM PADRÃO DOS GRANDES JORNAIS */}
       <header className="header header-2tier">
         
-        {/* LINHA 1: MARCA, TAGLINE E UTILITÁRIOS */}
+        {/* LINHA 1: MARCA, BUSCA E AÇÕES */}
         <div className="header-top-row">
-          <div className="header-inner">
+          <div className="header-inner header-top-inner">
             
-            {/* Bloco 1: Identidade da Marca */}
+            {/* Bloco 1: Identidade da Marca e Menu */}
             <div className="header-brand-block">
               <button 
-                className="menu-btn" 
+                className="menu-btn header-menu-toggle" 
                 onClick={toggleDrawer} 
-                aria-label="Menu principal"
-                style={{ color: 'white', padding: '6px', background: 'rgba(255,255,255,0.1)', borderRadius: '8px' }}
+                aria-label="Abrir menu de navegação"
+                title="Menu Principal"
               >
                 <span className="material-icons-extended" style={{ fontSize: '24px' }}>menu</span>
               </button>
 
-              <Link href="/" className="logo" onClick={closeDrawer} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <Link href="/" className="logo header-brand-link" onClick={closeDrawer}>
                 <img 
                   src="/simbolo.png" 
                   alt="Símbolo Voz da I.A" 
                   className="header-logo-symbol"
                 />
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <div className="header-brand-text-wrap">
                   <span className="header-brand-title">Voz da I.A</span>
                   <span className="header-brand-subtitle">Combate às Fake News com Tecnologia</span>
                 </div>
               </Link>
             </div>
 
-            {/* Bloco Central: Busca (Substituindo a antiga Tagline) */}
-            <div className="header-center-tagline" style={{ display: 'flex', alignItems: 'center', flex: 1, padding: '0 20px' }}>
-              <form action="/busca" method="GET" style={{ display: 'flex', alignItems: 'center', background: 'rgba(255,255,255,0.1)', borderRadius: '24px', padding: '6px 12px', border: '1px solid rgba(255,255,255,0.2)', width: '100%', maxWidth: 'none' }}>
-                <span className="material-icons-extended" style={{ fontSize: '18px', color: 'rgba(255,255,255,0.7)', marginRight: '8px' }}>search</span>
-                <input type="text" name="q" placeholder="Pesquisar notícias..." required style={{ background: 'transparent', border: 'none', color: '#fff', outline: 'none', fontSize: '14px', width: '100%' }} />
+            {/* Bloco Central: Busca Inteligente (Ocupa todo o vão livre no Desktop) */}
+            <div className="header-search-container">
+              <form action="/busca" method="GET" className="header-search-form">
+                <span className="material-icons-extended search-icon">search</span>
+                <input 
+                  type="text" 
+                  name="q" 
+                  placeholder="Pesquisar notícias, IA, ciência, temas locais..." 
+                  required 
+                  className="header-search-input" 
+                />
               </form>
             </div>
 
-            {/* Bloco 3: Ações e Utilitários */}
+            {/* Bloco 3: Utilitários & Ações (Tradutor, Tema, Newsletter) */}
             <div className="header-actions-block header-actions">
-              <div id="google_translate_element" className="google-translate-wrapper"></div>
-              <ThemeToggle />
+              <div id="google_translate_element" className="google-translate-wrapper" title="Traduzir página"></div>
               
-              <Link href="#newsletter" className="btn btn-header-action">
-                <span>✉️</span> Assinar Newsletter
+              <div className="theme-toggle-wrap">
+                <ThemeToggle />
+              </div>
+              
+              <Link href="#newsletter" className="btn btn-header-action" title="Receba notícias diárias">
+                <span className="btn-icon">✉️</span>
+                <span className="btn-label">Newsletter</span>
               </Link>
             </div>
 
           </div>
+
+          {/* Busca Dedicada em Dispositivos Móveis (Garante que nunca corte em smartphones) */}
+          <div className="header-mobile-search-row">
+            <form action="/busca" method="GET" className="header-search-form mobile-search-form">
+              <span className="material-icons-extended search-icon">search</span>
+              <input 
+                type="text" 
+                name="q" 
+                placeholder="Pesquisar notícias..." 
+                required 
+                className="header-search-input" 
+              />
+            </form>
+          </div>
         </div>
 
-        {/* LINHA 2: TODAS AS EDITORIAS EM BLOCOS VISÍVEIS */}
+        {/* LINHA 2: TODAS AS EDITORIAS EM BLOCOS ROLÁVEIS (PADRÃO G1/FOLHA) */}
         <div className="header-bottom-row">
           <div className="header-inner">
-            <nav className="header-categories-nav">
+            <nav className="header-categories-nav" aria-label="Editorias do jornal">
               <Link href="/categoria/ia-e-agentes" className="nav-pill-item">
-                <span>🤖</span> IA & Agentes
+                <span>🤖</span> <span>IA & Agentes</span>
               </Link>
               <Link href="/categoria/ciencia-e-espaco" className="nav-pill-item">
-                <span>🚀</span> Ciência & Espaço
+                <span>🚀</span> <span>Ciência & Espaço</span>
               </Link>
               <Link href="/categoria/tech-e-gaming" className="nav-pill-item">
-                <span>🎮</span> Tech & Games
+                <span>🎮</span> <span>Tech & Games</span>
               </Link>
               <Link href="/categoria/cultura-filosofia-bem-estar" className="nav-pill-item">
-                <span>🎨</span> Cultura & Filosofia
+                <span>🎨</span> <span>Cultura & Sociedade</span>
               </Link>
               <Link href="/categoria/engenharia-e-hardware" className="nav-pill-item">
-                <span>⚙️</span> Hardware & Engenharia
+                <span>⚙️</span> <span>Hardware & Tech</span>
               </Link>
               <Link href="/#formiga-em-foco" className="nav-pill-item pill-highlight-green">
-                <span>🏛️</span> Formiga em Foco
+                <span>🏛️</span> <span>Formiga em Foco</span>
               </Link>
               <Link href="/clima" className="nav-pill-item">
-                <span>🌦️</span> Clima Tempo BR
+                <span>🌦️</span> <span>Clima Tempo BR</span>
               </Link>
               <Link href="/horoscopo" className="nav-pill-item">
-                <span>🔮</span> Horóscopo & Tarô
+                <span>🔮</span> <span>Horóscopo & Tarô</span>
               </Link>
               <Link href="/equipe" className="nav-pill-item">
-                <span>👥</span> Nossa Equipe
+                <span>👥</span> <span>Equipe Editorial</span>
               </Link>
               <Link href="/sobre" className="nav-pill-item">
-                <span>ℹ️</span> Sobre Nós
+                <span>ℹ️</span> <span>Sobre Nós</span>
               </Link>
             </nav>
           </div>

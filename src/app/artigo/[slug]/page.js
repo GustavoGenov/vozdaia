@@ -153,7 +153,7 @@ export default async function ArticlePage({ params }) {
         {/* Conteúdo Rico (HTML) */}
         <article 
           className="article-body" 
-          style={{ fontSize: '20px', lineHeight: '1.85', color: 'var(--gn-text)', wordWrap: 'break-word', overflowWrap: 'anywhere' }}
+          style={{ lineHeight: '1.8', color: 'var(--gn-text)', wordWrap: 'break-word', overflowWrap: 'anywhere' }}
         >
           <style dangerouslySetInnerHTML={{__html: `
             .article-body h2 { font-size: 24px; font-weight: 700; margin-top: 32px; margin-bottom: 16px; color: var(--gn-text); font-family: 'Google Sans', sans-serif; }
