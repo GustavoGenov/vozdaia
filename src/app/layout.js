@@ -107,20 +107,24 @@ export default async function RootLayout({ children }) {
           `}
         </Script>
 
-        {/* Google Translate API */}
-        <Script id="google-translate-init" strategy="lazyOnload">
+        {/* Google Translate API (Tradução In-Page Nativa Oficial) */}
+        <Script id="google-translate-init" strategy="afterInteractive">
           {`
-            window.googleTranslateElementInit = function() {
-              new google.translate.TranslateElement({
-                pageLanguage: 'pt',
-                autoDisplay: false
-              }, 'google_translate_element');
-            };
+            function googleTranslateElementInit() {
+              if (window.google && window.google.translate) {
+                new google.translate.TranslateElement({
+                  pageLanguage: 'pt',
+                  includedLanguages: 'en,es,fr,de,it',
+                  layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+                }, 'google_translate_element');
+              }
+            }
+            window.googleTranslateElementInit = googleTranslateElementInit;
           `}
         </Script>
         <Script
-          src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
-          strategy="lazyOnload"
+          src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+          strategy="afterInteractive"
         />
       </head>
       <body suppressHydrationWarning>
