@@ -45,7 +45,7 @@ export default function LayoutShell({ categories, children }) {
 
             {/* Bloco Central: Tagline / Destaque */}
             <div className="header-center-tagline">
-              <span className="tagline-badge">Jornalismo 100% Verificado</span>
+              <span className="tagline-badge">Edição Digital</span>
               <span className="tagline-text">Ciência, Tecnologia & Inovação em Tempo Real</span>
             </div>
 

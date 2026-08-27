@@ -61,12 +61,12 @@ export default function CategoryForm() {
   };
 
   const handleSetupAdSense = async () => {
-    if (!window.confirm('Isso apagará TODOS os blocos antigos e criará os 8 novos blocos focados no AdSense. Tem certeza?')) {
+    if (!window.confirm('Isso apagará TODOS os blocos antigos e criará os novos blocos oficiais. Tem certeza?')) {
       return;
     }
 
     setResetLoading(true);
-    setMessage('Resetando blocos para o AdSense...');
+    setMessage('Resetando blocos e colunas...');
 
     try {
       // 1. Delete all existing categories
@@ -74,18 +74,18 @@ export default function CategoryForm() {
 
       // 2. Insert new categories
       const newCategories = [
-        { name: 'Inteligência Artificial & Agentes', slug: 'ia-e-agentes', color_code: '#9c27b0' },
-        { name: 'Engenharia & hardware', slug: 'engenharia-e-hardware', color_code: '#00bcd4' },
-        { name: 'Ciência & Fronteira Espacial', slug: 'ciencia-e-espaco', color_code: '#e91e63' },
-        { name: 'Tech & Gaming', slug: 'tech-e-gaming', color_code: '#1a73e8' },
-        { name: 'Clima tempo', slug: 'clima-tempo', color_code: '#0f9d58' },
-        { name: 'Cultura, Filosofia & Bem-Estar', slug: 'cultura-filosofia-bem-estar', color_code: '#d81b60' }
+        { name: 'IA & Agentes', slug: 'ia-e-agentes', color_code: '#9c27b0' },
+        { name: 'Ciência & Espaço', slug: 'ciencia-e-espaco', color_code: '#e91e63' },
+        { name: 'Tech & Games', slug: 'tech-e-gaming', color_code: '#1a73e8' },
+        { name: 'Cultura & Filosofia', slug: 'cultura-filosofia-bem-estar', color_code: '#d81b60' },
+        { name: 'Engenharia & Hardware', slug: 'engenharia-e-hardware', color_code: '#00bcd4' },
+        { name: 'Formiga em Foco', slug: 'formiga-em-foco', color_code: '#10b981' }
       ];
 
       const { error: insertErr } = await supabase.from('categories').insert(newCategories);
       
       if (insertErr) {
-        throw new Error('Erro ao inserir blocos AdSense: ' + insertErr.message);
+        throw new Error('Erro ao inserir blocos: ' + insertErr.message);
       }
 
       setMessage('Blocos recriados com sucesso!');

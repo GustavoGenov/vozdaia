@@ -122,11 +122,8 @@ export default async function AdminDashboard() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
           <span className="material-icons-extended" style={{ color: '#2563eb', fontSize: '24px' }}>verified</span>
           <h3 style={{ fontSize: '16px', fontWeight: '700', color: 'var(--text)', margin: 0 }}>
-            Status de Conformidade com o Google AdSense
+            Checklist de Conformidade com o Google AdSense
           </h3>
-          <span style={{ fontSize: '11px', background: '#10b981', color: '#fff', padding: '3px 8px', borderRadius: '12px', fontWeight: '700' }}>
-            APROVADO / CONFORME
-          </span>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '12px', fontSize: '13px', color: 'var(--text)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
