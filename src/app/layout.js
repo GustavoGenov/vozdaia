@@ -1,4 +1,4 @@
-﻿import './globals.css';
+import './globals.css';
 import Script from 'next/script';
 import { supabase } from '@/lib/supabase';
 import { Providers } from './providers';
@@ -11,7 +11,7 @@ export const viewport = {
 };
 
 export const metadata = {
-  title: 'Voz da I.A - Combate Ã s Fake News com Tecnologia',
+  title: 'Voz da I.A - Combate às Fake News com Tecnologia',
   description: 'O Voz da I.A é o primeiro jornal inteligente 100% focado em combater fake news através de alta tecnologia, checagem de fatos e notícias verificadas em tempo real.',
   verification: {
     google: 'demFjjgkORq1aeNSlcUdOt7ZwTQxtocBJrJVej5_KVM',
@@ -41,7 +41,7 @@ export default async function RootLayout({ children }) {
   if (!processedCategories.some(cat => cat.slug === 'horoscopo')) {
     processedCategories.push({
       id: 'horoscopo-virtual-id',
-      name: 'HorÃ³scopo & TarÃ´',
+      name: 'Horóscopo & Tarô',
       slug: 'horoscopo',
       color_code: '#e040fb',
       views: 0

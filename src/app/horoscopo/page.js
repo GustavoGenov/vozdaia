@@ -282,6 +282,14 @@ export default function HoroscopoPage() {
         </section>
 
       </div>
+
+      {/* DISCLAIMER DE ENTRETENIMENTO (COMPLIANCE ADSENSE) */}
+      <div style={{ marginTop: '40px', padding: '16px', background: 'var(--card)', border: '1px solid var(--border)', borderRadius: '12px', textAlign: 'center' }}>
+        <p style={{ fontSize: '12px', color: 'var(--text-muted)', lineHeight: '1.6', margin: 0 }}>
+          <strong>Nota Editorial:</strong> A seção de Horóscopo e Tarô do Voz da I.A possui caráter estritamente de entretenimento e reflexão cultural. Não oferecemos previsões infalíveis ou aconselhamento profissional. As leituras são geradas com base em arquétipos tradicionais para fins lúdicos.
+        </p>
+      </div>
+
     </main>
   );
 }

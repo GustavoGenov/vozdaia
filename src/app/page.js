@@ -105,7 +105,9 @@ export default async function Home() {
               </p>
 
               <div className="meta">
-                <span>{featuredArticle.author_name || 'Voz da I.A'}</span>
+                <span style={{ fontWeight: '600', color: 'var(--text)' }}>
+                  Por {featuredArticle.author_name || 'Equipe Editorial'}
+                </span>
                 <span>•</span>
                 <span>{formatDate(featuredArticle.created_at)}</span>
               </div>
@@ -133,7 +135,9 @@ export default async function Home() {
                 </span>
                 <h3>{article.title}</h3>
                 <div className="meta">
-                  <span>{article.author_name?.split(' ')[0] || 'Voz da I.A'}</span>
+                  <span style={{ fontWeight: '500' }}>
+                    Por {article.author_name || 'Equipe Editorial'}
+                  </span>
                   <span>•</span>
                   <span>{formatDate(article.created_at)}</span>
                 </div>
@@ -175,6 +179,8 @@ export default async function Home() {
                   : article.summary}
               </p>
               <div className="meta">
+                <span style={{ fontWeight: '500' }}>{article.author_name ? `Por ${article.author_name}` : 'Equipe Editorial'}</span>
+                <span>•</span>
                 <span>{formatDate(article.created_at)}</span>
               </div>
             </div>
@@ -257,7 +263,7 @@ export default async function Home() {
                   : article.summary}
               </p>
               <div className="meta">
-                <span>{article.author_name?.split(' ')[0] || 'Voz da I.A'}</span>
+                <span style={{ fontWeight: '500' }}>{article.author_name ? `Por ${article.author_name}` : 'Equipe Editorial'}</span>
                 <span>•</span>
                 <span>{formatDate(article.created_at)}</span>
               </div>
@@ -289,11 +295,11 @@ export default async function Home() {
           {/* Banner Economia */}
           <a href="https://sevenprofissional-e020.onrender.com/" target="_blank" rel="noopener noreferrer" className="ecosystem-card">
             <div style={{ width: '48px', height: '48px', minWidth: '48px', borderRadius: '10px', background: '#00C853', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
-              <span className="material-icons-extended">storefront</span>
+              <span className="material-icons-extended">domain</span>
             </div>
             <div>
               <div style={{ fontSize: '15px', fontWeight: '600', color: 'var(--text)' }}>Seven Profissional</div>
-              <div style={{ fontSize: '13px', color: 'var(--text-muted)' }}>Nossa loja e plataforma de economia</div>
+              <div style={{ fontSize: '13px', color: 'var(--text-muted)' }}>Soluções corporativas e empresariais</div>
             </div>
           </a>
 

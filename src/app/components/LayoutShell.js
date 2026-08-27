@@ -57,9 +57,9 @@ export default function LayoutShell({ categories, children }) {
               <Link href="#newsletter" className="btn btn-header-action">
                 <span>✉️</span> Assinar Newsletter
               </Link>
-              
-              <Link href="/admin" className="profile-avatar" title="Painel Administrativo" style={{ textDecoration: 'none' }}>
-                G
+              <Link href="/admin" className="btn btn-header-action" title="Painel Administrativo" style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.2)', padding: '6px 12px' }}>
+                <span className="material-icons-extended" style={{ fontSize: '18px' }}>settings</span>
+                <span style={{ marginLeft: '4px' }}>Ferramentas</span>
               </Link>
             </div>
 
