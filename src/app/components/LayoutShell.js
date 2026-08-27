@@ -51,7 +51,12 @@ export default function LayoutShell({ categories, children }) {
 
             {/* Bloco 3: Ações e Utilitários */}
             <div className="header-actions-block header-actions">
-              <div id="google_translate_element" className="google-translate-wrapper"></div>
+              <form action="/busca" method="GET" style={{ display: 'flex', alignItems: 'center', background: 'rgba(255,255,255,0.1)', borderRadius: '20px', padding: '4px 12px', border: '1px solid rgba(255,255,255,0.2)' }}>
+                <input type="text" name="q" placeholder="Buscar..." required style={{ background: 'transparent', border: 'none', color: '#fff', outline: 'none', fontSize: '13px', width: '100px' }} />
+                <button type="submit" style={{ background: 'transparent', border: 'none', color: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+                  <span className="material-icons-extended" style={{ fontSize: '16px' }}>search</span>
+                </button>
+              </form>
               <ThemeToggle />
               
               <Link href="#newsletter" className="btn btn-header-action">

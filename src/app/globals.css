@@ -616,18 +616,40 @@ h1, h2, h3, .google-sans {
   display: block !important;
 }
 
-.article-body img, 
+.article-body img {
+  max-width: 100% !important;
+  height: auto !important;
+  border-radius: 12px !important;
+  display: block !important;
+  margin: 20px auto !important;
+}
+
 .article-body iframe, 
 .article-body video {
   width: 100% !important;
   max-width: 100% !important;
   height: auto !important;
   aspect-ratio: 16 / 9 !important;
-  object-fit: cover !important;
   border-radius: 12px !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
   display: block !important;
   margin: 20px auto !important;
+}
+
+.article-body {
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+.article-body pre {
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  white-space: pre-wrap !important;
+  word-wrap: break-word !important;
+  background: var(--gn-surface) !important;
+  padding: 16px !important;
+  border-radius: 8px !important;
+  margin: 20px 0 !important;
 }
 
 .article-body figcaption {
