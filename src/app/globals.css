@@ -1637,42 +1637,6 @@ body {
   }
 }
 
-/* TRADUTOR CUSTOMIZADO - ESCONDE BRANDING DO GOOGLE */
-.google-translate-wrapper {
-  overflow: hidden;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-}
-.goog-te-gadget {
-  font-size: 0px !important; 
-  color: transparent !important;
-}
-.goog-te-gadget .goog-te-combo {
-  font-family: 'Segoe UI', system-ui, sans-serif !important;
-  font-size: 13px !important;
-  color: var(--text) !important;
-  background: var(--card) !important;
-  border: 1px solid var(--border) !important;
-  border-radius: 6px !important;
-  padding: 4px !important;
-  margin: 0 !important;
-  outline: none;
-}
-.goog-te-gadget span,
-.goog-te-gadget img {
-  display: none !important;
-}
-.skiptranslate.goog-te-gadget > div {
-  display: inline-block;
-}
-.goog-te-banner-frame.skiptranslate {
-  display: none !important;
-}
-body {
-  top: 0px !important; 
-}
-
 @media (max-width: 768px) {
   .newsletter-form {
     min-width: 100%;

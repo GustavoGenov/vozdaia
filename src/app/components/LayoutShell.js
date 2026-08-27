@@ -45,9 +45,9 @@ export default function LayoutShell({ categories, children }) {
 
             {/* Bloco Central: Busca (Substituindo a antiga Tagline) */}
             <div className="header-center-tagline" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1, padding: '0 20px' }}>
-              <form action="/busca" method="GET" style={{ display: 'flex', alignItems: 'center', background: 'rgba(255,255,255,0.1)', borderRadius: '24px', padding: '8px 16px', border: '1px solid rgba(255,255,255,0.2)', width: '100%', maxWidth: '400px' }}>
+              <form action="/busca" method="GET" style={{ display: 'flex', alignItems: 'center', background: 'rgba(255,255,255,0.1)', borderRadius: '24px', padding: '6px 12px', border: '1px solid rgba(255,255,255,0.2)', width: '100%', maxWidth: '250px' }}>
                 <span className="material-icons-extended" style={{ fontSize: '18px', color: 'rgba(255,255,255,0.7)', marginRight: '8px' }}>search</span>
-                <input type="text" name="q" placeholder="Pesquisar notícias..." required style={{ background: 'transparent', border: 'none', color: '#fff', outline: 'none', fontSize: '14px', width: '100%' }} />
+                <input type="text" name="q" placeholder="Pesquisar notícias..." required style={{ background: 'transparent', border: 'none', color: '#fff', outline: 'none', fontSize: '13px', width: '100%' }} />
               </form>
             </div>
 

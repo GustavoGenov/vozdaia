@@ -113,9 +113,7 @@ export default async function RootLayout({ children }) {
             window.googleTranslateElementInit = function() {
               new google.translate.TranslateElement({
                 pageLanguage: 'pt',
-                autoDisplay: false,
-                includedLanguages: 'en,es,fr,de,it,pt',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+                autoDisplay: false
               }, 'google_translate_element');
             };
           `}
