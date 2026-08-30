@@ -88,6 +88,23 @@ export default async function RootLayout({ children }) {
           crossOrigin="anonymous"
         ></script>
 
+        {/* Google Analytics (gtag.js) */}
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-HMVS9NZBEF"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-HMVS9NZBEF');
+            gtag('config', 'G-PT8VJEHP4P');
+          `}
+        </Script>
+
         {/* Subscribe with Google (SWG Basic) */}
         <Script
           async
