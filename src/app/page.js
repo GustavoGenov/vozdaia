@@ -291,28 +291,6 @@ export default async function Home() {
               <div style={{ fontSize: '13px', color: 'var(--text-muted)' }}>Fale com nossa Inteligência Artificial</div>
             </div>
           </a>
-
-          {/* Banner Economia */}
-          <a href="https://sevenprofissional-e020.onrender.com/" target="_blank" rel="noopener noreferrer" className="ecosystem-card">
-            <div style={{ width: '48px', height: '48px', minWidth: '48px', borderRadius: '10px', background: '#00C853', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
-              <span className="material-icons-extended">domain</span>
-            </div>
-            <div>
-              <div style={{ fontSize: '15px', fontWeight: '600', color: 'var(--text)' }}>Seven Profissional</div>
-              <div style={{ fontSize: '13px', color: 'var(--text-muted)' }}>Soluções corporativas e empresariais</div>
-            </div>
-          </a>
-
-          {/* Banner Jurídico */}
-          <a href="https://buscador-processos.vercel.app/?mode=jurisprudencia" target="_blank" rel="noopener noreferrer" className="ecosystem-card">
-            <div style={{ width: '48px', height: '48px', minWidth: '48px', borderRadius: '10px', background: '#FF6D00', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
-              <span className="material-icons-extended">gavel</span>
-            </div>
-            <div>
-              <div style={{ fontSize: '15px', fontWeight: '600', color: 'var(--text)' }}>Buscador Jurídico</div>
-              <div style={{ fontSize: '13px', color: 'var(--text-muted)' }}>Consultas de processos e jurisprudência</div>
-            </div>
-          </a>
         </div>
       </div>
 
