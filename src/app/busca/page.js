@@ -28,7 +28,7 @@ export default async function BuscaPage({ searchParams }) {
     // Busca por título ou resumo usando OR
     const { data } = await supabase
       .from('articles')
-      .select('*, categories(name, slug)')
+      .select('id, title, slug, created_at, image_url, summary, author_name, categories(name, slug, color_code)')
       .eq('published', true)
       .or(`title.ilike.%${query}%,summary.ilike.%${query}%`)
       .order('created_at', { ascending: false });

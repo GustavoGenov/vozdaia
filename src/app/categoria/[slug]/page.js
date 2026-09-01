@@ -63,7 +63,7 @@ export default async function CategoryPage({ params }) {
   // Busca os artigos desta categoria específica
   const { data: articles, error } = await supabase
     .from('articles')
-    .select(`*, categories(name, color_code)`)
+    .select(`id, title, slug, created_at, image_url, summary, author_name, categories(name, slug, color_code)`)
     .eq('published', true)
     .eq('category_id', category.id)
     .order('created_at', { ascending: false });

@@ -24,7 +24,7 @@ function formatDate(dateStr) {
 export default async function Home() {
   const { data: articles, error } = await supabase
     .from('articles')
-    .select(`*, categories(name, slug, color_code)`)
+    .select(`id, title, slug, created_at, image_url, summary, author_name, categories(name, slug, color_code)`)
     .eq('published', true)
     .order('created_at', { ascending: false });
 
