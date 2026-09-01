@@ -7,7 +7,7 @@ import PageTracker from '../../components/PageTracker';
 import HoroscopoWidget from '../../components/HoroscopoWidget';
 import GamesBlock from '../../components/GamesBlock';
 
-export const revalidate = 60;
+export const revalidate = 3600;
 
 // Metadados dinâmicos para a página da categoria
 export async function generateMetadata({ params }) {

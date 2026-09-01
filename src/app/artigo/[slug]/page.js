@@ -4,6 +4,8 @@ import Link from 'next/link';
 import AdBanner from '@/components/AdBanner';
 import PageTracker from '../../components/PageTracker';
 
+export const revalidate = 3600;
+
 const AUTHORS_META = {
   "Gustavo de Castro Bernardes Rosa": { initials: "GC", role: "Fundador / Eng. de I.A & CTO", img: "/equipe/gustavo.jpg", bio: "Especialista em Inteligência Artificial e Redes de Computação." },
   "RuiWenceslau de Oliveira": { initials: "RO", role: "Cofundador e Editor", img: "/equipe/rui.jpg", bio: "Especialista em criação de conteúdo para mídias sociais e jornalismo digital." },

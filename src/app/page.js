@@ -4,7 +4,7 @@ import AdBanner from '@/components/AdBanner';
 import PageTracker from './components/PageTracker';
 import SubscribeForm from './components/SubscribeForm';
 
-export const revalidate = 60;
+export const revalidate = 3600;
 
 function getCategoryClass(slug) {
   if (!slug) return 'cat-tech';
