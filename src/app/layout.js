@@ -11,6 +11,7 @@ export const viewport = {
 };
 
 export const metadata = {
+  metadataBase: new URL('https://vozdaia.com'),
   title: 'Voz da I.A - Combate às Fake News com Tecnologia',
   description: 'O Voz da I.A é o primeiro jornal inteligente 100% focado em combater fake news através de alta tecnologia, checagem de fatos e notícias verificadas em tempo real.',
   verification: {
