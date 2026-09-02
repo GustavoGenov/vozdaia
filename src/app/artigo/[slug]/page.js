@@ -76,7 +76,17 @@ export default async function ArticlePage({ params }) {
         "@type": article.author_name?.includes("Kaelara") ? "SoftwareApplication" : "Person",
         "name": article.author_name || 'Voz da I.A',
         "url": "https://vozdaia.com/equipe"
-      }]
+      }],
+    "publisher": {
+      "@type": "NewsMediaOrganization",
+      "name": "Voz da I.A",
+      "url": "https://vozdaia.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://vozdaia.com/logo-header.png"
+      }
+    },
+    "description": cleanSummary
   };
 
   return (

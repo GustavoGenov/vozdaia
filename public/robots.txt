@@ -1,6 +1,7 @@
-﻿User-agent: *
+User-agent: *
 Disallow: /admin/
 Disallow: /api/
 Allow: /
 
 Sitemap: https://vozdaia.com/sitemap.xml
+Sitemap: https://vozdaia.com/news-sitemap.xml
