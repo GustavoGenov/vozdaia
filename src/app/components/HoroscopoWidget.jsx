@@ -9,21 +9,30 @@ const SIMBOLOS_SIGNOS = {
   sagitario: '♐', capricornio: '♑', aquario: '♒', peixes: '♓'
 };
 
+const CORES_ELEMENTOS = {
+  Fogo: { bg: 'rgba(239, 68, 68, 0.1)', text: '#ef4444', border: 'rgba(239, 68, 68, 0.3)' },
+  Terra: { bg: 'rgba(16, 185, 129, 0.1)', text: '#10b981', border: 'rgba(16, 185, 129, 0.3)' },
+  Ar: { bg: 'rgba(14, 165, 233, 0.1)', text: '#0ea5e9', border: 'rgba(14, 165, 233, 0.3)' },
+  Água: { bg: 'rgba(168, 85, 247, 0.1)', text: '#a855f7', border: 'rgba(168, 85, 247, 0.3)' }
+};
+
 export default function HoroscopoWidget() {
   const [signos, setSignos] = useState([]);
-  const [selectedSigno, setSelectedSigno] = useState(null);
+  const [selectedSigno, setSelectedSigno] = useState('aries');
   const [signoData, setSignoData] = useState(null);
   const [taroDoDia, setTaroDoDia] = useState(null);
   const [revelarCarta, setRevelarCarta] = useState(false);
   const [loadingSigno, setLoadingSigno] = useState(false);
 
   useEffect(() => {
-    // Carrega dados iniciais da API
     fetch('/api/horoscopo')
       .then(res => res.json())
       .then(data => {
         setSignos(data.signos || []);
         setTaroDoDia(data.taroDoDia || null);
+        if (data.signos && data.signos.length > 0) {
+          handleSelectSigno('aries');
+        }
       })
       .catch(err => console.error('Erro ao carregar horóscopo:', err));
   }, []);
@@ -46,232 +55,195 @@ export default function HoroscopoWidget() {
   return (
     <div style={{ maxWidth: '1000px', margin: '32px auto', padding: '0' }}>
       
-      {/* Header Místico */}
+      {/* HEADER MÍSTICO */}
       <div style={{
-        background: 'linear-gradient(135deg, #1a0b2e 0%, #0d061f 100%)',
-        border: '1px solid #3c1e70',
+        background: 'linear-gradient(135deg, #1e0836 0%, #0f041d 100%)',
+        border: '1px solid #4c1d95',
         borderRadius: '16px',
-        padding: '32px',
+        padding: '28px 20px',
         textAlign: 'center',
-        marginBottom: '32px',
-        boxShadow: '0 8px 32px rgba(13, 6, 31, 0.4)'
+        marginBottom: '24px',
+        boxShadow: '0 8px 32px rgba(15, 4, 29, 0.4)',
+        color: '#ffffff'
       }}>
         <div style={{
-          width: '60px', height: '60px', borderRadius: '50%', background: 'rgba(224, 64, 251, 0.1)',
-          border: '1px solid #e040fb', display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-          color: '#e040fb', fontSize: '28px', marginBottom: '16px'
+          width: '50px', height: '50px', borderRadius: '50%', background: 'rgba(192, 132, 252, 0.15)',
+          border: '1px solid #c084fc', display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+          color: '#e879f9', fontSize: '24px', marginBottom: '12px'
         }}>
           ✨
         </div>
-        <h1 className="google-sans" style={{ fontSize: '28px', color: '#fff', margin: '0 0 8px 0', fontWeight: '700' }}>
-          Horóscopo do Dia & Cartomancia
-        </h1>
-        <p style={{ color: '#b39ddb', fontSize: '15px', maxWidth: '600px', margin: '0 auto', lineHeight: '1.6' }}>
-          Orientações astrológicas e conselhos do Tarô gerados diariamente pela inteligência do jornal Voz da I.A para o seu bem-estar.
+        <div style={{ fontSize: '12px', fontWeight: '700', color: '#c084fc', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '6px' }}>
+          Astrologia & Tarô
+        </div>
+        <h2 style={{ fontSize: '1.8rem', fontWeight: '800', margin: '0 0 6px 0', letterSpacing: '-0.3px', color: '#fff' }}>
+          Horóscopo do Dia & Tarô
+        </h2>
+        <p style={{ color: '#d8b4fe', fontSize: '14px', maxWidth: '600px', margin: '0 auto', lineHeight: '1.5' }}>
+          A sabedoria dos astros e a mensagem do arcano diário para inspirar o seu dia.
         </p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '32px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
         
-        {/* Bloco 1: Seleção de Signos */}
-        <section style={{ background: '#fff', border: '1px solid #dadce0', borderRadius: '12px', padding: '24px' }}>
-          <h2 className="google-sans" style={{ fontSize: '18px', color: '#202124', margin: '0 0 16px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span className="material-icons-extended" style={{ color: '#e040fb' }}>auto_awesome</span> Selecione seu Signo
-          </h2>
-          
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))',
-            gap: '12px',
-            marginBottom: '24px'
-          }}>
-            {signos.map(s => (
-              <button
-                key={s.id}
-                onClick={() => handleSelectSigno(s.id)}
-                style={{
-                  background: selectedSigno === s.id ? 'linear-gradient(135deg, #e040fb, #8e24aa)' : '#f8f9fa',
-                  border: selectedSigno === s.id ? 'none' : '1px solid #dadce0',
-                  borderRadius: '10px',
-                  padding: '16px 8px',
-                  textAlign: 'center',
-                  cursor: 'pointer',
-                  color: selectedSigno === s.id ? '#fff' : '#202124',
-                  transition: 'all 0.2s',
-                  boxShadow: selectedSigno === s.id ? '0 4px 12px rgba(224, 64, 251, 0.3)' : 'none'
-                }}
-              >
-                <div style={{ fontSize: '28px', marginBottom: '6px' }}>{SIMBOLOS_SIGNOS[s.id]}</div>
-                <div style={{ fontWeight: '600', fontSize: '14px' }}>{s.nome}</div>
-                <div style={{ fontSize: '11px', color: selectedSigno === s.id ? 'rgba(255,255,255,0.8)' : '#5f6368', marginTop: '2px' }}>{s.periodo}</div>
-              </button>
-            ))}
-          </div>
-
-          {/* Previsão do Signo */}
-          {selectedSigno && (
-            <div style={{ borderTop: '1px solid #dadce0', paddingTop: '24px' }}>
-              {loadingSigno ? (
-                <div style={{ textAlign: 'center', padding: '40px' }}>
-                  <span className="material-icons-extended animate-spin" style={{ color: '#8e24aa', fontSize: '32px' }}>sync</span>
-                  <p style={{ color: '#5f6368', marginTop: '12px' }}>Consultando astros...</p>
-                </div>
-              ) : signoData ? (
-                <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '8px' }}>
-                    <h3 className="google-sans" style={{ fontSize: '20px', color: '#202124', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      Previsão para {signoData.signo}
-                    </h3>
-                    <span style={{ fontSize: '13px', background: '#f3e5f5', color: '#8e24aa', padding: '4px 12px', borderRadius: '20px', fontWeight: '500' }}>
-                      Elemento: {signoData.elemento}
-                    </span>
-                  </div>
-
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
-                    {/* Amor */}
-                    <div style={{ padding: '16px', background: '#fff0f5', border: '1px solid #ffd1dc', borderRadius: '10px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#d81b60', fontWeight: '600', marginBottom: '8px' }}>
-                        <span className="material-icons-extended">favorite</span> Amor
-                      </div>
-                      <p style={{ margin: 0, fontSize: '14px', color: '#4c2e35', lineHeight: '1.6' }}>{signoData.previsoes.amor}</p>
-                    </div>
-
-                    {/* Trabalho */}
-                    <div style={{ padding: '16px', background: '#e8f5e9', border: '1px solid #c8e6c9', borderRadius: '10px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#2e7d32', fontWeight: '600', marginBottom: '8px' }}>
-                        <span className="material-icons-extended">work</span> Trabalho & Finanças
-                      </div>
-                      <p style={{ margin: 0, fontSize: '14px', color: '#1b431c', lineHeight: '1.6' }}>{signoData.previsoes.trabalho}</p>
-                    </div>
-
-                    {/* Saúde */}
-                    <div style={{ padding: '16px', background: '#e1f5fe', border: '1px solid #b3e5fc', borderRadius: '10px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#0288d1', fontWeight: '600', marginBottom: '8px' }}>
-                        <span className="material-icons-extended">medical_services</span> Saúde & Bem-estar
-                      </div>
-                      <p style={{ margin: 0, fontSize: '14px', color: '#0d3d56', lineHeight: '1.6' }}>{signoData.previsoes.saude}</p>
-                    </div>
-                  </div>
-                </div>
-              ) : null}
-            </div>
-          )}
-        </section>
-
-        {/* Bloco 2: Cartomancia do Dia */}
+        {/* Bloco 1: Signos */}
         <section style={{
-          background: 'linear-gradient(135deg, #0d061f 0%, #15092f 100%)',
-          border: '1px solid #3c1e70',
-          borderRadius: '12px',
+          background: 'var(--card)',
+          border: '1px solid var(--border)',
+          borderRadius: '16px',
           padding: '24px',
-          color: '#fff',
-          textAlign: 'center'
+          boxShadow: 'var(--shadow)'
         }}>
-          <h2 className="google-sans" style={{ fontSize: '18px', color: '#fff', margin: '0 0 20px 0', display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center' }}>
-            <span className="material-icons-extended" style={{ color: '#e040fb' }}>playing_cards</span> Cartomancia (O Tarô do Dia)
-          </h2>
-          
-          <div style={{ maxWidth: '400px', margin: '0 auto' }}>
-            {!revelarCarta ? (
-              <div style={{ padding: '20px 0' }}>
-                {/* Costas da Carta */}
+          <h3 style={{ fontSize: '17px', fontWeight: '700', color: 'var(--text)', margin: '0 0 14px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span>🪐</span> Escolha o seu Signo
+          </h3>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(65px, 1fr))', gap: '6px', marginBottom: '20px' }}>
+            {signos.map((s) => {
+              const isSelected = selectedSigno === s.id;
+              return (
                 <button
-                  onClick={() => setRevelarCarta(true)}
+                  key={s.id}
+                  onClick={() => handleSelectSigno(s.id)}
                   style={{
-                    width: '150px',
-                    height: '240px',
-                    borderRadius: '12px',
-                    background: 'linear-gradient(135deg, #311b92 0%, #1a0c4d 100%)',
-                    border: '3px solid #ffb300',
-                    boxShadow: '0 10px 25px rgba(0,0,0,0.5), 0 0 15px rgba(224, 64, 251, 0.2)',
+                    padding: '10px 4px',
+                    borderRadius: '10px',
+                    border: isSelected ? '2px solid #a855f7' : '1px solid var(--border)',
+                    background: isSelected ? 'rgba(168, 85, 247, 0.12)' : 'var(--bg)',
+                    color: isSelected ? '#a855f7' : 'var(--text)',
                     cursor: 'pointer',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    justifyContent: 'center',
-                    transition: 'all 0.3s',
-                    position: 'relative'
-                  }}
-                  onMouseEnter={e => {
-                    e.currentTarget.style.transform = 'translateY(-8px) scale(1.05)';
-                    e.currentTarget.style.boxShadow = '0 15px 30px rgba(0,0,0,0.6), 0 0 25px rgba(224, 64, 251, 0.4)';
-                  }}
-                  onMouseLeave={e => {
-                    e.currentTarget.style.transform = 'none';
-                    e.currentTarget.style.boxShadow = '0 10px 25px rgba(0,0,0,0.5), 0 0 15px rgba(224, 64, 251, 0.2)';
+                    gap: '2px',
+                    boxShadow: isSelected ? '0 4px 10px rgba(168, 85, 247, 0.2)' : 'none',
+                    transition: 'all 0.2s'
                   }}
                 >
-                  <div style={{ width: '80%', height: '88%', border: '1px dashed rgba(255, 179, 0, 0.3)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <span style={{ fontSize: '42px', color: '#ffb300' }}>👁️</span>
-                  </div>
+                  <span style={{ fontSize: '20px', lineHeight: 1 }}>{SIMBOLOS_SIGNOS[s.id] || '✨'}</span>
+                  <span style={{ fontSize: '11px', fontWeight: '700' }}>{s.nome}</span>
                 </button>
-                <p style={{ color: '#b39ddb', fontSize: '13px', marginTop: '16px' }}>Clique na carta acima para fazer a sua leitura diária.</p>
-              </div>
-            ) : taroDoDia ? (
-              <div style={{
-                animation: 'fadeIn 0.6s ease-out',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center'
-              }}>
-                <style>{`
-                  @keyframes fadeIn {
-                    from { opacity: 0; transform: scale(0.95); }
-                    to { opacity: 1; transform: scale(1); }
-                  }
-                `}</style>
+              );
+            })}
+          </div>
 
-                {/* Frente da Carta Revelada */}
-                <div style={{
-                  width: '150px',
-                  height: '240px',
+          {loadingSigno ? (
+            <div style={{ textAlign: 'center', padding: '30px', color: 'var(--text-muted)', fontSize: '13px' }}>
+              Carregando previsões...
+            </div>
+          ) : signoData && (
+            <div>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                padding: '12px 16px',
+                background: 'rgba(168, 85, 247, 0.08)',
+                border: '1px solid rgba(168, 85, 247, 0.2)',
+                borderRadius: '12px',
+                marginBottom: '16px'
+              }}>
+                <div style={{ fontSize: '18px', fontWeight: '800', color: 'var(--text)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <span>{SIMBOLOS_SIGNOS[selectedSigno]}</span> {signoData.signo}
+                </div>
+                <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{signoData.periodo}</span>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <div style={{ padding: '12px 14px', background: 'rgba(244, 63, 94, 0.06)', border: '1px solid rgba(244, 63, 94, 0.2)', borderRadius: '10px' }}>
+                  <div style={{ color: '#e11d48', fontWeight: '700', fontSize: '13px', marginBottom: '4px' }}>❤️ Amor</div>
+                  <p style={{ margin: 0, fontSize: '13px', color: 'var(--text)', lineHeight: '1.5' }}>{signoData.previsoes.amor}</p>
+                </div>
+                <div style={{ padding: '12px 14px', background: 'rgba(16, 185, 129, 0.06)', border: '1px solid rgba(16, 185, 129, 0.2)', borderRadius: '10px' }}>
+                  <div style={{ color: '#059669', fontWeight: '700', fontSize: '13px', marginBottom: '4px' }}>💼 Trabalho</div>
+                  <p style={{ margin: 0, fontSize: '13px', color: 'var(--text)', lineHeight: '1.5' }}>{signoData.previsoes.trabalho}</p>
+                </div>
+              </div>
+            </div>
+          )}
+        </section>
+
+        {/* Bloco 2: Tarô */}
+        <section style={{
+          background: 'linear-gradient(135deg, #120424 0%, #1a0833 100%)',
+          border: '1px solid #4c1d95',
+          borderRadius: '16px',
+          padding: '24px',
+          color: '#ffffff',
+          textAlign: 'center'
+        }}>
+          <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#fff', margin: '0 0 16px 0', display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center' }}>
+            <span>🔮</span> Tarô do Dia
+          </h3>
+
+          {!revelarCarta ? (
+            <div style={{ padding: '16px 0' }}>
+              <button
+                onClick={() => setRevelarCarta(true)}
+                style={{
+                  width: '140px',
+                  height: '220px',
                   borderRadius: '12px',
-                  background: '#fff',
-                  border: '3px solid #ffb300',
-                  boxShadow: '0 10px 25px rgba(0,0,0,0.5)',
-                  color: '#1a0c4d',
+                  background: 'linear-gradient(135deg, #3b0764 0%, #1e053a 100%)',
+                  border: '3px solid #f59e0b',
+                  boxShadow: '0 10px 24px rgba(0,0,0,0.5)',
+                  cursor: 'pointer',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
-                  justifyContent: 'space-between',
-                  padding: '12px',
-                  marginBottom: '20px',
-                  position: 'relative'
-                }}>
-                  <div style={{ fontSize: '11px', fontWeight: '700', letterSpacing: '1px', textTransform: 'uppercase', color: '#ffb300' }}>Tarô Diário</div>
-                  <div style={{ fontSize: '48px', margin: '16px 0' }}>🔮</div>
-                  <div style={{ fontSize: '14px', fontWeight: '700', textTransform: 'uppercase', textAlign: 'center', color: '#311b92' }}>{taroDoDia.nome}</div>
-                </div>
-
-                <div style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '10px', padding: '16px', textAlign: 'left', width: '100%' }}>
-                  <div style={{ fontSize: '13px', color: '#e040fb', fontWeight: '600', marginBottom: '4px' }}>Significado Geral:</div>
-                  <div style={{ fontSize: '14px', color: '#e0e0e0', marginBottom: '12px', lineHeight: '1.5' }}>{taroDoDia.significado}</div>
-                  
-                  <div style={{ fontSize: '13px', color: '#ffb300', fontWeight: '600', marginBottom: '4px' }}>Conselho do Tarô:</div>
-                  <div style={{ fontSize: '14px', color: '#ffecb3', lineHeight: '1.5', fontStyle: 'italic' }}>&ldquo;{taroDoDia.conselho}&rdquo;</div>
-                </div>
-
-                <button
-                  onClick={() => setRevelarCarta(false)}
-                  style={{
-                    background: 'transparent',
-                    border: '1px solid rgba(255,255,255,0.2)',
-                    borderRadius: '20px',
-                    color: '#b39ddb',
-                    padding: '6px 16px',
-                    fontSize: '12px',
-                    cursor: 'pointer',
-                    marginTop: '16px',
-                    transition: 'all 0.2s'
-                  }}
-                  onMouseEnter={e => e.currentTarget.style.borderColor = '#fff'}
-                  onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'}
-                >
-                  Girar de volta / Embaralhar
-                </button>
+                  justifyContent: 'center',
+                  margin: '0 auto',
+                  transition: 'transform 0.2s'
+                }}
+              >
+                <span style={{ fontSize: '42px', marginBottom: '8px' }}>🃏</span>
+                <span style={{ fontSize: '11px', color: '#fcd34d', fontWeight: '700', textTransform: 'uppercase' }}>Revelar</span>
+              </button>
+              <p style={{ color: '#d8b4fe', fontSize: '12px', marginTop: '12px' }}>Clique para tirar a carta do dia.</p>
+            </div>
+          ) : taroDoDia ? (
+            <div>
+              <div style={{
+                width: '140px',
+                height: '210px',
+                borderRadius: '12px',
+                background: '#fff',
+                border: '3px solid #f59e0b',
+                color: '#1e053a',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '12px',
+                margin: '0 auto 16px auto'
+              }}>
+                <div style={{ fontSize: '10px', fontWeight: '800', color: '#d97706', textTransform: 'uppercase' }}>Arcano</div>
+                <div style={{ fontSize: '44px' }}>🔮</div>
+                <div style={{ fontSize: '13px', fontWeight: '800', color: '#4c1d95', textTransform: 'uppercase' }}>{taroDoDia.nome}</div>
               </div>
-            ) : null}
-          </div>
+
+              <div style={{ background: 'rgba(255,255,255,0.06)', borderRadius: '10px', padding: '14px', textAlign: 'left', fontSize: '13px', color: '#f3e8ff' }}>
+                <p style={{ margin: '0 0 8px 0', lineHeight: '1.4' }}>{taroDoDia.significado}</p>
+                <div style={{ color: '#fcd34d', fontStyle: 'italic' }}>&ldquo;{taroDoDia.conselho}&rdquo;</div>
+              </div>
+
+              <button
+                onClick={() => setRevelarCarta(false)}
+                style={{
+                  background: 'transparent',
+                  border: '1px solid rgba(255,255,255,0.2)',
+                  borderRadius: '16px',
+                  color: '#d8b4fe',
+                  padding: '6px 14px',
+                  fontSize: '12px',
+                  cursor: 'pointer',
+                  marginTop: '12px'
+                }}
+              >
+                Tirar Novamente
+              </button>
+            </div>
+          ) : null}
         </section>
 
       </div>

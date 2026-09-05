@@ -9,21 +9,30 @@ const SIMBOLOS_SIGNOS = {
   sagitario: '♐', capricornio: '♑', aquario: '♒', peixes: '♓'
 };
 
+const CORES_ELEMENTOS = {
+  Fogo: { bg: 'rgba(239, 68, 68, 0.1)', text: '#ef4444', border: 'rgba(239, 68, 68, 0.3)' },
+  Terra: { bg: 'rgba(16, 185, 129, 0.1)', text: '#10b981', border: 'rgba(16, 185, 129, 0.3)' },
+  Ar: { bg: 'rgba(14, 165, 233, 0.1)', text: '#0ea5e9', border: 'rgba(14, 165, 233, 0.3)' },
+  Água: { bg: 'rgba(168, 85, 247, 0.1)', text: '#a855f7', border: 'rgba(168, 85, 247, 0.3)' }
+};
+
 export default function HoroscopoPage() {
   const [signos, setSignos] = useState([]);
-  const [selectedSigno, setSelectedSigno] = useState(null);
+  const [selectedSigno, setSelectedSigno] = useState('aries');
   const [signoData, setSignoData] = useState(null);
   const [taroDoDia, setTaroDoDia] = useState(null);
   const [revelarCarta, setRevelarCarta] = useState(false);
   const [loadingSigno, setLoadingSigno] = useState(false);
 
   useEffect(() => {
-    // Carrega dados iniciais da API
     fetch('/api/horoscopo')
       .then(res => res.json())
       .then(data => {
         setSignos(data.signos || []);
         setTaroDoDia(data.taroDoDia || null);
+        if (data.signos && data.signos.length > 0) {
+          handleSelectSigno('aries');
+        }
       })
       .catch(err => console.error('Erro ao carregar horóscopo:', err));
   }, []);
@@ -43,238 +52,304 @@ export default function HoroscopoPage() {
       });
   };
 
+  const hojeFormatado = new Date().toLocaleDateString('pt-BR', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+
   return (
-    <main className="main-content" style={{ maxWidth: '1000px', margin: '0 auto', padding: '24px 16px' }}>
+    <main className="main-content" style={{ maxWidth: '1080px', margin: '0 auto', padding: '24px 16px' }}>
       
-      {/* Voltar para Home */}
-      <div style={{ marginBottom: '20px' }}>
-        <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', textDecoration: 'none', color: '#1a73e8', fontWeight: '500', fontSize: '14px' }}>
+      {/* Botão de Retorno */}
+      <div style={{ marginBottom: '24px' }}>
+        <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', textDecoration: 'none', color: '#a855f7', fontWeight: '600', fontSize: '14px' }}>
           <span className="material-icons-extended" style={{ fontSize: '18px' }}>arrow_back</span> Voltar para as Manchetes
         </Link>
       </div>
 
-      {/* Header Místico */}
+      {/* HEADER MÍSTICO */}
       <div style={{
-        background: 'linear-gradient(135deg, #1a0b2e 0%, #0d061f 100%)',
-        border: '1px solid #3c1e70',
-        borderRadius: '16px',
-        padding: '32px',
+        background: 'linear-gradient(135deg, #1e0836 0%, #0f041d 100%)',
+        border: '1px solid #4c1d95',
+        borderRadius: '20px',
+        padding: '36px 24px',
         textAlign: 'center',
-        marginBottom: '32px',
-        boxShadow: '0 8px 32px rgba(13, 6, 31, 0.4)'
+        marginBottom: '36px',
+        boxShadow: '0 12px 36px rgba(15, 4, 29, 0.4)',
+        color: '#ffffff'
       }}>
         <div style={{
-          width: '60px', height: '60px', borderRadius: '50%', background: 'rgba(224, 64, 251, 0.1)',
-          border: '1px solid #e040fb', display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-          color: '#e040fb', fontSize: '28px', marginBottom: '16px'
+          width: '64px', height: '64px', borderRadius: '50%', background: 'rgba(192, 132, 252, 0.15)',
+          border: '1.5px solid #c084fc', display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+          color: '#e879f9', fontSize: '32px', marginBottom: '16px'
         }}>
           ✨
         </div>
-        <h1 className="google-sans" style={{ fontSize: '28px', color: '#fff', margin: '0 0 8px 0', fontWeight: '700' }}>
-          Horóscopo do Dia & Cartomancia
+        <div style={{ fontSize: '13px', fontWeight: '700', color: '#c084fc', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '8px' }}>
+          Astrologia, Cartomancia & Sabedoria Ancestral
+        </div>
+        <h1 style={{ fontSize: '2.4rem', fontWeight: '800', margin: '0 0 10px 0', letterSpacing: '-0.5px' }}>
+          Horóscopo Diário & Tarô do Dia
         </h1>
-        <p style={{ color: '#b39ddb', fontSize: '15px', maxWidth: '600px', margin: '0 auto', lineHeight: '1.6' }}>
-          Orientações astrológicas e conselhos do Tarô gerados diariamente pela inteligência do jornal Voz da I.A para o seu bem-estar.
+        <p style={{ color: '#d8b4fe', fontSize: '15px', maxWidth: '640px', margin: '0 auto', lineHeight: '1.6' }}>
+          Previsões astrológicas para os 12 signos do zodíaco e a mensagem do arcano diário para orientar suas decisões em {hojeFormatado}.
         </p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '32px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '32px', alignItems: 'start' }}>
         
-        {/* Bloco 1: Seleção de Signos */}
-        <section style={{ background: '#fff', border: '1px solid #dadce0', borderRadius: '12px', padding: '24px' }}>
-          <h2 className="google-sans" style={{ fontSize: '18px', color: '#202124', margin: '0 0 16px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span className="material-icons-extended" style={{ color: '#e040fb' }}>auto_awesome</span> Selecione seu Signo
+        {/* COLUNA 1: HORÓSCOPO DOS 12 SIGNOS */}
+        <section style={{
+          background: 'var(--card)',
+          border: '1px solid var(--border)',
+          borderRadius: '16px',
+          padding: '28px',
+          boxShadow: 'var(--shadow)'
+        }}>
+          <h2 style={{ fontSize: '20px', fontWeight: '700', color: 'var(--text)', margin: '0 0 16px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span style={{ fontSize: '22px' }}>🪐</span> Escolha o seu Signo
           </h2>
-          
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))',
-            gap: '12px',
-            marginBottom: '24px'
-          }}>
-            {signos.map(s => (
-              <button
-                key={s.id}
-                onClick={() => handleSelectSigno(s.id)}
-                style={{
-                  background: selectedSigno === s.id ? 'linear-gradient(135deg, #e040fb, #8e24aa)' : '#f8f9fa',
-                  border: selectedSigno === s.id ? 'none' : '1px solid #dadce0',
-                  borderRadius: '10px',
-                  padding: '16px 8px',
-                  textAlign: 'center',
-                  cursor: 'pointer',
-                  color: selectedSigno === s.id ? '#fff' : '#202124',
-                  transition: 'all 0.2s',
-                  boxShadow: selectedSigno === s.id ? '0 4px 12px rgba(224, 64, 251, 0.3)' : 'none'
-                }}
-              >
-                <div style={{ fontSize: '28px', marginBottom: '6px' }}>{SIMBOLOS_SIGNOS[s.id]}</div>
-                <div style={{ fontWeight: '600', fontSize: '14px' }}>{s.nome}</div>
-                <div style={{ fontSize: '11px', color: selectedSigno === s.id ? 'rgba(255,255,255,0.8)' : '#5f6368', marginTop: '2px' }}>{s.periodo}</div>
-              </button>
-            ))}
+
+          {/* GRADE DOS 12 SIGNOS */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(75px, 1fr))', gap: '8px', marginBottom: '24px' }}>
+            {signos.map((s) => {
+              const isSelected = selectedSigno === s.id;
+              const elementoEstilo = CORES_ELEMENTOS[s.elemento] || CORES_ELEMENTOS.Fogo;
+
+              return (
+                <button
+                  key={s.id}
+                  onClick={() => handleSelectSigno(s.id)}
+                  style={{
+                    padding: '12px 6px',
+                    borderRadius: '12px',
+                    border: isSelected ? '2px solid #a855f7' : '1px solid var(--border)',
+                    background: isSelected ? 'rgba(168, 85, 247, 0.12)' : 'var(--bg)',
+                    color: isSelected ? '#a855f7' : 'var(--text)',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '4px',
+                    boxShadow: isSelected ? '0 4px 12px rgba(168, 85, 247, 0.25)' : 'none',
+                    transition: 'all 0.2s'
+                  }}
+                >
+                  <span style={{ fontSize: '22px', lineHeight: 1 }}>{SIMBOLOS_SIGNOS[s.id] || '✨'}</span>
+                  <span style={{ fontSize: '12px', fontWeight: '700' }}>{s.nome}</span>
+                  <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>{s.elemento}</span>
+                </button>
+              );
+            })}
           </div>
 
-          {/* Previsão do Signo */}
-          {selectedSigno && (
-            <div style={{ borderTop: '1px solid #dadce0', paddingTop: '24px' }}>
-              {loadingSigno ? (
-                <div style={{ textAlign: 'center', padding: '40px' }}>
-                  <span className="material-icons-extended animate-spin" style={{ color: '#8e24aa', fontSize: '32px' }}>sync</span>
-                  <p style={{ color: '#5f6368', marginTop: '12px' }}>Consultando astros...</p>
-                </div>
-              ) : signoData ? (
+          {/* PREVISÃO DETALHADA DO SIGNO SELECIONADO */}
+          {loadingSigno ? (
+            <div style={{ textAlign: 'center', padding: '40px 20px', color: 'var(--text-muted)' }}>
+              <span className="material-icons-extended" style={{ fontSize: '32px', animation: 'spin 1s infinite' }}>refresh</span>
+              <p style={{ marginTop: '8px', fontSize: '14px' }}>Consultando as constelações...</p>
+            </div>
+          ) : signoData && (
+            <div style={{ animation: 'fadeIn 0.3s ease-in' }}>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                padding: '16px 20px',
+                background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.12) 0%, rgba(192, 132, 252, 0.04) 100%)',
+                border: '1px solid rgba(168, 85, 247, 0.25)',
+                borderRadius: '14px',
+                marginBottom: '20px'
+              }}>
                 <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '8px' }}>
-                    <h3 className="google-sans" style={{ fontSize: '20px', color: '#202124', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      Previsão para {signoData.signo}
-                    </h3>
-                    <span style={{ fontSize: '13px', background: '#f3e5f5', color: '#8e24aa', padding: '4px 12px', borderRadius: '20px', fontWeight: '500' }}>
-                      Elemento: {signoData.elemento}
-                    </span>
+                  <div style={{ fontSize: '22px', fontWeight: '800', color: 'var(--text)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span>{SIMBOLOS_SIGNOS[selectedSigno]}</span> {signoData.signo}
                   </div>
-
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
-                    {/* Amor */}
-                    <div style={{ padding: '16px', background: '#fff0f5', border: '1px solid #ffd1dc', borderRadius: '10px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#d81b60', fontWeight: '600', marginBottom: '8px' }}>
-                        <span className="material-icons-extended">favorite</span> Amor
-                      </div>
-                      <p style={{ margin: 0, fontSize: '14px', color: '#4c2e35', lineHeight: '1.6' }}>{signoData.previsoes.amor}</p>
-                    </div>
-
-                    {/* Trabalho */}
-                    <div style={{ padding: '16px', background: '#e8f5e9', border: '1px solid #c8e6c9', borderRadius: '10px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#2e7d32', fontWeight: '600', marginBottom: '8px' }}>
-                        <span className="material-icons-extended">work</span> Trabalho & Finanças
-                      </div>
-                      <p style={{ margin: 0, fontSize: '14px', color: '#1b431c', lineHeight: '1.6' }}>{signoData.previsoes.trabalho}</p>
-                    </div>
-
-                    {/* Saúde */}
-                    <div style={{ padding: '16px', background: '#e1f5fe', border: '1px solid #b3e5fc', borderRadius: '10px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#0288d1', fontWeight: '600', marginBottom: '8px' }}>
-                        <span className="material-icons-extended">medical_services</span> Saúde & Bem-estar
-                      </div>
-                      <p style={{ margin: 0, fontSize: '14px', color: '#0d3d56', lineHeight: '1.6' }}>{signoData.previsoes.saude}</p>
-                    </div>
+                  <div style={{ fontSize: '13px', color: 'var(--text-muted)' }}>
+                    Período: {signoData.periodo}
                   </div>
                 </div>
-              ) : null}
+                <span style={{
+                  padding: '4px 12px',
+                  borderRadius: '20px',
+                  fontSize: '12px',
+                  fontWeight: '700',
+                  background: CORES_ELEMENTOS[signoData.elemento]?.bg || 'rgba(168, 85, 247, 0.1)',
+                  color: CORES_ELEMENTOS[signoData.elemento]?.text || '#a855f7',
+                  border: `1px solid ${CORES_ELEMENTOS[signoData.elemento]?.border || 'rgba(168, 85, 247, 0.3)'}`
+                }}>
+                  Elemento {signoData.elemento}
+                </span>
+              </div>
+
+              {/* CARDS DE PREVISÃO SETORIAL */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                {/* Amor */}
+                <div style={{ padding: '16px', background: 'rgba(244, 63, 94, 0.06)', border: '1px solid rgba(244, 63, 94, 0.2)', borderRadius: '12px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#e11d48', fontWeight: '700', fontSize: '14px', marginBottom: '6px' }}>
+                    <span className="material-icons-extended" style={{ fontSize: '18px' }}>favorite</span> 
+                    Amor & Relacionamentos
+                  </div>
+                  <p style={{ margin: 0, fontSize: '14px', color: 'var(--text)', lineHeight: '1.6' }}>
+                    {signoData.previsoes.amor}
+                  </p>
+                </div>
+
+                {/* Trabalho */}
+                <div style={{ padding: '16px', background: 'rgba(16, 185, 129, 0.06)', border: '1px solid rgba(16, 185, 129, 0.2)', borderRadius: '12px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#059669', fontWeight: '700', fontSize: '14px', marginBottom: '6px' }}>
+                    <span className="material-icons-extended" style={{ fontSize: '18px' }}>work</span> 
+                    Trabalho & Finanças
+                  </div>
+                  <p style={{ margin: 0, fontSize: '14px', color: 'var(--text)', lineHeight: '1.6' }}>
+                    {signoData.previsoes.trabalho}
+                  </p>
+                </div>
+
+                {/* Saúde */}
+                <div style={{ padding: '16px', background: 'rgba(14, 165, 233, 0.06)', border: '1px solid rgba(14, 165, 233, 0.2)', borderRadius: '12px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#0284c7', fontWeight: '700', fontSize: '14px', marginBottom: '6px' }}>
+                    <span className="material-icons-extended" style={{ fontSize: '18px' }}>spa</span> 
+                    Saúde & Energia Vital
+                  </div>
+                  <p style={{ margin: 0, fontSize: '14px', color: 'var(--text)', lineHeight: '1.6' }}>
+                    {signoData.previsoes.saude}
+                  </p>
+                </div>
+              </div>
             </div>
           )}
         </section>
 
-        {/* Bloco 2: Cartomancia do Dia */}
+        {/* COLUNA 2: CARTOMANCIA & TARÔ DO DIA */}
         <section style={{
-          background: 'linear-gradient(135deg, #0d061f 0%, #15092f 100%)',
-          border: '1px solid #3c1e70',
-          borderRadius: '12px',
-          padding: '24px',
-          color: '#fff',
+          background: 'linear-gradient(135deg, #120424 0%, #1a0833 100%)',
+          border: '1px solid #4c1d95',
+          borderRadius: '16px',
+          padding: '28px',
+          color: '#ffffff',
+          boxShadow: '0 8px 30px rgba(0,0,0,0.3)',
           textAlign: 'center'
         }}>
-          <h2 className="google-sans" style={{ fontSize: '18px', color: '#fff', margin: '0 0 20px 0', display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center' }}>
-            <span className="material-icons-extended" style={{ color: '#e040fb' }}>playing_cards</span> Cartomancia (O Tarô do Dia)
+          <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#ffffff', margin: '0 0 16px 0', display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center' }}>
+            <span>🔮</span> O Arcano de Hoje (Tarô)
           </h2>
-          
-          <div style={{ maxWidth: '400px', margin: '0 auto' }}>
+
+          <div style={{ maxWidth: '360px', margin: '0 auto' }}>
             {!revelarCarta ? (
-              <div style={{ padding: '20px 0' }}>
-                {/* Costas da Carta */}
+              <div style={{ padding: '24px 0' }}>
                 <button
                   onClick={() => setRevelarCarta(true)}
                   style={{
-                    width: '150px',
-                    height: '240px',
-                    borderRadius: '12px',
-                    background: 'linear-gradient(135deg, #311b92 0%, #1a0c4d 100%)',
-                    border: '3px solid #ffb300',
-                    boxShadow: '0 10px 25px rgba(0,0,0,0.5), 0 0 15px rgba(224, 64, 251, 0.2)',
+                    width: '160px',
+                    height: '250px',
+                    borderRadius: '14px',
+                    background: 'linear-gradient(135deg, #3b0764 0%, #1e053a 100%)',
+                    border: '3px solid #f59e0b',
+                    boxShadow: '0 12px 28px rgba(0,0,0,0.6), 0 0 20px rgba(245, 158, 11, 0.3)',
                     cursor: 'pointer',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    transition: 'all 0.3s',
-                    position: 'relative'
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    margin: '0 auto'
                   }}
                   onMouseEnter={e => {
-                    e.currentTarget.style.transform = 'translateY(-8px) scale(1.05)';
-                    e.currentTarget.style.boxShadow = '0 15px 30px rgba(0,0,0,0.6), 0 0 25px rgba(224, 64, 251, 0.4)';
+                    e.currentTarget.style.transform = 'translateY(-8px) scale(1.04)';
+                    e.currentTarget.style.boxShadow = '0 18px 36px rgba(0,0,0,0.7), 0 0 30px rgba(245, 158, 11, 0.5)';
                   }}
                   onMouseLeave={e => {
                     e.currentTarget.style.transform = 'none';
-                    e.currentTarget.style.boxShadow = '0 10px 25px rgba(0,0,0,0.5), 0 0 15px rgba(224, 64, 251, 0.2)';
+                    e.currentTarget.style.boxShadow = '0 12px 28px rgba(0,0,0,0.6), 0 0 20px rgba(245, 158, 11, 0.3)';
                   }}
                 >
-                  <div style={{ width: '80%', height: '88%', border: '1px dashed rgba(255, 179, 0, 0.3)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <span style={{ fontSize: '42px', color: '#ffb300' }}>👁️</span>
+                  <div style={{ width: '84%', height: '88%', border: '1px dashed rgba(245, 158, 11, 0.5)', borderRadius: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '12px' }}>
+                    <span style={{ fontSize: '48px' }}>🃏</span>
+                    <span style={{ fontSize: '11px', color: '#fcd34d', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                      Toque p/ Revelar
+                    </span>
                   </div>
                 </button>
-                <p style={{ color: '#b39ddb', fontSize: '13px', marginTop: '16px' }}>Clique na carta acima para fazer a sua leitura diária.</p>
+                <p style={{ color: '#d8b4fe', fontSize: '13px', marginTop: '18px', lineHeight: '1.5' }}>
+                  Concentre-se em sua pergunta ou intenção e clique na carta acima para ler a mensagem do dia.
+                </p>
               </div>
             ) : taroDoDia ? (
-              <div style={{
-                animation: 'fadeIn 0.6s ease-out',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center'
-              }}>
-                <style>{`
-                  @keyframes fadeIn {
-                    from { opacity: 0; transform: scale(0.95); }
-                    to { opacity: 1; transform: scale(1); }
-                  }
-                `}</style>
-
-                {/* Frente da Carta Revelada */}
+              <div style={{ animation: 'fadeIn 0.5s ease-out', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                
+                {/* FRENTE DA CARTA REVELADA */}
                 <div style={{
-                  width: '150px',
-                  height: '240px',
-                  borderRadius: '12px',
-                  background: '#fff',
-                  border: '3px solid #ffb300',
-                  boxShadow: '0 10px 25px rgba(0,0,0,0.5)',
-                  color: '#1a0c4d',
+                  width: '160px',
+                  height: '250px',
+                  borderRadius: '14px',
+                  background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
+                  border: '3px solid #f59e0b',
+                  boxShadow: '0 12px 28px rgba(0,0,0,0.5)',
+                  color: '#1e053a',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
                   justifyContent: 'space-between',
-                  padding: '12px',
+                  padding: '14px',
                   marginBottom: '20px',
-                  position: 'relative'
+                  margin: '0 auto 20px auto'
                 }}>
-                  <div style={{ fontSize: '11px', fontWeight: '700', letterSpacing: '1px', textTransform: 'uppercase', color: '#ffb300' }}>Tarô Diário</div>
-                  <div style={{ fontSize: '48px', margin: '16px 0' }}>🔮</div>
-                  <div style={{ fontSize: '14px', fontWeight: '700', textTransform: 'uppercase', textAlign: 'center', color: '#311b92' }}>{taroDoDia.nome}</div>
+                  <div style={{ fontSize: '11px', fontWeight: '800', letterSpacing: '1px', textTransform: 'uppercase', color: '#d97706' }}>
+                    Arcano do Dia
+                  </div>
+                  <div style={{ fontSize: '52px', margin: '8px 0' }}>🔮</div>
+                  <div style={{ fontSize: '15px', fontWeight: '800', textTransform: 'uppercase', textAlign: 'center', color: '#4c1d95', lineHeight: 1.2 }}>
+                    {taroDoDia.nome}
+                  </div>
                 </div>
 
-                <div style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '10px', padding: '16px', textAlign: 'left', width: '100%' }}>
-                  <div style={{ fontSize: '13px', color: '#e040fb', fontWeight: '600', marginBottom: '4px' }}>Significado Geral:</div>
-                  <div style={{ fontSize: '14px', color: '#e0e0e0', marginBottom: '12px', lineHeight: '1.5' }}>{taroDoDia.significado}</div>
+                <div style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '12px', padding: '18px', textAlign: 'left', width: '100%' }}>
+                  <div style={{ fontSize: '13px', color: '#c084fc', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '6px' }}>
+                    Significado & Simbolismo:
+                  </div>
+                  <div style={{ fontSize: '14px', color: '#f3e8ff', marginBottom: '14px', lineHeight: '1.6' }}>
+                    {taroDoDia.significado}
+                  </div>
                   
-                  <div style={{ fontSize: '13px', color: '#ffb300', fontWeight: '600', marginBottom: '4px' }}>Conselho do Tarô:</div>
-                  <div style={{ fontSize: '14px', color: '#ffecb3', lineHeight: '1.5', fontStyle: 'italic' }}>&ldquo;{taroDoDia.conselho}&rdquo;</div>
+                  <div style={{ fontSize: '13px', color: '#fcd34d', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '6px' }}>
+                    Conselho do Oráculo:
+                  </div>
+                  <div style={{ fontSize: '14px', color: '#fef3c7', lineHeight: '1.6', fontStyle: 'italic', background: 'rgba(245, 158, 11, 0.08)', padding: '10px 12px', borderRadius: '8px', borderLeft: '3px solid #f59e0b' }}>
+                    &ldquo;{taroDoDia.conselho}&rdquo;
+                  </div>
                 </div>
 
                 <button
                   onClick={() => setRevelarCarta(false)}
                   style={{
                     background: 'transparent',
-                    border: '1px solid rgba(255,255,255,0.2)',
+                    border: '1px solid rgba(255,255,255,0.25)',
                     borderRadius: '20px',
-                    color: '#b39ddb',
-                    padding: '6px 16px',
-                    fontSize: '12px',
+                    color: '#d8b4fe',
+                    padding: '8px 20px',
+                    fontSize: '13px',
+                    fontWeight: '600',
                     cursor: 'pointer',
-                    marginTop: '16px',
-                    transition: 'all 0.2s'
+                    marginTop: '20px',
+                    transition: 'all 0.2s',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px'
                   }}
-                  onMouseEnter={e => e.currentTarget.style.borderColor = '#fff'}
-                  onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.borderColor = '#ffffff';
+                    e.currentTarget.style.color = '#ffffff';
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.25)';
+                    e.currentTarget.style.color = '#d8b4fe';
+                  }}
                 >
-                  Girar de volta / Embaralhar
+                  <span className="material-icons-extended" style={{ fontSize: '16px' }}>restart_alt</span>
+                  Embaralhar & Tirar Novamente
                 </button>
               </div>
             ) : null}
@@ -282,14 +357,6 @@ export default function HoroscopoPage() {
         </section>
 
       </div>
-
-      {/* DISCLAIMER DE ENTRETENIMENTO (COMPLIANCE ADSENSE) */}
-      <div style={{ marginTop: '40px', padding: '16px', background: 'var(--card)', border: '1px solid var(--border)', borderRadius: '12px', textAlign: 'center' }}>
-        <p style={{ fontSize: '12px', color: 'var(--text-muted)', lineHeight: '1.6', margin: 0 }}>
-          <strong>Nota Editorial:</strong> A seção de Horóscopo e Tarô do Voz da I.A possui caráter estritamente de entretenimento e reflexão cultural. Não oferecemos previsões infalíveis ou aconselhamento profissional. As leituras são geradas com base em arquétipos tradicionais para fins lúdicos.
-        </p>
-      </div>
-
     </main>
   );
 }
