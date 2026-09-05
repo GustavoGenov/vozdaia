@@ -1,6 +1,14 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 
+function cleanText(str) {
+  if (!str) return '';
+  return str
+    .replace(/&nbsp;/g, ' ')
+    .replace(/[\u0000-\u0008\u000B-\u000C\u000E-\u001F]/g, '')
+    .trim();
+}
+
 export async function GET() {
   const twoDaysAgo = new Date(Date.now() - 48 * 60 * 60 * 1000).toISOString();
   
@@ -22,7 +30,7 @@ export async function GET() {
         <news:language>pt-br</news:language>
       </news:publication>
       <news:publication_date>${new Date(post.created_at).toISOString()}</news:publication_date>
-      <news:title><![CDATA[${post.title}]]></news:title>
+      <news:title><![CDATA[${cleanText(post.title)}]]></news:title>
     </news:news>
   </url>`).join('')}
 </urlset>`;
