@@ -1,17 +1,37 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { supabase } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 export default function ArticleList({ articles }) {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
   const [loadingId, setLoadingId] = useState(null);
-  const [isDeletingAll, setIsDeletingAll] = useState(false);
   const router = useRouter();
 
+  const filteredArticles = useMemo(() => {
+    return (articles || []).filter(art => {
+      const matchSearch = (art.title || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+                          (art.author_name || '').toLowerCase().includes(searchTerm.toLowerCase());
+      const matchCategory = selectedCategory === 'all' || art.category_id === selectedCategory;
+      return matchSearch && matchCategory;
+    });
+  }, [articles, searchTerm, selectedCategory]);
+
+  const categoriesList = useMemo(() => {
+    const catsMap = new Map();
+    (articles || []).forEach(a => {
+      if (a.categories) {
+        catsMap.set(a.categories.id || a.category_id, a.categories.name);
+      }
+    });
+    return Array.from(catsMap.entries());
+  }, [articles]);
+
   const handleDelete = async (id, title) => {
-    if (!window.confirm(`Tem certeza que deseja excluir a notícia "${title}"?\nEsta ação não pode ser desfeita.`)) {
+    if (!window.confirm(`Tem certeza que deseja excluir a notícia "${title}"?\nEsta ação é permanente e removerá o artigo do ar.`)) {
       return;
     }
 
@@ -34,84 +54,110 @@ export default function ArticleList({ articles }) {
     }
   };
 
-  const handleDeleteAll = async () => {
-    if (!window.confirm('CUIDADO: Tem certeza que deseja APAGAR TODAS as notícias? Esta ação não pode ser desfeita e irá limpar o site.')) {
-      return;
-    }
-
-    setIsDeletingAll(true);
-
-    try {
-      const { error } = await supabase.from('articles').delete().not('id', 'is', null);
-
-      if (error) {
-        throw new Error(error.message);
-      }
-
-      alert('TODAS as notícias foram excluídas com sucesso!');
-      router.refresh();
-      
-    } catch (error) {
-      alert(`Erro ao excluir tudo: ${error.message}`);
-    } finally {
-      setIsDeletingAll(false);
-    }
-  };
-
   return (
-    <div style={{ border: '1px solid #dadce0', borderRadius: '8px', padding: '24px', marginBottom: '32px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-        <h2 style={{ fontSize: '18px', color: '#202124', display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span className="material-icons-extended" style={{color: '#EA4335'}}>article</span> Gerenciar Notícias Publicadas
-        </h2>
-        {articles && articles.length > 0 && (
-          <button 
-            onClick={handleDeleteAll}
-            disabled={isDeletingAll}
-            style={{ 
-              background: '#d93025', color: '#fff', border: 'none', padding: '8px 16px', borderRadius: '4px', cursor: isDeletingAll ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 'bold' 
-            }}
+    <div style={{ border: '1px solid var(--border)', borderRadius: '16px', padding: '28px', marginBottom: '32px', background: 'var(--card)', boxShadow: 'var(--shadow)' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px', marginBottom: '20px' }}>
+        <div>
+          <h2 style={{ fontSize: '18px', color: 'var(--text)', display: 'flex', alignItems: 'center', gap: '8px', margin: '0 0 4px 0', fontWeight: '700' }}>
+            <span className="material-icons-extended" style={{ color: '#EA4335' }}>article</span> 
+            Gerenciar Matérias Cadastradas
+          </h2>
+          <span style={{ fontSize: '13px', color: 'var(--text-muted)' }}>
+            Exibindo {filteredArticles.length} de {articles?.length || 0} matérias
+          </span>
+        </div>
+
+        {/* Filtro e Busca Rápida */}
+        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+          <input 
+            type="text" 
+            placeholder="Filtrar por título ou autor..." 
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={{ padding: '8px 12px', border: '1px solid var(--border)', borderRadius: '8px', fontSize: '13px', background: 'var(--bg)', color: 'var(--text)', minWidth: '220px' }}
+          />
+
+          <select 
+            value={selectedCategory} 
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            style={{ padding: '8px 12px', border: '1px solid var(--border)', borderRadius: '8px', fontSize: '13px', background: 'var(--bg)', color: 'var(--text)' }}
           >
-            <span className="material-icons-extended" style={{ fontSize: '18px' }}>delete_forever</span>
-            {isDeletingAll ? 'Apagando tudo...' : 'Apagar Todas (Limpar Site)'}
-          </button>
-        )}
+            <option value="all">Todas as Categorias</option>
+            {categoriesList.map(([id, name]) => (
+              <option key={id} value={id}>{name}</option>
+            ))}
+          </select>
+        </div>
       </div>
       
-      {articles && articles.length > 0 ? (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          {articles.map(article => (
-            <div key={article.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px', border: '1px solid #eee', borderRadius: '4px' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                <span style={{ fontWeight: '500', color: '#202124', fontSize: '15px' }}>{article.title}</span>
-                <span style={{ fontSize: '12px', color: '#5f6368' }}>{new Date(article.created_at).toLocaleDateString('pt-BR')} • {article.categories?.name || 'Sem Categoria'}</span>
+      {filteredArticles.length > 0 ? (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxHeight: '600px', overflowY: 'auto', paddingRight: '4px' }}>
+          {filteredArticles.map(article => (
+            <div key={article.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 16px', border: '1px solid var(--border)', borderRadius: '10px', background: 'var(--bg)', gap: '12px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', flex: 1, minWidth: 0 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ fontWeight: '600', color: 'var(--text)', fontSize: '15px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    {article.title}
+                  </span>
+                  {!article.published && (
+                    <span style={{ fontSize: '11px', background: '#fef3c7', color: '#b45309', padding: '2px 6px', borderRadius: '4px', fontWeight: 600 }}>
+                      Rascunho
+                    </span>
+                  )}
+                </div>
+                
+                <div style={{ fontSize: '12px', color: 'var(--text-muted)', display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
+                  <span>{new Date(article.created_at).toLocaleDateString('pt-BR')}</span>
+                  <span>•</span>
+                  <span style={{ fontWeight: '500', color: '#1a73e8' }}>{article.categories?.name || 'Sem Categoria'}</span>
+                  <span>•</span>
+                  <span>Por {article.author_name || 'Redação'}</span>
+                  <span>•</span>
+                  <span style={{ color: '#ea580c', fontWeight: '600' }}>{article.views || 0} visualizações</span>
+                </div>
               </div>
-              <div style={{ display: 'flex', gap: '8px' }}>
+
+              <div style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
+                <Link 
+                  href={`/artigo/${article.slug}`}
+                  target="_blank"
+                  title="Ver no site"
+                  style={{ 
+                    background: 'var(--card)', color: 'var(--text-muted)', border: '1px solid var(--border)', padding: '8px 12px', borderRadius: '6px', fontSize: '13px', display: 'flex', alignItems: 'center', gap: '4px', textDecoration: 'none' 
+                  }}
+                >
+                  <span className="material-icons-extended" style={{ fontSize: '16px' }}>visibility</span>
+                  Ver
+                </Link>
+
                 <Link 
                   href={`/admin/editar/${article.id}`}
                   style={{ 
-                    background: '#e8f0fe', color: '#1a73e8', border: 'none', padding: '8px 12px', borderRadius: '4px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', textDecoration: 'none' 
+                    background: 'rgba(26, 115, 232, 0.1)', color: '#1a73e8', border: 'none', padding: '8px 12px', borderRadius: '6px', fontSize: '13px', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '4px', textDecoration: 'none' 
                   }}
                 >
-                  <span className="material-icons-extended" style={{ fontSize: '18px' }}>edit</span>
+                  <span className="material-icons-extended" style={{ fontSize: '16px' }}>edit</span>
                   Editar
                 </Link>
+
                 <button 
                   onClick={() => handleDelete(article.id, article.title)}
                   disabled={loadingId === article.id}
                   style={{ 
-                    background: '#fce8e6', color: '#d93025', border: 'none', padding: '8px 12px', borderRadius: '4px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' 
+                    background: 'rgba(217, 48, 37, 0.1)', color: '#d93025', border: 'none', padding: '8px 12px', borderRadius: '6px', fontSize: '13px', fontWeight: '600', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' 
                   }}
                 >
-                  <span className="material-icons-extended" style={{ fontSize: '18px' }}>delete</span>
-                  {loadingId === article.id ? 'Excluindo...' : 'Excluir'}
+                  <span className="material-icons-extended" style={{ fontSize: '16px' }}>delete</span>
+                  {loadingId === article.id ? '...' : 'Excluir'}
                 </button>
               </div>
             </div>
           ))}
         </div>
       ) : (
-        <p style={{ color: '#5f6368', fontSize: '14px' }}>Nenhuma notícia encontrada.</p>
+        <div style={{ textAlign: 'center', padding: '32px', color: 'var(--text-muted)', fontSize: '14px' }}>
+          Nenhuma matéria encontrada com os filtros selecionados.
+        </div>
       )}
     </div>
   );

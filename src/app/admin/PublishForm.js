@@ -11,14 +11,14 @@ const INITIAL_TEMPLATE = `
   <h2>Contexto Principal</h2>
   <p>Insira o contexto detalhado aqui. Evite parágrafos muito longos.</p>
   <h3>Análise e Impactos</h3>
-  <p>Detalhe os impactos da tecnologia, pesquisa ou fato.</p>
+  <p>Detalhe os impactos da tecnologia, pesquisa ou fato apurado.</p>
   <blockquote>
-    "O futuro da tecnologia depende de boas decisões no presente." - Especialista
+    "O futuro da tecnologia e do jornalismo depende de transparência e precisão." - Especialista
   </blockquote>
-  <h3>O que esperar</h3>
+  <h3>O que esperar a seguir</h3>
   <ul>
-    <li>Ponto 1</li>
-    <li>Ponto 2</li>
+    <li>Ponto 1: Desdobramentos imediatos</li>
+    <li>Ponto 2: Próximas etapas</li>
   </ul>
 `;
 
@@ -39,7 +39,7 @@ export default function PublishForm({ categories }) {
   const [content, setContent] = useState(INITIAL_TEMPLATE);
   const [imageFile, setImageFile] = useState(null);
   
-  // Novos campos
+  // Campos AdSense & E-E-A-T
   const [authorName, setAuthorName] = useState(AUTHORS[0]);
   const [disclaimerType, setDisclaimerType] = useState('none');
   const [sources, setSources] = useState('');
@@ -66,7 +66,7 @@ export default function PublishForm({ categories }) {
 
   const generatedSlug = slugify(title);
 
-  // Contador de Palavras (DOMParser para robustez contra HTML lixo de editores)
+  // Contador de Palavras (com parsing de texto puro)
   const wordCount = useMemo(() => {
     let parsedContent = content || '';
     if (typeof window !== 'undefined') {
@@ -86,21 +86,21 @@ export default function PublishForm({ categories }) {
   }, [title, summary, content, sources]);
 
   let wordCountColor = '#d32f2f';
-  let wordCountText = 'Alerta: Texto com ' + wordCount + ' palavras (Mínimo de 750 palavras exigido pelo AdSense)';
+  let wordCountText = `Alerta: Texto com ${wordCount} palavras (Mínimo de 750 palavras exigido pelo AdSense)`;
   if (wordCount >= 750 && wordCount <= 1600) {
-    wordCountColor = '#34A853';
-    wordCountText = 'Excelente densidade informativa (' + wordCount + ' palavras - Aprovado AdSense)';
+    wordCountColor = '#16a34a';
+    wordCountText = `Excelente densidade informativa (${wordCount} palavras - Aprovado para AdSense)`;
   } else if (wordCount > 1600) {
     wordCountColor = '#1a73e8';
-    wordCountText = 'Matéria aprofundada e completa (' + wordCount + ' palavras)';
+    wordCountText = `Matéria aprofundada e completa (${wordCount} palavras)`;
   }
 
   // Cor do SEO Description
-  let metaDescColor = '#dadce0';
+  let metaDescColor = 'var(--border)';
   if (metaDescription.length > 0 && metaDescription.length < 120) {
     metaDescColor = '#F4B400'; // Amarelo (Curto)
   } else if (metaDescription.length >= 120 && metaDescription.length <= 160) {
-    metaDescColor = '#34A853'; // Verde (Ideal)
+    metaDescColor = '#16a34a'; // Verde (Ideal)
   } else if (metaDescription.length > 160) {
     metaDescColor = '#EA4335'; // Vermelho (Longo)
   }
@@ -108,12 +108,12 @@ export default function PublishForm({ categories }) {
   const handlePublish = async (e, isDraft = false) => {
     if (e && e.preventDefault) e.preventDefault();
     if (!title || !categoryId || !summary || !content || (!imageFile && !isDraft) || !imageAlt) {
-      setMessage('Preencha os campos obrigatórios (incluindo Alt Text da imagem).');
+      setMessage('Preencha os campos obrigatórios (incluindo o Texto Alternativo - Alt Text da imagem).');
       return;
     }
 
     if (!isDraft && wordCount < 750) {
-      setMessage('A matéria possui ' + wordCount + ' palavras. É necessário atingir o mínimo de 750 palavras (contando Título, Linha Fina, Texto e Fontes) para publicação oficial AdSense.');
+      setMessage(`A matéria possui ${wordCount} palavras. É necessário atingir o mínimo de 750 palavras (contando Título, Linha Fina, Texto e Fontes) para publicação oficial com conformidade AdSense.`);
       return;
     }
 
@@ -153,9 +153,9 @@ export default function PublishForm({ categories }) {
         content: content,
         image_url: publicUrl,
         published: !isDraft,
-        author: authorName, // campo original mantido por compatibilidade
+        author: authorName,
         views: 0,
-        // Novos Campos AdSense E-E-A-T
+        // Campos AdSense & E-E-A-T
         author_name: authorName,
         disclaimer_type: disclaimerType,
         sources: sources,
@@ -166,10 +166,10 @@ export default function PublishForm({ categories }) {
       }]);
 
       if (insertError) {
-        throw new Error('Erro ao salvar: ' + insertError.message);
+        throw new Error('Erro ao salvar no banco: ' + insertError.message);
       }
 
-      setMessage(isDraft ? 'Rascunho salvo com sucesso!' : 'Notícia publicada com sucesso!');
+      setMessage(isDraft ? 'Rascunho salvo com sucesso!' : 'Notícia publicada com sucesso e enviada ao Google!');
       
       if (!isDraft) {
         fetch('/api/ping-google', { method: 'POST' }).catch((e) =>
@@ -177,7 +177,7 @@ export default function PublishForm({ categories }) {
         );
       }
       
-      // Reset
+      // Reset de campos
       setTitle('');
       setSummary('');
       setCategoryId('');
@@ -201,30 +201,30 @@ export default function PublishForm({ categories }) {
     }
   };
 
-  const inputStyle = { width: '100%', padding: '12px', border: '1px solid #dadce0', borderRadius: '4px', fontSize: '14px', marginBottom: '16px' };
-  const labelStyle = { fontSize: '14px', color: '#5f6368', fontWeight: '600', marginBottom: '8px', display: 'block' };
-  const sectionStyle = { padding: '24px', background: '#f8f9fa', borderRadius: '8px', marginBottom: '24px', border: '1px solid #e0e0e0' };
+  const inputStyle = { width: '100%', padding: '12px 14px', border: '1px solid var(--border)', borderRadius: '8px', fontSize: '15px', background: 'var(--card)', color: 'var(--text)', marginBottom: '16px' };
+  const labelStyle = { fontSize: '14px', color: 'var(--text-muted)', fontWeight: '600', marginBottom: '8px', display: 'block' };
+  const sectionStyle = { padding: '24px', background: 'var(--bg)', borderRadius: '12px', marginBottom: '24px', border: '1px solid var(--border)' };
   const reqStar = <span style={{ color: '#d32f2f' }}>*</span>;
 
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '32px' }}>
-      <div id="editor" style={{ flex: '1 1 100%', minWidth: 0, border: '1px solid #dadce0', borderRadius: '12px', padding: '32px', background: '#fff' }}>
-        <h2 style={{ fontSize: '22px', color: '#202124', marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '2px solid #1a73e8', paddingBottom: '12px' }}>
-          <span className="material-icons-extended" style={{color: '#1a73e8'}}>campaign</span>
-          PAINEL DE PUBLICAÇÃO - VOZ DA I.A
+      <div id="editor" style={{ flex: '1 1 100%', minWidth: 0, border: '1px solid var(--border)', borderRadius: '16px', padding: '32px', background: 'var(--card)', boxShadow: 'var(--shadow)' }}>
+        <h2 style={{ fontSize: '22px', color: 'var(--text)', marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '8px', borderBottom: '2px solid #1a73e8', paddingBottom: '12px' }}>
+          <span className="material-icons-extended" style={{ color: '#1a73e8' }}>campaign</span>
+          Nova Notícia - Padrão AdSense (750+ Palavras)
         </h2>
         
         <form style={{ display: 'flex', flexDirection: 'column' }}>
           
           <div style={sectionStyle}>
-            <h3 style={{ fontSize: '16px', color: '#202124', marginBottom: '16px' }}>1. Informações Principais</h3>
+            <h3 style={{ fontSize: '16px', color: 'var(--text)', marginBottom: '16px', fontWeight: '700' }}>1. Informações Principais</h3>
             <label style={labelStyle}>Título da Matéria (H1) {reqStar}</label>
-            <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} style={inputStyle} required />
+            <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} style={inputStyle} placeholder="Ex: Avanço Histórico da IA Redefine Pesquisa Médica em 2026" required />
             
-            <label style={labelStyle}>Slug / URL Amigável (Automático)</label>
-            <input type="text" value={generatedSlug} disabled style={{ ...inputStyle, background: '#e8eaed', color: '#5f6368' }} />
+            <label style={labelStyle}>Slug / URL Amigável (Gerado Automaticamente)</label>
+            <input type="text" value={generatedSlug} disabled style={{ ...inputStyle, background: 'var(--search-bg, #e8eaed)', color: 'var(--text-muted)' }} />
             
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
               <div>
                 <label style={labelStyle}>Categoria Oficial {reqStar}</label>
                 <select value={categoryId} onChange={(e) => setCategoryId(e.target.value)} style={inputStyle} required>
@@ -242,30 +242,30 @@ export default function PublishForm({ categories }) {
           </div>
 
           <div style={sectionStyle}>
-            <h3 style={{ fontSize: '16px', color: '#202124', marginBottom: '16px' }}>2. Imagem de Destaque (SEO e Acessibilidade)</h3>
-            <label style={labelStyle}>Upload de Imagem {reqStar}</label>
-            <input id="image-upload" type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files[0])} style={{...inputStyle, marginBottom: '4px'}} required />
-            <p style={{ fontSize: '13px', color: '#5f6368', marginTop: '0', marginBottom: '16px' }}>Dimensões recomendadas: 1200x630px (proporção 16:9). Formatos: WebP, JPG ou PNG. Tamanho máximo: 2 MB.</p>
+            <h3 style={{ fontSize: '16px', color: 'var(--text)', marginBottom: '16px', fontWeight: '700' }}>2. Imagem de Destaque (SEO e Acessibilidade)</h3>
+            <label style={labelStyle}>Upload de Imagem de Capa {reqStar}</label>
+            <input id="image-upload" type="file" accept="image/*" onChange={(e) => setImageFile(e.target.files[0])} style={{ ...inputStyle, marginBottom: '4px' }} required />
+            <p style={{ fontSize: '13px', color: 'var(--text-muted)', marginTop: '0', marginBottom: '16px' }}>Dimensões recomendadas: 1200x630px (proporção 16:9). Formatos: WebP, JPG ou PNG. Tamanho máximo: 2 MB.</p>
             
             <label style={labelStyle}>Texto Alternativo (Alt Text) {reqStar}</label>
-            <input type="text" placeholder="Descreva a imagem para deficientes visuais e robôs do Google" value={imageAlt} onChange={(e) => setImageAlt(e.target.value)} style={inputStyle} required />
+            <input type="text" placeholder="Descreva a imagem para leitores de tela e robôs do Google" value={imageAlt} onChange={(e) => setImageAlt(e.target.value)} style={inputStyle} required />
             
             <label style={labelStyle}>Créditos da Imagem</label>
-            <input type="text" placeholder="Ex: Foto por Unsplash / Ilustração por IA" value={imageCredits} onChange={(e) => setImageCredits(e.target.value)} style={inputStyle} />
+            <input type="text" placeholder="Ex: Foto por Unsplash / Ilustração por IA / Divulgação" value={imageCredits} onChange={(e) => setImageCredits(e.target.value)} style={inputStyle} />
           </div>
 
           <div style={sectionStyle}>
-            <h3 style={{ fontSize: '16px', color: '#202124', marginBottom: '16px' }}>3. Estrutura e Conteúdo</h3>
-            <label style={labelStyle}>Resumo / Linha Fina (Aparece nos cards) {reqStar}</label>
-            <textarea value={summary} onChange={(e) => setSummary(e.target.value)} style={{ ...inputStyle, height: '80px', resize: 'vertical' }} required />
+            <h3 style={{ fontSize: '16px', color: 'var(--text)', marginBottom: '16px', fontWeight: '700' }}>3. Estrutura e Conteúdo Editorial</h3>
+            <label style={labelStyle}>Resumo / Linha Fina (Aparece nos cards e Google News) {reqStar}</label>
+            <textarea value={summary} onChange={(e) => setSummary(e.target.value)} placeholder="Síntese concisa da notícia..." style={{ ...inputStyle, height: '80px', resize: 'vertical' }} required />
             
-            <label style={labelStyle}>Corpo da Matéria (Use H2, H3, e Citações) {reqStar}</label>
-            <div style={{ background: '#fff', color: '#000' }}>
+            <label style={labelStyle}>Corpo da Matéria (Utilize H2, H3, e Citações) {reqStar}</label>
+            <div style={{ background: '#fff', color: '#000', borderRadius: '8px', overflow: 'hidden' }}>
               <ReactQuill theme="snow" value={content} onChange={setContent} style={{ height: '400px', marginBottom: '50px' }} />
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '-32px', marginBottom: '24px', fontWeight: '500', color: wordCountColor }}>
-              <span className="material-icons-extended" style={{ fontSize: '18px' }}>analytics</span>
-              Contador: {wordCount} palavras - {wordCountText}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '-32px', marginBottom: '24px', fontWeight: '600', color: wordCountColor, fontSize: '14px' }}>
+              <span className="material-icons-extended" style={{ fontSize: '20px' }}>analytics</span>
+              {wordCountText}
             </div>
 
             <label style={labelStyle}>Transparência Editorial (Disclaimers)</label>
@@ -275,19 +275,19 @@ export default function PublishForm({ categories }) {
               <option value="tecnica">Cobertura Técnica / Educativa (Exige fontes)</option>
             </select>
 
-            <label style={labelStyle}>Fontes e Referências (Links e Documentos)</label>
+            <label style={labelStyle}>Fontes e Referências (Links e Documentos Verificados)</label>
             <textarea placeholder="Liste as URLs ou fontes de pesquisa consultadas (Uma por linha)" value={sources} onChange={(e) => setSources(e.target.value)} style={{ ...inputStyle, height: '100px', resize: 'vertical' }} />
           </div>
 
           <div style={sectionStyle}>
-            <h3 style={{ fontSize: '16px', color: '#202124', marginBottom: '16px' }}>4. Metadados SEO</h3>
-            <label style={labelStyle}>Meta Title (Google Search) - {metaTitle.length}/60 chars</label>
-            <input type="text" placeholder="Deixe em branco para usar o Título H1" value={metaTitle} onChange={(e) => setMetaTitle(e.target.value)} style={{ ...inputStyle, borderColor: metaTitle.length > 60 ? '#EA4335' : '#dadce0', borderWidth: metaTitle.length > 60 ? '2px' : '1px' }} />
+            <h3 style={{ fontSize: '16px', color: 'var(--text)', marginBottom: '16px', fontWeight: '700' }}>4. Metadados SEO</h3>
+            <label style={labelStyle}>Meta Title (Google Search) - {metaTitle.length}/60 caracteres</label>
+            <input type="text" placeholder="Deixe em branco para usar o Título H1" value={metaTitle} onChange={(e) => setMetaTitle(e.target.value)} style={{ ...inputStyle, borderColor: metaTitle.length > 60 ? '#EA4335' : 'var(--border)', borderWidth: metaTitle.length > 60 ? '2px' : '1px' }} />
             
             <label style={labelStyle}>
-              Meta Description - <span style={{ color: metaDescColor }}>{metaDescription.length} chars (Ideal: 120-160)</span>
+              Meta Description - <span style={{ color: metaDescColor }}>{metaDescription.length} caracteres (Ideal: 120-160)</span>
             </label>
-            <textarea placeholder="Deixe em branco para usar o Resumo" value={metaDescription} onChange={(e) => setMetaDescription(e.target.value)} style={{ ...inputStyle, height: '80px', borderColor: metaDescColor, borderWidth: metaDescColor !== '#dadce0' ? '2px' : '1px' }} />
+            <textarea placeholder="Deixe em branco para usar o Resumo" value={metaDescription} onChange={(e) => setMetaDescription(e.target.value)} style={{ ...inputStyle, height: '80px', borderColor: metaDescColor, borderWidth: metaDescColor !== 'var(--border)' ? '2px' : '1px' }} />
           </div>
 
           {message && (
@@ -300,11 +300,11 @@ export default function PublishForm({ categories }) {
             </div>
           )}
 
-          <div style={{ display: 'flex', gap: '16px' }}>
-            <button type="button" onClick={(e) => handlePublish(e, true)} disabled={loading} style={{ flex: 1, background: '#f1f3f4', color: '#5f6368', border: '1px solid #dadce0', padding: '16px', borderRadius: '8px', fontSize: '16px', fontWeight: '600', cursor: loading ? 'wait' : 'pointer', transition: 'background 0.2s' }}>
+          <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+            <button type="button" onClick={(e) => handlePublish(e, true)} disabled={loading} style={{ flex: 1, minWidth: '180px', background: 'var(--card)', color: 'var(--text-muted)', border: '1px solid var(--border)', padding: '16px', borderRadius: '8px', fontSize: '15px', fontWeight: '600', cursor: loading ? 'wait' : 'pointer', transition: 'background 0.2s' }}>
               Salvar Rascunho
             </button>
-            <button type="button" onClick={(e) => handlePublish(e, false)} disabled={loading} style={{ flex: 2, background: '#1a73e8', color: '#fff', border: 'none', padding: '16px', borderRadius: '8px', fontSize: '16px', fontWeight: '600', cursor: loading ? 'wait' : 'pointer', transition: 'background 0.2s' }}>
+            <button type="button" onClick={(e) => handlePublish(e, false)} disabled={loading} style={{ flex: 2, minWidth: '220px', background: '#1a73e8', color: '#fff', border: 'none', padding: '16px', borderRadius: '8px', fontSize: '15px', fontWeight: '700', cursor: loading ? 'wait' : 'pointer', transition: 'background 0.2s', boxShadow: '0 4px 12px rgba(26, 115, 232, 0.3)' }}>
               {loading ? 'Processando...' : 'Publicar Matéria (AdSense Ready)'}
             </button>
           </div>
