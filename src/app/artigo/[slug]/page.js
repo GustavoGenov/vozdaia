@@ -9,11 +9,11 @@ export const revalidate = 3600;
 const AUTHORS_META = {
   "Gustavo de Castro Bernardes Rosa": { initials: "GC", role: "Fundador / Eng. de I.A & CTO", img: "/equipe/gustavo.jpg", bio: "Especialista em Inteligência Artificial e Redes de Computação." },
   "RuiWenceslau de Oliveira": { initials: "RO", role: "Cofundador e Editor", img: "/equipe/rui.jpg", bio: "Especialista em criação de conteúdo para mídias sociais e jornalismo digital." },
-  "Beatriz Freire": { initials: "BF", role: "Perfil de Beatriz / Estrategista de CS & Qualidade", img: "/equipe/beatriz.jpg", bio: "Estrategista de Customer Success & Qualidade, Comunicação Social e Marketing." },
+  "Beatriz Freire": { initials: "BF", role: "Estrategista de CS & Qualidade", img: "/equipe/beatriz.jpg", bio: "Estrategista de Customer Success & Qualidade, Comunicação Social e Marketing." },
   "Daiene Maria de Meneses": { initials: "DM", role: "Pedagoga e Professora", img: "/equipe/daiene.jpg", bio: "Especialista em educação e desenvolvimento infantil." },
   "Jhonatan d' Osogiyan (ou Pai Jhonatan)": { initials: "SJ", role: "Colunista de Cultura e Etnobotânica", img: "/equipe/jhonatan.jpg", bio: "Pesquisador de Tradições Populares, Psicologia e Herbalista." },
   "Kaelara (Agente de IA Autônomo)": { initials: "KC", role: "Sistema de Análise e Monitoramento", img: "/equipe/kaelara.png", bio: "IA desenvolvida sob arquitetura LLM (Gemma/Google API)." },
-  "Gabriela Castro Bernardes Rosa": { initials: "GB", role: "Youtuber e Gamer", img: null, bio: "Produtora de conteúdo digital e games." }
+  "Gabriela Castro Bernardes Rosa": { initials: "GB", role: "Produtora de Conteúdo e Games", img: null, bio: "Produtora de conteúdo digital e games." }
 };
 
 export async function generateMetadata({ params }) {
@@ -48,7 +48,7 @@ export default async function ArticlePage({ params }) {
   
   const { data: article } = await supabase
     .from('articles')
-    .select('*, categories(name, color_code)')
+    .select('*, categories(name, slug, color_code)')
     .eq('slug', slug)
     .single();
 
@@ -103,26 +103,33 @@ export default async function ArticlePage({ params }) {
         
         {/* Navegação e Categoria */}
         <div style={{ marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', color: 'var(--gn-text-secondary)' }}>
-          <Link href="/" style={{ color: 'var(--gn-blue)', display: 'flex', alignItems: 'center' }}>
-            <span className="material-icons-extended" style={{fontSize: '16px'}}>arrow_back</span> Início
+          <Link href="/" style={{ color: 'var(--gn-blue)', display: 'flex', alignItems: 'center', gap: '4px', textDecoration: 'none' }}>
+            <span className="material-icons-extended" style={{ fontSize: '16px' }}>arrow_back</span> Início
           </Link>
           <span>/</span>
           {article.categories && (
-            <span style={{ fontWeight: '600', color: article.categories.slug === 'religiao' ? '#8e24aa' : (article.categories.color_code || 'var(--gn-blue)') }}>
+            <Link 
+              href={`/categoria/${article.categories.slug}`}
+              style={{ 
+                fontWeight: '600', 
+                color: article.categories.slug === 'religiao' ? '#8e24aa' : (article.categories.color_code || 'var(--gn-blue)'),
+                textDecoration: 'none'
+              }}
+            >
               {article.categories.name}
-            </span>
+            </Link>
           )}
         </div>
 
         {/* Título e Resumo */}
-        <h1 className="google-sans article-page-title" style={{ textAlign: 'left', wordBreak: 'break-word', overflowWrap: 'anywhere' }}>
+        <h1 className="google-sans article-page-title" style={{ textAlign: 'left', wordBreak: 'break-word', overflowWrap: 'anywhere', fontSize: '2.1rem', fontWeight: 800, lineHeight: '1.25', marginBottom: '16px' }}>
           {cleanTitle}
         </h1>
-        <p className="article-page-summary" style={{ textAlign: 'left', wordBreak: 'break-word', overflowWrap: 'anywhere' }}>
+        <p className="article-page-summary" style={{ textAlign: 'left', wordBreak: 'break-word', overflowWrap: 'anywhere', fontSize: '1.15rem', color: 'var(--text-muted)', lineHeight: '1.6', marginBottom: '24px' }}>
           {cleanSummary}
         </p>
 
-        {/* Metadados da Matéria (Autor e Data) */}
+        {/* Metadados da Matéria (Autor, Selo de Verificação e Data) */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap', padding: '20px 0', borderTop: '1px solid var(--gn-border)', borderBottom: '1px solid var(--gn-border)', marginBottom: '32px', width: '100%' }}>
           {authorData.img ? (
             <img src={authorData.img} alt={article.author_name} style={{ width: '48px', height: '48px', borderRadius: '50%', objectFit: 'cover' }} />
@@ -133,10 +140,13 @@ export default async function ArticlePage({ params }) {
           )}
           
           <div style={{ flex: '1 1 auto' }}>
-            <div style={{ fontSize: '17px', fontWeight: '600', color: 'var(--gn-text)' }}>
+            <div style={{ fontSize: '17px', fontWeight: '600', color: 'var(--gn-text)', display: 'flex', alignItems: 'center', gap: '8px' }}>
               Por {article.author_name || article.author}
+              <span title="Jornalismo Verificado" style={{ display: 'inline-flex', alignItems: 'center', gap: '2px', background: 'rgba(26, 115, 232, 0.1)', color: '#1a73e8', padding: '2px 8px', borderRadius: '12px', fontSize: '12px', fontWeight: 600 }}>
+                <span className="material-icons-extended" style={{ fontSize: '14px' }}>verified</span> Verificado
+              </span>
             </div>
-            <div style={{ fontSize: '13px', color: 'var(--gn-text-secondary)', display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
+            <div style={{ fontSize: '13px', color: 'var(--gn-text-secondary)', display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap', marginTop: '4px' }}>
               <span>{authorData.role}</span>
               <span>•</span>
               <span>
@@ -152,7 +162,7 @@ export default async function ArticlePage({ params }) {
             <img 
               src={article.image_url} 
               alt={article.image_alt || cleanTitle} 
-              style={{ width: '100%', height: 'auto', maxHeight: '450px', objectFit: 'cover', borderRadius: '12px', display: 'block' }} 
+              style={{ width: '100%', height: 'auto', maxHeight: '480px', objectFit: 'cover', borderRadius: '12px', display: 'block' }} 
             />
             {article.image_credits && (
               <figcaption style={{ fontSize: '13px', color: 'var(--gn-text-secondary)', textAlign: 'right', marginTop: '8px', fontStyle: 'italic' }}>
@@ -165,11 +175,11 @@ export default async function ArticlePage({ params }) {
         {/* Conteúdo Rico (HTML) */}
         <article 
           className="article-body" 
-          style={{ lineHeight: '1.8', color: 'var(--gn-text)', wordWrap: 'break-word', overflowWrap: 'anywhere' }}
+          style={{ lineHeight: '1.8', color: 'var(--gn-text)', wordWrap: 'break-word', overflowWrap: 'anywhere', fontSize: '1.1rem' }}
         >
           <style dangerouslySetInnerHTML={{__html: `
-            .article-body h2 { font-size: 24px; font-weight: 700; margin-top: 32px; margin-bottom: 16px; color: var(--gn-text); font-family: 'Google Sans', sans-serif; }
-            .article-body h3 { font-size: 20px; font-weight: 600; margin-top: 24px; margin-bottom: 12px; color: var(--gn-text); font-family: 'Google Sans', sans-serif; }
+            .article-body h2 { font-size: 24px; font-weight: 700; margin-top: 32px; margin-bottom: 16px; color: var(--gn-text); font-family: 'Plus Jakarta Sans', sans-serif; }
+            .article-body h3 { font-size: 20px; font-weight: 600; margin-top: 24px; margin-bottom: 12px; color: var(--gn-text); font-family: 'Plus Jakarta Sans', sans-serif; }
             .article-body p { margin-bottom: 20px; }
             .article-body strong { font-weight: 600; }
             .article-body a { color: var(--gn-blue); text-decoration: none; }
@@ -184,12 +194,12 @@ export default async function ArticlePage({ params }) {
 
         {/* Disclaimers Transparentes */}
         {article.disclaimer_type === 'opiniao' && (
-          <div style={{ marginTop: '40px', padding: '16px', backgroundColor: '#fdf3f4', borderLeft: '4px solid #d81b60', borderRadius: '4px', fontSize: '14px', color: '#c2185b' }}>
+          <div style={{ marginTop: '40px', padding: '16px', backgroundColor: 'rgba(216, 27, 96, 0.08)', borderLeft: '4px solid #d81b60', borderRadius: '4px', fontSize: '14px', color: '#d81b60' }}>
             <strong>Nota Editorial:</strong> Este artigo reflete a visão cultural e opinativa do autor, tendo caráter exclusivamente informativo e filosófico. Não se trata de prestação de serviços comerciais.
           </div>
         )}
         {article.disclaimer_type === 'tecnica' && (
-          <div style={{ marginTop: '40px', padding: '16px', backgroundColor: '#e8f0fe', borderLeft: '4px solid #1a73e8', borderRadius: '4px', fontSize: '14px', color: '#174ea6' }}>
+          <div style={{ marginTop: '40px', padding: '16px', backgroundColor: 'rgba(26, 115, 232, 0.08)', borderLeft: '4px solid #1a73e8', borderRadius: '4px', fontSize: '14px', color: '#174ea6' }}>
             <strong>Cobertura Técnica:</strong> Este conteúdo foi redigido com base em fontes técnicas e educacionais verificadas.
           </div>
         )}

@@ -14,7 +14,7 @@ export default function Sidebar({ categories }) {
   const sortedCategories = filteredCategories.sort((a, b) => {
     if (a.slug === 'ia-e-agentes') return -1;
     if (b.slug === 'ia-e-agentes') return 1;
-    return a.name.localeCompare(b.name);
+    return a.name.localeCompare(b.name, 'pt-BR');
   });
 
   return (
@@ -23,11 +23,10 @@ export default function Sidebar({ categories }) {
         <span className="material-icons-extended" style={{ color: '#1a73e8' }}>language</span>
         <span>Principais notícias</span>
       </Link>
-      <Link href="/" className="nav-item">
+      <Link href="/#destaques" className="nav-item">
         <span className="material-icons-extended" style={{ color: '#fbbc04' }}>star_border</span>
         <span>Para você</span>
       </Link>
-      <div className="sidebar-divider"></div>
       <div className="sidebar-divider"></div>
       {sortedCategories.map((cat) => {
         const iconName = CATEGORY_ICONS[cat.slug] || 'category';

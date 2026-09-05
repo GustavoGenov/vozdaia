@@ -1,5 +1,21 @@
-export async function POST() {
+import { NextResponse } from 'next/server';
+
+export async function POST(request) {
   try {
+    // Verificar token simples de segurança ou permissão de admin
+    const authHeader = request.headers.get('authorization');
+    const cronSecret = request.headers.get('x-cron-secret');
+    const validSecret = process.env.CRON_SECRET || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+    if (process.env.NODE_ENV === 'production' && validSecret) {
+      if (cronSecret !== validSecret && authHeader !== `Bearer ${validSecret}`) {
+        return NextResponse.json(
+          { error: 'Não autorizado. Chave de disparo inválida.' },
+          { status: 401 }
+        );
+      }
+    }
+
     const hubUrl = 'https://pubsubhubbub.appspot.com/';
     const feedUrl = 'https://vozdaia.com/feed.xml';
 
@@ -18,24 +34,12 @@ export async function POST() {
     });
 
     if (response.ok) {
-      console.log('Ping para o Google Notícias concluído com sucesso!');
-      return new Response(JSON.stringify({ success: true }), {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      });
+      return NextResponse.json({ success: true, message: 'Ping para Google Notícias concluído com sucesso!' }, { status: 200 });
     } else {
       const text = await response.text();
-      console.error('Falha no ping do Google Notícias:', text);
-      return new Response(JSON.stringify({ success: false, error: text }), {
-        status: response.status,
-        headers: { 'Content-Type': 'application/json' },
-      });
+      return NextResponse.json({ success: false, error: text }, { status: response.status });
     }
   } catch (err) {
-    console.error('Erro na requisição de ping:', err.message);
-    return new Response(JSON.stringify({ success: false, error: err.message }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
   }
 }

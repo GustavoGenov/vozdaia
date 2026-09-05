@@ -64,7 +64,6 @@ const CARTAS_TARO = [
 ];
 
 export async function GET(request) {
-  // Pega a data do dia para semente
   const today = new Date();
   const dateStr = today.getFullYear().toString() + (today.getMonth() + 1).toString() + today.getDate().toString();
   const dateSeed = parseInt(dateStr, 10);
@@ -72,14 +71,12 @@ export async function GET(request) {
   const url = new URL(request.url);
   const signoId = url.searchParams.get('signo');
 
-  // Se o usuário pedir um signo específico
   if (signoId) {
     const signo = SIGNOS.find(s => s.id === signoId);
     if (!signo) {
       return new Response(JSON.stringify({ error: 'Signo não encontrado' }), { status: 400 });
     }
 
-    // Gera previsões pseudo-aleatórias consistentes para o dia
     const seedAmor = dateSeed + signo.nome.charCodeAt(0);
     const seedTrab = dateSeed + signo.nome.charCodeAt(1) * 2;
     const seedSaude = dateSeed + signo.nome.charCodeAt(2) * 3;
@@ -102,7 +99,6 @@ export async function GET(request) {
     });
   }
 
-  // Se pedir a rota sem signo, retorna todos os signos básicos + tarô do dia determinístico
   const seedTaro = dateSeed * 7;
   const idxTaro = Math.floor(seedRandom(seedTaro) * CARTAS_TARO.length);
 

@@ -43,7 +43,7 @@ export default function LayoutShell({ categories, children }) {
               </Link>
             </div>
 
-            {/* Bloco Central: Busca Inteligente (Ocupa todo o vão livre no Desktop) */}
+            {/* Bloco Central: Busca Inteligente */}
             <div className="header-search-container">
               <form action="/busca" method="GET" className="header-search-form">
                 <span className="material-icons-extended search-icon">search</span>
@@ -66,14 +66,14 @@ export default function LayoutShell({ categories, children }) {
               </div>
               
               <Link href="#newsletter" className="btn btn-header-action" title="Receba notícias diárias">
-                <span className="btn-icon">✉️</span>
+                <span className="material-icons-extended" style={{ fontSize: '18px', marginRight: '4px' }}>mail</span>
                 <span className="btn-label">Newsletter</span>
               </Link>
             </div>
 
           </div>
 
-          {/* Busca Dedicada em Dispositivos Móveis (Garante que nunca corte em smartphones) */}
+          {/* Busca Dedicada em Dispositivos Móveis */}
           <div className="header-mobile-search-row">
             <form action="/busca" method="GET" className="header-search-form mobile-search-form">
               <span className="material-icons-extended search-icon">search</span>
@@ -88,7 +88,7 @@ export default function LayoutShell({ categories, children }) {
           </div>
         </div>
 
-        {/* LINHA 2: TODAS AS EDITORIAS EM BLOCOS ROLÁVEIS (PADRÃO G1/FOLHA) */}
+        {/* LINHA 2: TODAS AS EDITORIAS EM BLOCOS ROLÁVEIS */}
         <div className="header-bottom-row">
           <div className="header-inner">
             <nav className="header-categories-nav" aria-label="Editorias do jornal">
@@ -102,16 +102,16 @@ export default function LayoutShell({ categories, children }) {
                 <span>🎮</span> <span>Tech & Games</span>
               </Link>
               <Link href="/categoria/cultura-filosofia-bem-estar" className="nav-pill-item">
-                <span>🎨</span> <span>Cultura & Sociedade</span>
+                <span>🧠</span> <span>Cultura & Sociedade</span>
               </Link>
               <Link href="/categoria/engenharia-e-hardware" className="nav-pill-item">
-                <span>⚙️</span> <span>Hardware & Tech</span>
+                <span>⚡</span> <span>Hardware & Tech</span>
               </Link>
               <Link href="/#formiga-em-foco" className="nav-pill-item pill-highlight-green">
-                <span>🏛️</span> <span>Formiga em Foco</span>
+                <span>📍</span> <span>Formiga em Foco</span>
               </Link>
               <Link href="/clima" className="nav-pill-item">
-                <span>🌦️</span> <span>Clima Tempo BR</span>
+                <span>⛅</span> <span>Clima Tempo BR</span>
               </Link>
               <Link href="/horoscopo" className="nav-pill-item">
                 <span>🔮</span> <span>Horóscopo & Tarô</span>
@@ -178,7 +178,7 @@ export default function LayoutShell({ categories, children }) {
             Navegação
           </span>
           <Link href="/" onClick={closeDrawer} style={{ color: 'var(--text)', padding: '8px 0', fontWeight: 500 }}>
-            🏠 Início / Manchetes
+            📰 Início / Manchetes
           </Link>
           <Link href="/categoria/ia-e-agentes" onClick={closeDrawer} style={{ color: 'var(--text)', padding: '8px 0', fontWeight: 500 }}>
             🤖 Inteligência Artificial & Agentes
@@ -190,13 +190,13 @@ export default function LayoutShell({ categories, children }) {
             🎮 Tech & Gaming
           </Link>
           <Link href="/categoria/cultura-filosofia-bem-estar" onClick={closeDrawer} style={{ color: 'var(--text)', padding: '8px 0', fontWeight: 500 }}>
-            🎨 Cultura, Filosofia & Bem-Estar
+            🧠 Cultura, Filosofia & Bem-Estar
           </Link>
           <Link href="/categoria/engenharia-e-hardware" onClick={closeDrawer} style={{ color: 'var(--text)', padding: '8px 0', fontWeight: 500 }}>
-            ⚙️ Engenharia & Hardware
+            ⚡ Engenharia & Hardware
           </Link>
           <Link href="/clima" onClick={closeDrawer} style={{ color: 'var(--text)', padding: '8px 0', fontWeight: 500 }}>
-            🌦️ Clima Tempo BR
+            ⛅ Clima Tempo BR
           </Link>
           <Link href="/horoscopo" onClick={closeDrawer} style={{ color: 'var(--text)', padding: '8px 0', fontWeight: 500 }}>
             🔮 Horóscopo & Tarô

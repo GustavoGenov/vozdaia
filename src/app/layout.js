@@ -80,9 +80,9 @@ export default async function RootLayout({ children }) {
     <html lang="pt-BR">
       <head>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Extended" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
         
-        {/* Script Global do Google AdSense (Tag HTML clássica para verificação automática de Bots) */}
+        {/* Script Global do Google AdSense */}
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5759690232636098"
@@ -125,7 +125,7 @@ export default async function RootLayout({ children }) {
           `}
         </Script>
 
-        {/* Google Translate API (Tradução In-Page Nativa Oficial) */}
+        {/* Google Translate API */}
         <Script id="google-translate-init" strategy="afterInteractive">
           {`
             function googleTranslateElementInit() {

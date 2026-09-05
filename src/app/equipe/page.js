@@ -17,8 +17,8 @@ const founders = [
     phone: null,
     linkedin: 'https://www.linkedin.com/in/gustavo-castro-bernardes-rosa-24a827bb',
     website: null,
-    areas: 'Inteligência Artificial & Agentes, Engenharia & hardware, Web designer e CTO',
-    formation: 'Tecnólogo em redes de computação e Engenharia de I.A',
+    areas: 'Inteligência Artificial & Agentes, Engenharia & Hardware, Web Design e CTO',
+    formation: 'Tecnólogo em Redes de Computação e Engenharia de I.A',
     color: 'linear-gradient(135deg, #1a73e8, #8e24aa)'
   },
   {
@@ -41,7 +41,7 @@ const columnists = [
   {
     name: 'Beatriz Freire',
     roleTag: 'Colunista',
-    subtitle: 'Perfil de Beatriz',
+    subtitle: 'Estrategista de CS & Qualidade',
     initials: 'BF',
     image: '/equipe/beatriz.jpg',
     email: 'freiredemelob@gmail.com',
